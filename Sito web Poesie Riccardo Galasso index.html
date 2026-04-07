@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riccardo Galasso — Poesie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --ink: #1a1714;
+      --paper: #faf8f5;
+      --warm: #f0ebe3;
+      --accent: #8b6f5e;
+      --accent-light: #c4a898;
+      --muted: #9a9187;
+      --line: #e2ddd7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .font-body  { font-family: 'EB Garamond', Georgia, serif; }
+    .font-sans  { font-family: 'DM Sans', sans-serif; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(250,248,245,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 65px; left: 0; right: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      padding: 1.5rem 2.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── SECTIONS ── */
+    section { min-height: 100vh; }
+    .section-pad { padding: 7rem 2.5rem 5rem; }
+
+    /* ── HERO ── */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 0 clamp(1.5rem, 8vw, 10rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 5.5rem);
+      line-height: 1.12;
+      font-weight: 400;
+      max-width: 18ch;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 40ch;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .hero-cta {
+      margin-top: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.85s forwards;
+      transition: gap 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .hero-cta:hover { gap: 1.25rem; color: var(--accent); border-color: var(--accent); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: clamp(1.5rem, 8vw, 10rem);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.9s 1.1s forwards;
+    }
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--accent-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: var(--accent);
+      animation: slideRight 1.5s 1.5s infinite;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent-light);
+      margin: 2rem 0;
+    }
+
+    /* ── ARCHIVIO ── */
+    #archivio {
+      background: var(--warm);
+      min-height: 100vh;
+    }
+    .section-header {
+      margin-bottom: 3rem;
+    }
+    .section-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    /* Filtri */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+    }
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 100px;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* Poetry Grid */
+    .poems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+    }
+    .poem-card {
+      background: var(--paper);
+      padding: 2.5rem 2rem;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .poem-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.3s ease;
+    }
+    .poem-card:hover::before { transform: scaleY(1); }
+    .poem-card:hover {
+      background: #ffffff;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(26,23,20,0.08);
+    }
+    .poem-card:hover .poem-card-title { color: var(--accent); }
+    .poem-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .poem-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      transition: color 0.25s ease;
+    }
+    .poem-card-excerpt {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .poem-card-meta {
+      margin-top: 1.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* ── LETTURA SINGOLA ── */
+    #lettura {
+      min-height: 100vh;
+    }
+    .poem-reading {
+      max-width: 560px;
+    }
+    .poem-reading-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .poem-reading-sub {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .poem-body {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+      line-height: 2;
+      color: var(--ink);
+    }
+    .poem-body p { margin-bottom: 1.75rem; }
+    .poem-body .stanza-break { margin-bottom: 2.5rem; }
+
+    .poem-note {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 45ch;
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: var(--ink);
+      color: var(--paper);
+      min-height: auto;
+      padding: 6rem 2.5rem;
+    }
+    #newsletter .section-num { color: var(--accent-light); }
+    #newsletter .section-title { color: var(--paper); }
+    #newsletter .divider { background: var(--accent); }
+
+    .newsletter-desc {
+      font-style: italic;
+      color: #c8bfb5;
+      max-width: 42ch;
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+    .nl-form {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .nl-input {
+      flex: 1;
+      padding: 0.9rem 1.25rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    .nl-input::placeholder { color: rgba(255,255,255,0.3); }
+    .nl-btn {
+      padding: 0.9rem 1.5rem;
+      background: var(--accent);
+      border: none;
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nl-btn:hover { background: var(--accent-light); }
+    .nl-privacy {
+      margin-top: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+    .footer-copy {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* ── MODAL LETTURA ── */
+    .poem-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      background: rgba(26,23,20,0.7);
+      backdrop-filter: blur(8px);
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+    .poem-modal.open { display: flex; }
+    .modal-inner {
+      background: var(--paper);
+      max-width: 640px;
+      width: 100%;
+      padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 6vw, 3.5rem);
+      position: relative;
+      margin: auto;
+      animation: modalIn 0.35s ease;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--ink); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideRight {
+      from { left: -100%; }
+      to   { left: 100%; }
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* hidden card (filtro) */
+    .poem-card.hidden { display: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .section-pad { padding: 6rem 1.5rem 4rem; }
+      .poems-grid { grid-template-columns: 1fr; }
+      .nl-form { flex-direction: column; }
+      .nl-btn { padding: 0.9rem; text-align: center; }
+      footer { flex-direction: column; align-items: flex-start; }
+      #newsletter { padding: 5rem 1.5rem; }
+    }
+    /* ── DARK MODE ── */
+    body.dark {
+      --ink: #f0ebe3;
+      --paper: #141210;
+      --warm: #1c1917;
+      --accent: #c4a898;
+      --accent-light: #8b6f5e;
+      --muted: #7a7168;
+      --line: #2a2622;
+    }
+    body.dark nav {
+      background: rgba(20,18,16,0.88);
+    }
+    body.dark .poem-card:hover { background: #1e1b18; }
+    body.dark .poem-card { background: #141210; }
+    body.dark .modal-inner { background: #1c1917; }
+
+    .dark-toggle {
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      line-height: 1;
+      transition: border-color 0.2s;
+      margin-right: 0.5rem;
+    }
+    .dark-toggle:hover { border-color: var(--accent); }
+
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="scrollTo('hero')">Riccardo Galasso</div>
+  <ul class="nav-links">
+    <li><a href="#chisono" onclick="closeMenu()">Chi sono</a></li>
+    <li><a href="#archivio" onclick="closeMenu()">Archivio</a></li>
+    <li><a href="#lettura" onclick="closeMenu()">Una Poesia</a></li>
+    <li><a href="#contatti" onclick="closeMenu()">Contatti</a></li>
+  </ul>
+  <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" aria-label="Dark mode">
+    <span id="darkIcon">🌙</span>
+  </button>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#chisono" onclick="closeMenu()">Chi sono</a>
+  <a href="#archivio" onclick="closeMenu()">Archivio</a>
+  <a href="#lettura" onclick="closeMenu()">Una Poesia</a>
+  <a href="#contatti" onclick="closeMenu()">Contatti</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+
+  <h1 class="hero-title">
+    Ogni verso<br>è un rifugio <em>dove</em><br>tornare.
+  </h1>
+  <p class="hero-sub">
+    Solo i poeti ritornano nel luogo dove non hanno mai vissuto.
+  </p>
+  <p style="font-family:'DM Sans',sans-serif; font-size:0.75rem; letter-spacing:0.1em; color:var(--accent); margin-top:0.75rem; opacity:0; animation: fadeUp 0.9s 0.75s forwards;">— Miguel Ángel Arcas</p>
+  <a href="#archivio" class="hero-cta">
+    Leggi le poesie
+    <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
+  </a>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scorri
+  </div>
+</section>
+
+<!-- ── CHI SONO ── -->
+<section id="chisono">
+  <div class="section-pad">
+    <div class="section-header reveal">
+      <div class="section-num">01 — Chi sono</div>
+      <h2 class="section-title">Riccardo Galasso</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reveal" style="display:flex; gap:3rem; align-items:flex-start; flex-wrap:wrap;">
+      <img src="https://i.imgur.com/vNUmoqz.jpg" alt="Riccardo Galasso" style="width:200px; height:200px; object-fit:cover; object-position: center top; border-radius:2px; flex-shrink:0;" />
+      <div style="max-width:480px;">
+        <p style="font-size:1.1rem; line-height:1.9; margin-bottom:1.5rem;">
+          Mi chiamo Riccardo, ho 25 anni e scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
+        </p>
+        <p style="font-size:1.1rem; line-height:1.9;">
+          Io, la mia vera voce, la cerco in parole silenziose che trasformano i miei pensieri in immagini che raccontino una storia: Ogni verso ne è protagonista, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARCHIVIO ── -->
+<section id="archivio">
+  <div class="section-pad">
+    <div class="section-header reveal">
+      <div class="section-num">02 — Archivio</div>
+      <h2 class="section-title">Le poesie</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="filters reveal">
+      <button class="filter-btn active" data-filter="all">Tutte</button>
+      <button class="filter-btn" data-filter="emozioni">Emozioni</button>
+      <button class="filter-btn" data-filter="luoghi">Luoghi</button>
+      <button class="filter-btn" data-filter="natura">Natura</button>
+      <button class="filter-btn" data-filter="tempo">Tempo</button>
+    </div>
+
+    <div class="poems-grid reveal" id="poemsGrid">
+
+      <div class="poem-card" data-tag="natura" onclick="openPoem('rondine')">
+        <div class="poem-tag">Natura</div>
+        <div class="poem-card-title">Rondine Maestosa</div>
+        <div class="poem-card-excerpt">
+          Vola,<br>
+          vola gioiosa!<br>
+          Vola e non fermarti...
+        </div>
+      </div>
+
+      <div class="poem-card" data-tag="emozioni" onclick="openPoem('silenzio-occhi')">
+        <div class="poem-tag">Emozioni</div>
+        <div class="poem-card-title">Nel Silenzio dei Tuoi Occhi</div>
+        <div class="poem-card-excerpt">
+          Nel silenzio dei tuoi occhi<br>
+          l'universo si riflette:<br>
+          Mare che custodisce...
+        </div>
+      </div>
+
+      <div class="poem-card" data-tag="emozioni" onclick="openPoem('miracoli-amore')">
+        <div class="poem-tag">Emozioni</div>
+        <div class="poem-card-title">I Miracoli Dell'Amore</div>
+        <div class="poem-card-excerpt">
+          Le mie paure, le mie incertezze<br>
+          si perdono nell'oblio<br>
+          quando i nostri occhi si specchiano...
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── LETTURA SINGOLA ── -->
+<section id="lettura">
+  <div class="section-pad">
+    <div class="section-header reveal">
+      <div class="section-num">03 — Lettura</div>
+      <h2 class="section-title">Una poesia</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="poem-reading reveal">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--muted); font-style:italic;">
+        La poesia in evidenza apparirà qui.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTATTI ── -->
+<section id="contatti">
+  <div style="max-width: 700px; margin: 0 auto; padding: 0 1rem;">
+    <div class="section-num">05 — Contatti</div>
+    <h2 class="section-title" style="color:var(--paper);">Scrivimi.</h2>
+    <div class="divider"></div>
+    <p class="newsletter-desc">
+      Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.
+    </p>
+    <form action="https://formspree.io/f/mvzwekbb" method="POST" style="display:flex; flex-direction:column; gap:0.75rem; max-width:460px;">
+      <input name="nome" type="text" placeholder="Il tuo nome" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none; border-radius:2px;" />
+      <input name="email" type="email" placeholder="La tua email" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none; border-radius:2px;" />
+      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'EB Garamond',serif; font-size:1rem; outline:none; resize:vertical; line-height:1.7; border-radius:2px;"></textarea>
+      <button type="submit" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='var(--accent-light)'" onmouseout="this.style.background='var(--accent)'">Invia</button>
+    </form>
+    <div id="ctMessage" style="margin-top:1rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent-light); display:none;"></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Riccardo Galasso</div>
+  <div class="footer-copy">© 2026 Riccardo Galasso — Tutti i diritti riservati</div>
+</footer>
+
+<!-- ── MODAL LETTURA ── -->
+<div class="poem-modal" id="poemModal" onclick="closeModal(event)">
+  <div class="modal-inner" id="modalInner">
+    <button class="modal-close" onclick="closePoem()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ── DATI POESIE ── -->
+<script>
+// Le poesie di Riccardo Galasso verranno aggiunte qui
+const POEMS = {
+  rondine: {
+    tag: 'Natura',
+    title: 'Rondine Maestosa',
+    sub: '',
+    body: `
+      <p>"Vola,<br>
+      vola gioiosa!<br>
+      Vola e non fermarti,<br>
+      Rondine melodiosa."</p>
+      <p>Le tue ali<br>
+      battono a ritmo di tamburi;<br>
+      Il tuo volo è così intenso<br>
+      che la vita ti passa accanto:<br>
+      Ti ricorda, sempre,<br>
+      il tuo posto nel mondo.</p>
+      <p>Il tuo spirito è una forza sovrannaturale,<br>
+      un turbinio di emozioni, invisibile,<br>
+      che ti solleva, ti sostiene:<br>
+      ti guida verso l'infinito.</p>
+      <p>Non temere,<br>
+      Rondine mia,<br>
+      la potente luce che emani<br>
+      ti proteggerà dalle forze oscure del cielo;<br>
+      né pioggia né grandine né fulmini<br>
+      cambieranno la rotta del tuo volo.</p>
+      <p>"Tu, spirito libero,<br>
+      sopravvivrai al dolore!<br>
+      Vola alta, sempre più alta!<br>
+      Vola e conquista l'Universo,<br>
+      Rondine Maestosa."</p>
+    `,
+    note: 'Riccardo Galasso'
+  },
+  'silenzio-occhi': {
+    tag: 'Emozioni',
+    title: 'Nel Silenzio dei Tuoi Occhi',
+    sub: '',
+    body: `
+      <p>Nel silenzio dei tuoi occhi<br>
+      l'universo si riflette:<br>
+      Mare che custodisce<br>
+      i nostri segreti più nascosti.</p>
+      <p>Nell'infinito dei tuoi occhi<br>
+      naufraga il mio cuore<br>
+      colmo di un amore ardente:<br>
+      Comincia a pulsare.</p>
+      <p>Sottomesso,<br>
+      prigioniero della tua immensa bellezza.</p>
+    `,
+    note: 'Riccardo Galasso'
+  },
+  'miracoli-amore': {
+    tag: 'Emozioni',
+    title: "I Miracoli Dell'Amore",
+    sub: '',
+    body: `
+      <p>Le mie paure,<br>
+      le mie incertezze<br>
+      si perdono nell'oblio<br>
+      quando i nostri occhi si specchiano;</p>
+      <p>Quattro mondi che si parlano,<br>
+      che sorridono da lontano<br>
+      fino a toccarsi, a stringersi,<br>
+      in un abbraccio umano;</p>
+      <p>Con te al mio fianco,<br>
+      mi sento al sicuro<br>
+      come sotto calde coperte<br>
+      in una notte fredda e buia;</p>
+      <p>I nostri sogni, delicatamente,<br>
+      si accarezzano<br>
+      lasciandosi andare<br>
+      a una danza infinita:</p>
+      <p>Piena di vita,<br>
+      riscalda e guarisce,<br>
+      la mia anima ferita.</p>
+    `,
+    note: 'Riccardo Galasso'
+  }
+};
+
+// ── MODAL ──
+function openPoem(id) {
+  const p = POEMS[id];
+  if (!p) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div class="poem-tag">${p.tag}</div>
+    <h3 class="poem-reading-title" style="font-size:clamp(1.7rem,4vw,2.5rem)">${p.title}</h3>
+    <div class="poem-reading-sub">${p.sub}</div>
+    <div class="poem-body">${p.body}</div>
+    ${p.note ? `<div class="poem-note">${p.note}</div>` : ''}
+  `;
+  document.getElementById('poemModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePoem() {
+  document.getElementById('poemModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('poemModal')) closePoem();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoem(); });
+
+// ── FILTRI ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.poem-card').forEach(card => {
+      if (f === 'all' || card.dataset.tag === f) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const burger = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  burger.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+// ── CONTATTI ──
+function inviaMessaggio() {
+  const nome = document.getElementById('ctNome').value.trim();
+  const email = document.getElementById('ctEmail').value.trim();
+  const messaggio = document.getElementById('ctMessaggio').value.trim();
+  const msg = document.getElementById('ctMessage');
+  if (!nome || !email || !messaggio) {
+    msg.style.display = 'block';
+    msg.textContent = 'Per favore compila tutti i campi.';
+    return;
+  }
+  if (!email.includes('@')) {
+    msg.style.display = 'block';
+    msg.textContent = 'Inserisci un indirizzo email valido.';
+    return;
+  }
+  msg.style.display = 'block';
+  msg.textContent = 'Grazie per il tuo messaggio — ti risponderò presto.';
+  document.getElementById('ctNome').value = '';
+  document.getElementById('ctEmail').value = '';
+  document.getElementById('ctMessaggio').value = '';
+}
+
+// ── DARK MODE ──
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const icon = document.getElementById('darkIcon');
+  icon.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+// ── SMOOTH SCROLL FIX ──
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
