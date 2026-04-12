@@ -17,6 +17,7 @@
       --accent-light: #c4a898;
       --muted: #9a9187;
       --line: #e2ddd7;
+      --gold: #b8892a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,6 +51,7 @@
     .font-sans  { font-family: 'DM Sans', sans-serif; }
 
     /* ── NAV ── */
+    /* [MODIFICA] Nav: altezza aumentata a 96px per contenere il logo ingrandito */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -57,19 +59,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 2.5rem;
+      padding: 0.3rem 2.5rem;
+      height: 96px;
       background: rgba(250,248,245,0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
       transition: padding 0.3s ease;
     }
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.25rem;
-      color: var(--ink);
-      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
       cursor: pointer;
+    }
+    /* [MODIFICA] Logo: ingrandito del ~55% (da 58px a 90px),
+       mix-blend-mode: multiply garantisce sfondo trasparente
+       in light mode fondendosi con la navbar */
+    .nav-logo-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: opacity 0.25s ease;
+    }
+    .nav-logo-text:hover {
+      opacity: 0.7;
     }
     .nav-links {
       display: flex;
@@ -111,7 +127,7 @@
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 65px; left: 0; right: 0;
+      top: 89px; left: 0; right: 0;
       background: var(--paper);
       border-bottom: 1px solid var(--line);
       padding: 1.5rem 2.5rem;
@@ -135,17 +151,21 @@
     }
 
     /* ── SECTIONS ── */
-    section { min-height: 100vh; }
-    .section-pad { padding: 7rem 2.5rem 5rem; }
+    section { }
+    /* [MODIFICA] Sezioni compatte: ridotto il padding verticale del 35% */
+    .section-pad { padding: 3.25rem 2.5rem 2.6rem; }
 
     /* ── HERO ── */
+    /* [MODIFICA] Spazio Hero: tolto il buco tra nav e titolo.
+       min-height ridotto di 72px (altezza nav), padding-top
+       uguale alla nav per far partire il contenuto subito sotto */
     #hero {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      min-height: 100vh;
-      padding: 0 clamp(1.5rem, 8vw, 10rem);
+      min-height: calc(100vh - 96px);
+      padding: 96px clamp(1.5rem, 8vw, 10rem) 3rem;
       position: relative;
       overflow: hidden;
     }
@@ -245,7 +265,7 @@
     /* ── ARCHIVIO ── */
     #archivio {
       background: var(--warm);
-      min-height: 100vh;
+      padding-bottom: 3rem;
     }
     .section-header {
       margin-bottom: 3rem;
@@ -273,22 +293,42 @@
       margin-bottom: 3rem;
     }
     .filter-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      font-family: 'Inter', 'Roboto', Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.45rem 1rem;
-      border: 1px solid var(--line);
+      padding: 0.5rem 1.1rem;
+      border: 1.5px solid var(--line);
       background: transparent;
       color: var(--muted);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       border-radius: 100px;
     }
-    .filter-btn:hover, .filter-btn.active {
+    .filter-btn:hover {
       background: var(--ink);
-      color: var(--paper);
-      border-color: var(--ink);
+      color: #f4f4f4;
+      border-color: var(--accent-light);
+      box-shadow: 0 0 0 1px var(--accent-light);
+      letter-spacing: 1.5px;
+    }
+    .filter-btn.active {
+      background: var(--ink);
+      color: #f4f4f4;
+      border-color: var(--accent);
+    }
+    /* Dark mode: testo quasi bianco per massimo contrasto */
+    body.dark .filter-btn {
+      color: #f4f4f4;
+      border-color: #3a3630;
+    }
+    body.dark .filter-btn:hover,
+    body.dark .filter-btn.active {
+      background: var(--accent);
+      color: #f4f4f4;
+      border-color: var(--accent-light);
+      box-shadow: 0 0 0 1px var(--accent-light);
     }
 
     /* Poetry Grid */
@@ -358,44 +398,53 @@
 
     /* ── LETTURA SINGOLA ── */
     #lettura {
-      min-height: 100vh;
+      padding-bottom: 4rem;
     }
     .poem-reading {
       max-width: 560px;
     }
+    /* [MODIFICA] Distanza titolo–versi: ridotti i margini sotto
+       il titolo e il sottotitolo per compattare lo spazio */
     .poem-reading-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.2rem, 5vw, 3.5rem);
       font-weight: 400;
       line-height: 1.1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
     .poem-reading-sub {
       font-style: italic;
       color: var(--muted);
       font-size: 1rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0.75rem;
     }
+    /* [MODIFICA] Dimensione versi: font ingrandito da 1.1–1.25rem
+       a 1.2–1.45rem. Interlinea da 2 a 1.85 per restare ariosa
+       senza risultare eccessiva. Spazio tra strofe ridotto a 1.5rem */
     .poem-body {
       font-family: 'EB Garamond', serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.25rem);
-      line-height: 2;
+      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+      line-height: 1.85;
       color: var(--ink);
     }
-    .poem-body p { margin-bottom: 1.75rem; }
+    .poem-body p { margin-bottom: 1.5rem; }
     .poem-body .stanza-break { margin-bottom: 2.5rem; }
 
+    /* [MODIFICA] Firma: ingrandita da 0.9rem a 1.2rem per
+       garantire leggibilità immediata */
     .poem-note {
       margin-top: 3rem;
       padding-top: 2rem;
       border-top: 1px solid var(--line);
-      font-size: 0.9rem;
+      font-size: 1.2rem;
       color: var(--muted);
       font-style: italic;
       max-width: 45ch;
     }
 
-    /* ── NEWSLETTER ── */
+    #contatti .newsletter-desc {
+      color: var(--muted);
+    }
     #newsletter {
       background: var(--ink);
       color: var(--paper);
@@ -476,6 +525,9 @@
       color: var(--muted);
     }
 
+    /* [MODIFICA] poem-tag nel modal: meno spazio prima del titolo */
+    .modal-inner .poem-tag { margin-bottom: 0.35rem; }
+
     /* ── MODAL LETTURA ── */
     .poem-modal {
       position: fixed;
@@ -544,12 +596,14 @@
 
     /* ── MOBILE ── */
     @media (max-width: 640px) {
-      .section-pad { padding: 6rem 1.5rem 4rem; }
+      /* [MODIFICA] Mobile: sezioni e hero compatti, logo rimosso */
+      .section-pad { padding: 3rem 1.5rem 2rem; }
       .poems-grid { grid-template-columns: 1fr; }
       .nl-form { flex-direction: column; }
       .nl-btn { padding: 0.9rem; text-align: center; }
       footer { flex-direction: column; align-items: flex-start; }
-      #newsletter { padding: 5rem 1.5rem; }
+      #hero { padding: 96px 1.5rem 2rem; }
+      #newsletter { padding: 3.5rem 1.5rem; }
     }
     /* ── DARK MODE ── */
     body.dark {
@@ -587,7 +641,7 @@
 
 <!-- ── NAV ── -->
 <nav id="navbar">
-  <div class="nav-logo" onclick="scrollTo('hero')">Riccardo Galasso</div>
+  <a href="#hero" class="nav-logo nav-logo-text" onclick="scrollTo('hero'); return false;" aria-label="Torna alla home">Riccardo Galasso</a>
   <ul class="nav-links">
     <li><a href="#chisono" onclick="closeMenu()">Chi sono</a></li>
     <li><a href="#archivio" onclick="closeMenu()">Archivio</a></li>
@@ -721,17 +775,16 @@
 
 <!-- ── CONTATTI ── -->
 <section id="contatti">
-  <div style="max-width: 700px; margin: 0 auto; padding: 0 1rem;">
-    <div class="section-num">05 — Contatti</div>
-    <h2 class="section-title" style="color:var(--paper);">Scrivimi.</h2>
+  <div class="section-pad" style="max-width: 700px; margin: 0 auto; padding-top: 5rem;">
+    <div class="section-num">04 — Contatti</div>
     <div class="divider"></div>
     <p class="newsletter-desc">
       Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.
     </p>
     <form action="https://formspree.io/f/mvzwekbb" method="POST" style="display:flex; flex-direction:column; gap:0.75rem; max-width:460px;">
-      <input name="nome" type="text" placeholder="Il tuo nome" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none; border-radius:2px;" />
-      <input name="email" type="email" placeholder="La tua email" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none; border-radius:2px;" />
-      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:#1a1714; font-family:'EB Garamond',serif; font-size:1rem; outline:none; resize:vertical; line-height:1.7; border-radius:2px;"></textarea>
+      <input name="nome" type="text" placeholder="Il tuo nome" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
+      <input name="email" type="email" placeholder="La tua email" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
+      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'EB Garamond',serif; font-size:1rem; font-weight:500; outline:none; resize:vertical; line-height:1.7; border-radius:2px;"></textarea>
       <button type="submit" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='var(--accent-light)'" onmouseout="this.style.background='var(--accent)'">Invia</button>
     </form>
     <div id="ctMessage" style="margin-top:1rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent-light); display:none;"></div>
