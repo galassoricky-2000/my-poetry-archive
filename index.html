@@ -6,7 +6,7 @@
   <title>Riccardo Galasso — Poesie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -49,6 +49,60 @@
     .font-serif { font-family: 'Playfair Display', Georgia, serif; }
     .font-body  { font-family: 'EB Garamond', Georgia, serif; }
     .font-sans  { font-family: 'DM Sans', sans-serif; }
+    .font-mono  { font-family: 'Space Mono', 'Courier New', monospace; }
+
+    /* ── CHI SONO — layout tipografico ── */
+    .bio-typographic {
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+    }
+    .bio-overline {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 3.5rem;
+    }
+    .bio-large-initial {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 10vw, 7.5rem);
+      font-weight: 700;
+      line-height: 0.85;
+      color: var(--line);
+      display: block;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .bio-body {
+      font-family: 'Space Mono', 'Courier New', monospace;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.9;
+      color: var(--ink);
+      max-width: 62ch;
+    }
+    .bio-body p {
+      margin-bottom: 2.5rem;
+    }
+    .bio-body p:last-child {
+      margin-bottom: 0;
+    }
+    .bio-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 3.5rem 0;
+    }
+    .bio-footnote {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding-top: 1.5rem;
+    }
+    .bio-footnote span {
+      color: var(--accent);
+    }
 
     /* ── NAV ── */
     /* [MODIFICA] Nav: altezza aumentata a 96px per contenere il logo ingrandito */
@@ -694,7 +748,7 @@
       <img src="https://i.imgur.com/vNUmoqz.jpg" alt="Riccardo Galasso" style="width:200px; height:200px; object-fit:cover; object-position: center top; border-radius:2px; flex-shrink:0;" />
       <div style="max-width:480px;">
         <p style="font-size:1.1rem; line-height:1.9; margin-bottom:1.5rem;">
-          Mi chiamo Riccardo, ho 25 anni e scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
+          Mi chiamo Riccardo, ho venticinque anni e scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
         </p>
         <p style="font-size:1.1rem; line-height:1.9;">
           Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.
