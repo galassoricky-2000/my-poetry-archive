@@ -777,6 +777,16 @@
 
     <div class="poems-grid reveal" id="poemsGrid">
 
+      <div class="poem-card" data-tag="tempo" onclick="openPoem('attesa')">
+        <div class="poem-tag">Tempo</div>
+        <div class="poem-card-title">Ed Io Resto ad Aspettare…</div>
+        <div class="poem-card-excerpt">
+          Da una gabbia di specchi<br>
+          uno sguardo senza confini:<br>
+          ferita aperta contro il vetro freddo…
+        </div>
+      </div>
+
       <div class="poem-card" data-tag="natura" onclick="openPoem('rondine')">
         <div class="poem-tag">Natura</div>
         <div class="poem-card-title">Rondine Maestosa</div>
@@ -911,6 +921,20 @@ const POEMS = {
       Comincia a pulsare.</p>
       <p>Sottomesso,<br>
       prigioniero della tua immensa bellezza.</p>
+    `,
+    note: 'Riccardo Galasso'
+  },
+  'attesa': {
+    tag: 'Tempo',
+    title: 'Ed Io Resto ad Aspettare…',
+    sub: '',
+    body: `
+      <p>Ed io resto ad aspettare…<br>
+      Da una gabbia di specchi<br>
+      uno sguardo senza confini:<br>
+      ferita aperta contro il vetro freddo.</p>
+      <p>Sullo sfondo,<br>
+      stelle scheggiate dall'attesa…</p>
     `,
     note: 'Riccardo Galasso'
   },
