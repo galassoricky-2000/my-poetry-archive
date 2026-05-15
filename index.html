@@ -784,15 +784,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .splash-rule {
-      width: 2rem;
-      height: 1px;
-      background: #8b6f5e;
-      margin: 1.6rem auto 0;
-      opacity: 0;
-      transition: opacity 1.1s ease 0.5s;
-    }
-    .splash-rule.visible { opacity: 1; }
 
   </style>
 </head>
@@ -802,7 +793,6 @@
 <!-- ── SPLASH SCREEN ── -->
 <div id="splash">
   <span class="splash-text" id="splashText">Benvenuti nel mio rifugio</span>
-  <div class="splash-rule" id="splashRule"></div>
 </div>
 
 <!-- ── NAV ── -->
@@ -1172,7 +1162,6 @@ function scrollTo(id) {
   (function() {
     var splash = document.getElementById('splash');
     var text   = document.getElementById('splashText');
-    var rule   = document.getElementById('splashRule');
 
     // Fade in text
     requestAnimationFrame(function() {
