@@ -169,6 +169,50 @@
       text-shadow: 0 0 18px rgba(232,201,122,0.6);
     }
 
+    /* ── LANGUAGE SWITCHER ── */
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      justify-content: center;
+    }
+    .lang-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.25s, opacity 0.25s;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+    }
+    .lang-link:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .lang-link.active {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .lang-sep {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      color: var(--accent-light);
+      margin: 0 0.25rem;
+    }
+    body.dark .lang-link {
+      color: var(--accent);
+    }
+    body.dark .lang-link:hover {
+      color: #e8c97a;
+    }
+    body.dark .lang-link.active {
+      color: #e8c97a;
+    }
+
     /* Hamburger */
     .hamburger {
       display: none;
@@ -798,11 +842,22 @@
 <!-- ── NAV ── -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo nav-logo-text" onclick="scrollTo('hero'); return false;" aria-label="Torna alla home">Riccardo Galasso</a>
+  <div class="language-switcher">
+    <a href="#" class="lang-link active" data-lang="it">IT</a>
+    <span class="lang-sep">/</span>
+    <a href="#" class="lang-link" data-lang="en">EN</a>
+    <span class="lang-sep">/</span>
+    <a href="#" class="lang-link" data-lang="es">ES</a>
+    <span class="lang-sep">/</span>
+    <a href="#" class="lang-link" data-lang="fr">FR</a>
+    <span class="lang-sep">/</span>
+    <a href="#" class="lang-link" data-lang="de">DE</a>
+  </div>
   <ul class="nav-links">
-    <li><a href="#chisono" onclick="closeMenu()">Chi sono</a></li>
-    <li><a href="#archivio" onclick="closeMenu()">Archivio</a></li>
-    <li><a href="#lettura" onclick="closeMenu()">Una Poesia</a></li>
-    <li><a href="#contatti" onclick="closeMenu()">Contatti</a></li>
+    <li><a href="#chisono" onclick="closeMenu()" data-i18n="nav.chisono">Chi sono</a></li>
+    <li><a href="#archivio" onclick="closeMenu()" data-i18n="nav.archivio">Archivio</a></li>
+    <li><a href="#lettura" onclick="closeMenu()" data-i18n="nav.lettura">Una Poesia</a></li>
+    <li><a href="#contatti" onclick="closeMenu()" data-i18n="nav.contatti">Contatti</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -818,20 +873,20 @@
 <!-- ── HERO ── -->
 <section id="hero">
 
-  <h1 class="hero-title">
-    Ogni verso<br>è un rifugio <em>dove</em><br>tornare
+  <h1 class="hero-title" data-i18n="hero.title">
+    Ogni verso<br>è un rifugio <em>onde</em><br>tornare
   </h1>
-  <p class="hero-sub">
+  <p class="hero-sub" data-i18n="hero.sub">
     Solo i poeti ritornano nel luogo dove non hanno mai vissuto.
   </p>
   <p style="font-family:'DM Sans',sans-serif; font-size:0.75rem; letter-spacing:0.1em; color:var(--accent); margin-top:0.75rem; opacity:0; animation: fadeUp 0.9s 0.75s forwards;">— Miguel Ángel Arcas</p>
-  <a href="#archivio" class="hero-cta">
+  <a href="#archivio" class="hero-cta" data-i18n="hero.cta">
     Leggi le poesie
     <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
   </a>
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    Scorri
+    <span data-i18n="hero.scroll">Scorri</span>
   </div>
 </section>
 
@@ -839,8 +894,8 @@
 <section id="chisono">
   <div class="section-pad">
     <div class="section-header reveal" style="max-width:1100px; margin:0 0 3rem;">
-      <div class="section-num">01 — Chi sono</div>
-      <h2 class="section-title" style="font-size:clamp(2.4rem, 5vw, 4.5rem); line-height:1.1;">Frammenti di voce, nel silenzio…</h2>
+      <div class="section-num" data-i18n="section.chisono.num">01 — Chi sono</div>
+      <h2 class="section-title" style="font-size:clamp(2.4rem, 5vw, 4.5rem); line-height:1.1;" data-i18n="section.chisono.title">Frammenti di voce, nel silenzio…</h2>
       <div class="divider"></div>
     </div>
     <div class="reveal chisono-layout">
@@ -855,10 +910,10 @@
         </p>
       </div>
       <div class="chisono-bio">
-        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);">
+        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);" data-i18n="section.chisono.bio1">
           Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
         </p>
-        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; color:var(--ink);">
+        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; color:var(--ink);" data-i18n="section.chisono.bio2">
           Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.
         </p>
       </div>
@@ -870,17 +925,17 @@
 <section id="archivio">
   <div class="section-pad">
     <div class="section-header reveal">
-      <div class="section-num">02 — Archivio</div>
-      <h2 class="section-title">Le poesie</h2>
+      <div class="section-num" data-i18n="section.archivio.num">02 — Archivio</div>
+      <h2 class="section-title" data-i18n="section.archivio.title">Le poesie</h2>
       <div class="divider"></div>
     </div>
 
     <div class="filters reveal">
-      <button class="filter-btn active" data-filter="all">Tutte</button>
-      <button class="filter-btn" data-filter="emozioni">Emozioni</button>
-      <button class="filter-btn" data-filter="luoghi">Luoghi</button>
-      <button class="filter-btn" data-filter="natura">Natura</button>
-      <button class="filter-btn" data-filter="tempo">Tempo</button>
+      <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tutte</button>
+      <button class="filter-btn" data-filter="emozioni" data-i18n="filter.emozioni">Emozioni</button>
+      <button class="filter-btn" data-filter="luoghi" data-i18n="filter.luoghi">Luoghi</button>
+      <button class="filter-btn" data-filter="natura" data-i18n="filter.natura">Natura</button>
+      <button class="filter-btn" data-filter="tempo" data-i18n="filter.tempo">Tempo</button>
     </div>
 
     <div class="poems-grid reveal" id="poemsGrid">
@@ -923,12 +978,12 @@
 <section id="lettura">
   <div class="section-pad">
     <div class="section-header reveal">
-      <div class="section-num">03 — Lettura</div>
-      <h2 class="section-title">Una poesia</h2>
+      <div class="section-num" data-i18n="section.lettura.num">03 — Una Poesia</div>
+      <h2 class="section-title" data-i18n="section.lettura.title">Una poesia</h2>
       <div class="divider"></div>
     </div>
     <div class="poem-reading reveal">
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); font-style:italic;">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
         La poesia in evidenza apparirà qui.
       </p>
     </div>
@@ -938,16 +993,16 @@
 <!-- ── CONTATTI ── -->
 <section id="contatti">
   <div class="section-pad" style="max-width: 700px; margin: 0 auto; padding-top: 5rem;">
-    <div class="section-num">04 — Contatti</div>
+    <div class="section-num" data-i18n="section.contatti.num">04 — Contatti</div>
     <div class="divider"></div>
-    <p class="newsletter-desc">
+    <p class="newsletter-desc" data-i18n="section.contatti.desc">
       Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.
     </p>
     <form action="https://formspree.io/f/mvzwekbb" method="POST" style="display:flex; flex-direction:column; gap:0.75rem; max-width:460px;">
-      <input name="nome" type="text" placeholder="Il tuo nome" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
-      <input name="email" type="email" placeholder="La tua email" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
-      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'EB Garamond',serif; font-size:1rem; font-weight:500; outline:none; resize:vertical; line-height:1.7; border-radius:2px;"></textarea>
-      <button type="submit" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='var(--accent-light)'" onmouseout="this.style.background='var(--accent)'">Invia</button>
+      <input name="nome" type="text" placeholder="Il tuo nome" data-i18n-placeholder="form.nome" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
+      <input name="email" type="email" placeholder="La tua email" data-i18n-placeholder="form.email" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; outline:none; border-radius:2px;" />
+      <textarea name="messaggio" rows="5" placeholder="Il tuo messaggio" data-i18n-placeholder="form.messaggio" required style="padding:0.9rem 1.25rem; background:#ffffff; border:none; color:var(--ink); font-family:'EB Garamond',serif; font-size:1rem; font-weight:500; outline:none; resize:vertical; line-height:1.7; border-radius:2px;"></textarea>
+      <button type="submit" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background 0.2s;" data-i18n="form.submit" onmouseover="this.style.background='var(--accent-light)'" onmouseout="this.style.background='var(--accent)'">Invia</button>
     </form>
     <div id="ctMessage" style="margin-top:1rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent-light); display:none;"></div>
   </div>
@@ -1179,6 +1234,207 @@ function scrollTo(id) {
       }, 1300);
     }, 2400);
   })();
+
+  // ── I18N SYSTEM ──
+  const translations = {
+    it: {
+      "nav.chisono": "Chi sono",
+      "nav.archivio": "Archivio",
+      "nav.lettura": "Una Poesia",
+      "nav.contatti": "Contatti",
+      "hero.title": "Ogni verso<br>è un rifugio <em>dove</em><br>tornare",
+      "hero.sub": "Solo i poeti ritornano nel luogo dove non hanno mai vissuto.",
+      "hero.cta": "Leggi le poesie",
+      "hero.scroll": "Scorri",
+      "section.chisono.num": "01 — Chi sono",
+      "section.chisono.title": "Frammenti di voce, nel silenzio…",
+      "section.chisono.bio1": "Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.",
+      "section.chisono.bio2": "Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.",
+      "section.archivio.num": "02 — Archivio",
+      "section.archivio.title": "Le poesie",
+      "filter.all": "Tutte",
+      "filter.emozioni": "Emozioni",
+      "filter.luoghi": "Luoghi",
+      "filter.natura": "Natura",
+      "filter.tempo": "Tempo",
+      "section.lettura.num": "03 — Una Poesia",
+      "section.lettura.title": "Una poesia",
+      "section.lettura.subtitle": "La poesia in evidenza apparirà qui.",
+      "section.contatti.num": "04 — Contatti",
+      "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
+      "form.nome": "Il tuo nome",
+      "form.email": "La tua email",
+      "form.messaggio": "Il tuo messaggio",
+      "form.submit": "Invia"
+    },
+    en: {
+      "nav.chisono": "About",
+      "nav.archivio": "Archive",
+      "nav.lettura": "A Poem",
+      "nav.contatti": "Contact",
+      "hero.title": "Every verse<br>is a refuge <em>where</em><br>to return",
+      "hero.sub": "Only poets return to the place where they have never lived.",
+      "hero.cta": "Read the poems",
+      "hero.scroll": "Scroll",
+      "section.chisono.num": "01 — About",
+      "section.chisono.title": "Fragments of voice, in silence…",
+      "section.chisono.bio1": "I write poems in 'free' verses to tell my true voice; emotions that change place every day, immersed in nature and far from that sense of oppression with which time constantly tests me.",
+      "section.chisono.bio2": "I search for my true voice in silent words, my refuge to return to every time I want to feel 'free'. Words that transform my thoughts into images capable of telling a story: every verse is its protagonist.",
+      "section.archivio.num": "02 — Archive",
+      "section.archivio.title": "The poems",
+      "filter.all": "All",
+      "filter.emozioni": "Emotions",
+      "filter.luoghi": "Places",
+      "filter.natura": "Nature",
+      "filter.tempo": "Time",
+      "section.lettura.num": "03 — A Poem",
+      "section.lettura.title": "A poem",
+      "section.lettura.subtitle": "The featured poem will appear here.",
+      "section.contatti.num": "04 — Contact",
+      "section.contatti.desc": "Do you have a question, a thought, or simply want to share something? Write to me — I reply to everyone.",
+      "form.nome": "Your name",
+      "form.email": "Your email",
+      "form.messaggio": "Your message",
+      "form.submit": "Send"
+    },
+    es: {
+      "nav.chisono": "Acerca de",
+      "nav.archivio": "Archivo",
+      "nav.lettura": "Un Poema",
+      "nav.contatti": "Contacto",
+      "hero.title": "Cada verso<br>es un refugio <em>donde</em><br>volver",
+      "hero.sub": "Solo los poetas regresan al lugar donde nunca han vivido.",
+      "hero.cta": "Leer los poemas",
+      "hero.scroll": "Desplázate",
+      "section.chisono.num": "01 — Acerca de",
+      "section.chisono.title": "Fragmentos de voz, en el silencio…",
+      "section.chisono.bio1": "Escribo poemas en versos 'libres' para contar mi verdadera voz; emociones que cambian de lugar cada día, inmersas en la naturaleza y lejos de ese sentido de opresión con el que el tiempo constantemente me pone a prueba.",
+      "section.chisono.bio2": "Busco mi verdadera voz en palabras silenciosas, mi refugio al cual regresar cada vez que quiero sentirme 'libre'. Palabras que transforman mis pensamientos en imágenes capaces de contar una historia: cada verso es su protagonista.",
+      "section.archivio.num": "02 — Archivo",
+      "section.archivio.title": "Los poemas",
+      "filter.all": "Todos",
+      "filter.emozioni": "Emociones",
+      "filter.luoghi": "Lugares",
+      "filter.natura": "Naturaleza",
+      "filter.tempo": "Tiempo",
+      "section.lettura.num": "03 — Un Poema",
+      "section.lettura.title": "Un poema",
+      "section.lettura.subtitle": "El poema destacado aparecerá aquí.",
+      "section.contatti.num": "04 — Contacto",
+      "section.contatti.desc": "¿Tienes una pregunta, un pensamiento, o simplemente quieres compartir algo? Escríbeme — respondo a todos.",
+      "form.nome": "Tu nombre",
+      "form.email": "Tu correo",
+      "form.messaggio": "Tu mensaje",
+      "form.submit": "Enviar"
+    },
+    fr: {
+      "nav.chisono": "À propos",
+      "nav.archivio": "Archive",
+      "nav.lettura": "Un Poème",
+      "nav.contatti": "Contact",
+      "hero.title": "Chaque vers<br>est un refuge <em>où</em><br>revenir",
+      "hero.sub": "Seuls les poètes reviennent au lieu où ils n'ont jamais vécu.",
+      "hero.cta": "Lire les poèmes",
+      "hero.scroll": "Défiler",
+      "section.chisono.num": "01 — À propos",
+      "section.chisono.title": "Fragments de voix, dans le silence…",
+      "section.chisono.bio1": "J'écris des poèmes en versets 'libres' pour raconter ma véritable voix ; des émotions qui changent de lieu chaque jour, immergées dans la nature et loin de ce sentiment d'oppression avec lequel le temps me met constamment à l'épreuve.",
+      "section.chisono.bio2": "Je cherche ma véritable voix dans les paroles silencieuses, mon refuge où revenir chaque fois que je veux me sentir 'libre'. Des paroles qui transforment mes pensées en images capables de raconter une histoire : chaque vers en est le protagoniste.",
+      "section.archivio.num": "02 — Archive",
+      "section.archivio.title": "Les poèmes",
+      "filter.all": "Tous",
+      "filter.emozioni": "Émotions",
+      "filter.luoghi": "Lieux",
+      "filter.natura": "Nature",
+      "filter.tempo": "Temps",
+      "section.lettura.num": "03 — Un Poème",
+      "section.lettura.title": "Un poème",
+      "section.lettura.subtitle": "Le poème vedette apparaîtra ici.",
+      "section.contatti.num": "04 — Contact",
+      "section.contatti.desc": "Avez-vous une question, une pensée, ou simplement envie de partager quelque chose ? Écrivez-moi — je réponds à tout le monde.",
+      "form.nome": "Votre nom",
+      "form.email": "Votre email",
+      "form.messaggio": "Votre message",
+      "form.submit": "Envoyer"
+    },
+    de: {
+      "nav.chisono": "Über mich",
+      "nav.archivio": "Archiv",
+      "nav.lettura": "Ein Gedicht",
+      "nav.contatti": "Kontakt",
+      "hero.title": "Jeder Vers<br>ist ein Zufluchtsort <em>zum</em><br>Zurückkehren",
+      "hero.sub": "Nur Dichter kehren an den Ort zurück, an dem sie nie gelebt haben.",
+      "hero.cta": "Die Gedichte lesen",
+      "hero.scroll": "Scrollen",
+      "section.chisono.num": "01 — Über mich",
+      "section.chisono.title": "Stimmenbruchstücke, in der Stille…",
+      "section.chisono.bio1": "Ich schreibe Gedichte in 'freien' Versen, um meine wahre Stimme zu erzählen; Gefühle, die sich jeden Tag ändern, versenkt in der Natur und fern von diesem Unterdrückungsgefühl, mit dem die Zeit mich ständig auf die Probe stellt.",
+      "section.chisono.bio2": "Ich suche meine wahre Stimme in stillen Worten, meinen Zufluchtsort, zu dem ich mich jedes Mal zurückziehe, wenn ich mich 'frei' fühlen möchte. Worte, die meine Gedanken in Bilder verwandeln, die eine Geschichte erzählen können: jeder Vers ist sein Protagonist.",
+      "section.archivio.num": "02 — Archiv",
+      "section.archivio.title": "Die Gedichte",
+      "filter.all": "Alle",
+      "filter.emozioni": "Gefühle",
+      "filter.luoghi": "Orte",
+      "filter.natura": "Natur",
+      "filter.tempo": "Zeit",
+      "section.lettura.num": "03 — Ein Gedicht",
+      "section.lettura.title": "Ein Gedicht",
+      "section.lettura.subtitle": "Das vorgestellte Gedicht wird hier angezeigt.",
+      "section.contatti.num": "04 — Kontakt",
+      "section.contatti.desc": "Haben Sie eine Frage, einen Gedanken oder möchten einfach etwas teilen? Schreiben Sie mir — ich antworte jedem.",
+      "form.nome": "Ihr Name",
+      "form.email": "Ihre E-Mail",
+      "form.messaggio": "Ihre Nachricht",
+      "form.submit": "Senden"
+    }
+  };
+
+  let currentLanguage = localStorage.getItem('language') || 'it';
+
+  function setLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLanguage = lang;
+    localStorage.setItem('language', lang);
+
+    // Aggiorna i testi normali
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const text = translations[lang][key];
+      if (text) {
+        if (key === 'hero.title') {
+          el.innerHTML = text;
+        } else {
+          el.textContent = text;
+        }
+      }
+    });
+
+    // Aggiorna i placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const text = translations[lang][key];
+      if (text) el.placeholder = text;
+    });
+
+    // Aggiorna i language link attivi
+    document.querySelectorAll('.lang-link').forEach(el => {
+      el.classList.remove('active');
+    });
+    const activeLink = document.querySelector(`[data-lang="${lang}"]`);
+    if (activeLink) activeLink.classList.add('active');
+  }
+
+  // Event listener per i language switcher
+  document.querySelectorAll('.lang-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const lang = link.getAttribute('data-lang');
+      setLanguage(lang);
+    });
+  });
+
+  // Carica la lingua salvata al caricamento
+  setLanguage(currentLanguage);
 
 </script>
 </body>
