@@ -43,7 +43,7 @@
       background-size: 200px;
     }
 
-    /* Typography */
+    /* Typo */
     .font-serif { font-family: 'Playfair Display', Georgia, serif; }
     .font-body  { font-family: 'EB Garamond', Georgia, serif; }
     .font-sans  { font-family: 'DM Sans', sans-serif; }
@@ -426,6 +426,17 @@
       transition: color .2s, border-color .2s;
     }
     .icon-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .icon-btn.done { color: var(--gold); border-color: var(--gold); }
+    .icon-btn[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--ink); color: var(--paper);
+      font-size: .68rem; letter-spacing: .06em; white-space: nowrap;
+      padding: .25rem .6rem; border-radius: 4px;
+      opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+    }
+    .icon-btn.done::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* Modale */
     .poem-modal {
@@ -438,15 +449,17 @@
     .modal-inner {
       background: var(--paper);
       max-width: 640px; width: 100%;
-      padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 3.5rem);
+      padding: clamp(3.2rem, 6vw, 4.5rem) clamp(1.5rem, 6vw, 3.5rem) clamp(2.5rem, 6vw, 3.5rem);
       position: relative; margin: auto;
       animation: modalIn 0.35s ease;
     }
     .modal-close {
       position: absolute; top: 1.5rem; right: 1.5rem;
       background: none; border: none; font-size: 1.25rem;
-      cursor: pointer; color: var(--muted);
+      cursor: pointer; color: var(--muted); transition: color 0.2s;
     }
+    .modal-close:hover { color: var(--ink); }
+    .modal-tools { position: absolute; top: 1.35rem; left: 1.5rem; display: flex; gap: 0.5rem; }
 
     /* Contatti */
     #contatti { background: var(--warm); }
@@ -488,6 +501,18 @@
     body.dark .poem-card:hover { background: #1e1b18; }
     body.dark .modal-inner { background: #1c1917; }
     body.dark .form-input { background: #141210; border-color: var(--line); }
+
+    /* Zen Mode */
+    body.zen nav, body.zen footer, body.zen .mobile-menu { display: none; }
+    body.zen .poem-modal { background: var(--paper); backdrop-filter: none; padding: 0; }
+    body.zen .modal-inner {
+      max-width: none; width: 100%; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 5rem 1.5rem 4rem;
+    }
+    body.zen #modalContent { width: 100%; max-width: 38ch; }
+    body.zen .modal-tools { top: 1.5rem; opacity: 0.4; transition: opacity 0.25s; }
+    body.zen .modal-tools:hover { opacity: 1; }
 
     /* Splash Screen */
     #splash {
@@ -715,7 +740,8 @@
 <!-- Modale Lettura -->
 <div class="poem-modal" id="poemModal" onclick="closeModal(event)">
   <div class="modal-inner" id="modalInner">
-    <button class="modal-close" onclick="closePoem()">✕</button>
+    <div class="modal-tools" id="modalTools"></div>
+    <button class="modal-close" onclick="closePoem()" aria-label="Chiudi">✕</button>
     <div id="modalContent"></div>
   </div>
 </div>
@@ -727,11 +753,31 @@ const POEMS = {
     tag: 'Natura',
     title: 'Rondine Maestosa',
     body: `
-      <p>"Vola,<br>vola gioiosa!<br>Vola e non fermarti,<br>Rondine melodiosa."</p>
-      <p>Le tue ali<br>battono a ritmo di tamburi;<br>Il tuo volo è così intenso<br>che la vita ti passa accanto:<br>Ti ricorda, sempre,<br>il tuo posto nel mondo.</p>
-      <p>Il tuo spirito è una forza sovrannaturale,<br>un turbinio di emozioni, invisibile,<br>che ti solleva, ti sostiene:<br>ti guida verso l'infinito.</p>
-      <p>Non temere,<br>Rondine mia,<br>la potente luce che emani<br>ti proteggerà dalle forze oscure del cielo;<br>né pioggia né grandine né fulmini<br>cambieranno la rotta del tuo volo.</p>
-      <p>"Tu, spirito libero,<br>sopravvivrai al dolore!<br>Vola alta, sempre più alta!<br>Vola e conquista l'Universo,<br>Rondine Maestosa."</p>
+      <p>"Vola,<br>
+      vola gioiosa!<br>
+      Vola e non fermarti,<br>
+      Rondine melodiosa."</p>
+      <p>Le tue ali<br>
+      battono a ritmo di tamburi;<br>
+      Il tuo volo è così intenso<br>
+      che la vita ti passa accanto:<br>
+      Ti ricorda, sempre,<br>
+      il tuo posto nel mondo.</p>
+      <p>Il tuo spirito è una forza sovrannaturale,<br>
+      un turbinio di emozioni, invisibile,<br>
+      che ti solleva, ti sostiene:<br>
+      ti guida verso l'infinito.</p>
+      <p>Non temere,<br>
+      Rondine mia,<br>
+      la potente luce che emani<br>
+      ti proteggerà dalle forze oscure del cielo;<br>
+      né pioggia né grandine né fulmini<br>
+      cambieranno la rotta del tuo volo.</p>
+      <p>"Tu, spirito libero,<br>
+      sopravvivrai al dolore!<br>
+      Vola alta, sempre più alta!<br>
+      Vola e conquista l'Universo,<br>
+      Rondine Maestosa."</p>
     `,
     note: 'Riccardo Galasso'
   },
@@ -739,9 +785,16 @@ const POEMS = {
     tag: 'Emozioni',
     title: 'Nel Silenzio dei Tuoi Occhi',
     body: `
-      <p>Nel silenzio dei tuoi occhi<br>l'universo si riflette:<br>Mare che custodisce<br>i nostri segreti più nascosti.</p>
-      <p>Nell'infinito dei tuoi occhi<br>naufraga il mio cuore<br>colmo di un amore ardente:<br>Comincia a pulsare.</p>
-      <p>Sottomesso,<br>prigioniero della tua immensa bellezza.</p>
+      <p>Nel silenzio dei tuoi occhi<br>
+      l'universo si riflette:<br>
+      Mare che custodisce<br>
+      i nostri segreti più nascosti.</p>
+      <p>Nell'infinito dei tuoi occhi<br>
+      naufraga il mio cuore<br>
+      colmo di un amore ardente:<br>
+      Comincia a pulsare.</p>
+      <p>Sottomesso,<br>
+      prigioniero della tua immensa bellezza.</p>
     `,
     note: 'Riccardo Galasso'
   },
@@ -749,8 +802,11 @@ const POEMS = {
     tag: 'Tempo',
     title: 'E Io Resto ad Aspettare…',
     body: `
-      <p>Da una gabbia di specchi<br>uno sguardo senza confini:<br>ferita aperta contro il vetro freddo.</p>
-      <p>Sullo sfondo,<br>stelle scheggiate dall'attesa…</p>
+      <p>Da una gabbia di specchi<br>
+      uno sguardo senza confini:<br>
+      ferita aperta contro il vetro freddo.</p>
+      <p>Sullo sfondo,<br>
+      stelle scheggiate dall'attesa…</p>
     `,
     note: 'Riccardo Galasso'
   },
@@ -758,8 +814,13 @@ const POEMS = {
     tag: 'Tempo',
     title: 'Il Principio dell\'Attesa',
     body: `
-      <p>Rosso, il Mare,<br>un dipinto del Cielo<br>che placa i frastuoni della mente<br>e libera nel vento le ali dei suoi figli;</p>
-      <p>Assordante d'un grido di chi tace<br>mentre all'alba di chi si è dileguato<br>si fa rumore, il principio dell'attesa.</p>
+      <p>Rosso, il Mare,<br>
+      un dipinto del Cielo<br>
+      che placa i frastuoni della mente<br>
+      e libera nel vento le ali dei suoi figli;</p>
+      <p>Assordante d'un grido di chi tace<br>
+      mentre all'alba di chi si è dileguato<br>
+      si fa rumore, il principio dell'attesa.</p>
     `,
     note: 'Riccardo Galasso'
   },
@@ -767,11 +828,25 @@ const POEMS = {
     tag: 'Emozioni',
     title: "I Miracoli dell'Amore",
     body: `
-      <p>Le mie paure,<br>le mie incertezze<br>si perdono nell'oblio<br>quando i nostri occhi si specchiano;</p>
-      <p>Quattro mondi che si parlano,<br>che sorridono da lontano<br>fino a toccarsi, a stringersi,<br>in un abbraccio umano;</p>
-      <p>Con te al mio fianco,<br>mi sento al sicuro<br>come sotto calde coperte<br>in una notte fredda e buia;</p>
-      <p>I nostri sogni, delicatamente,<br>si accarezzano<br>lasciandosi andare<br>a una danza infinita:</p>
-      <p>Piena di vita,<br>riscalda e guarisce,<br>la mia anima ferita.</p>
+      <p>Le mie paure,<br>
+      le mie incertezze<br>
+      si perdono nell'oblio<br>
+      quando i nostri occhi si specchiano;</p>
+      <p>Quattro mondi che si parlano,<br>
+      che sorridono da lontano<br>
+      fino a toccarsi, a stringersi,<br>
+      in un abbraccio umano;</p>
+      <p>Con te al mio fianco,<br>
+      mi sento al sicuro<br>
+      come sotto calde coperte<br>
+      in una notte fredda e buia;</p>
+      <p>I nostri sogni, delicatamente,<br>
+      si accarezzano<br>
+      lasciandosi andare<br>
+      a una danza infinita:</p>
+      <p>Piena di vita,<br>
+      riscalda e guarisce,<br>
+      la mia anima ferita.</p>
     `,
     note: 'Riccardo Galasso'
   }
@@ -792,7 +867,8 @@ const translations = {
     "section.lettura.subtitle": "Scegli \"Estrai una poesia\" o \"Estrai un verso\" nell'archivio per far apparire un frammento qui.",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
-    "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia"
+    "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
+    "tip.copied": "Copiato!"
   },
   en: {
     "nav.chisono": "About", "nav.archivio": "Archive", "nav.lettura": "Featured", "nav.contatti": "Contact",
@@ -807,7 +883,8 @@ const translations = {
     "section.lettura.subtitle": "Click \"Draw a poem\" or \"Draw a verse\" in the archive to reveal an excerpt here.",
     "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
     "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
-    "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send"
+    "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send",
+    "tip.copied": "Copied!"
   },
   es: {
     "nav.chisono": "Acerca de", "nav.archivio": "Archivo", "nav.lettura": "En portada", "nav.contatti": "Contacto",
@@ -822,7 +899,8 @@ const translations = {
     "section.lettura.subtitle": "Selecciona \"Sacar poema\" o \"Sacar verso\" en el archivo para visualizar un fragmento.",
     "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
     "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
-    "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar"
+    "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar",
+    "tip.copied": "¡Copiado!"
   }
 };
 
@@ -870,11 +948,97 @@ document.querySelectorAll('.lang-link').forEach(link => {
 });
 setLanguage(currentLanguage);
 
-// Funzioni Modale
+// Funzioni Copia e Testo Poesia
+function getPoemPlainText(id) {
+  const p = POEMS[id];
+  if (!p) return '';
+  const cleanBody = p.body
+    .replace(/<br\s*[\/]?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n\n');
+  const d = document.createElement('div');
+  d.innerHTML = cleanBody;
+  const bodyText = d.textContent.split('\n').map(s => s.trim()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  return `${p.title}\n\n${bodyText}\n\n— ${p.note || 'Riccardo Galasso'}`;
+}
+
+async function copyText(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  if (!btn) return;
+  const original = btn.textContent;
+  btn.textContent = '✓';
+  btn.dataset.tip = (translations[currentLanguage] || translations.it)["tip.copied"];
+  btn.classList.add('done');
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.classList.remove('done');
+  }, 1600);
+}
+
+// Modale e Toolbar (Copia, Zen, Dark)
+let activePoemId = null;
+
+function toggleZen() {
+  document.body.classList.toggle('zen');
+}
+
 function openPoem(id) {
   const p = POEMS[id];
   if (!p) return;
-  
+  activePoemId = id;
+
+  // Barra strumenti ripristinata: Copia, Zen, Tema
+  const tools = document.getElementById('modalTools');
+  tools.innerHTML = '';
+
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'icon-btn';
+  copyBtn.type = 'button';
+  copyBtn.textContent = '⧉';
+  copyBtn.title = 'Copia poesia';
+  copyBtn.setAttribute('aria-label', 'Copia poesia');
+  copyBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    copyText(getPoemPlainText(activePoemId), copyBtn);
+  });
+
+  const zenBtn = document.createElement('button');
+  zenBtn.className = 'icon-btn';
+  zenBtn.type = 'button';
+  zenBtn.textContent = '◱';
+  zenBtn.title = 'Modalità Zen';
+  zenBtn.setAttribute('aria-label', 'Modalità Zen');
+  zenBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleZen();
+  });
+
+  const modeBtn = document.createElement('button');
+  modeBtn.className = 'icon-btn';
+  modeBtn.type = 'button';
+  modeBtn.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
+  modeBtn.title = 'Cambia tema';
+  modeBtn.setAttribute('aria-label', 'Cambia tema');
+  modeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleTheme();
+    modeBtn.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
+  });
+
+  tools.appendChild(copyBtn);
+  tools.appendChild(zenBtn);
+  tools.appendChild(modeBtn);
+
   document.getElementById('modalContent').innerHTML = `
     <div class="poem-tag">${p.tag}</div>
     <h3 class="poem-reading-title">${p.title}</h3>
@@ -889,11 +1053,20 @@ function openPoem(id) {
 function closePoem() {
   document.getElementById('poemModal').classList.remove('open');
   document.body.style.overflow = '';
+  document.body.classList.remove('zen');
 }
 function closeModal(e) {
   if (e.target === document.getElementById('poemModal')) closePoem();
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoem(); });
+document.addEventListener('keydown', e => { 
+  if (e.key === 'Escape') {
+    if (document.body.classList.contains('zen')) {
+      document.body.classList.remove('zen');
+    } else {
+      closePoem();
+    }
+  }
+});
 
 // Filtri Griglia
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -907,7 +1080,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazioni Casuali
+// Estrazioni Casuali Corrette
 document.getElementById('rndPoem')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -924,9 +1097,20 @@ document.getElementById('rndPoem')?.addEventListener('click', () => {
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
+  
+  // Taglia correttamente su <br> e </p> per evitare parole attaccate
+  const cleanBody = p.body
+    .replace(/<br\s*[\/]?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n');
+    
   const d = document.createElement('div');
-  d.innerHTML = p.body;
-  const lines = d.innerText.split('\n').map(s => s.trim()).filter(s => s.length > 8);
+  d.innerHTML = cleanBody;
+  
+  const lines = d.textContent
+    .split('\n')
+    .map(s => s.trim().replace(/^["“”«»]+|["“”«»]+$/g, ''))
+    .filter(s => s.length > 8);
+    
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.querySelector('#lettura .poem-reading');
   target.innerHTML = `
@@ -988,10 +1172,13 @@ function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior:
 const themeBtn = document.getElementById('themeToggle');
 function setTheme(isDark) {
   document.body.classList.toggle('dark', isDark);
-  themeBtn.textContent = isDark ? '☀' : '☾';
+  if (themeBtn) themeBtn.textContent = isDark ? '☀' : '☾';
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
-themeBtn?.addEventListener('click', () => setTheme(!document.body.classList.contains('dark')));
+function toggleTheme() {
+  setTheme(!document.body.classList.contains('dark'));
+}
+themeBtn?.addEventListener('click', toggleTheme);
 setTheme((localStorage.getItem('theme') || 'dark') === 'dark');
 </script>
 </body>
