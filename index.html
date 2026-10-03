@@ -6,7 +6,7 @@
   <title>Riccardo Galasso — Poesie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -829,6 +829,147 @@
       transform: translateY(0);
     }
 
+
+    /* ═══ NUOVE FUNZIONI: toggle tema, zen, copia, casuale, timeline ═══ */
+
+    /* Offset per la nav fissa (96px) quando si scorre verso le sezioni */
+    #archivio, #lettura { scroll-margin-top: 96px; }
+
+    /* Pulsanti-icona condivisi (copia, zen, tema) */
+    .icon-btn {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px;
+      background: none; border: 1px solid var(--line); border-radius: 50%;
+      color: var(--accent); cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .icon-btn:hover, .icon-btn:focus-visible { color: var(--gold); border-color: var(--gold); outline: none; }
+    .icon-btn.done { color: var(--gold); border-color: var(--gold); }
+    /* Tooltip "Copiato!" */
+    .icon-btn[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--ink); color: var(--paper);
+      font-size: .68rem; letter-spacing: .06em; white-space: nowrap;
+      padding: .25rem .6rem; border-radius: 4px;
+      opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+    }
+    .icon-btn.done::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Toggle tema nella nav */
+    #themeToggle { margin-left: 1.25rem; flex-shrink: 0; }
+    @media (max-width: 640px) { #themeToggle { margin-left: .5rem; width: 30px; height: 30px; } }
+
+    /* ── NAV: tenuta responsive (logo e link su una riga, hamburger prima che lo spazio finisca) ── */
+    .nav-logo-text, .nav-links a, .lang-link { white-space: nowrap; }
+    .nav-links { gap: 1.75rem; }
+    @media (max-width: 1100px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (min-width: 1101px) { .mobile-menu { display: none !important; } }
+    @media (max-width: 640px) {
+      nav { padding: .3rem 1rem; }
+      .nav-logo-text { white-space: normal; font-size: 1.05rem; line-height: 1.15; }
+      .language-switcher { gap: .15rem; }
+      .lang-sep { margin: 0 .1rem; }
+    }
+
+    /* Pulsanti estrazione (stesso linguaggio dei filtri, ma in oro) */
+    .rnd-wrap { margin-left: auto; display: flex; gap: .6rem; flex-wrap: wrap; }
+    @media (max-width: 640px) { .rnd-wrap { margin-left: 0; width: 100%; } }
+    .rnd-btn {
+      font-family: 'Inter','Roboto',Arial,sans-serif; font-size: .72rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: .5rem 1.1rem; border: 1.5px solid var(--gold); border-radius: 100px;
+      background: transparent; color: var(--gold); cursor: pointer; transition: all .2s ease;
+    }
+    .rnd-btn:hover { background: var(--gold); color: var(--paper); }
+
+    /* Timeline orizzontale (visibile solo se POEM_YEARS contiene anni) */
+    .timeline {
+      display: none; align-items: center; gap: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      margin: -1.25rem 0 2.5rem; padding: .5rem 0 .75rem;
+    }
+    .timeline.on { display: flex; }
+    .timeline::-webkit-scrollbar { display: none; }
+    .tl-item {
+      position: relative; flex: 0 0 auto; min-width: 84px;
+      padding: 1rem .75rem 0; background: none; border: none; cursor: pointer;
+      font-family: 'Space Mono', monospace; font-size: .72rem; letter-spacing: .08em;
+      color: var(--muted); transition: color .2s;
+    }
+    .tl-item::before { content: ''; position: absolute; top: 4px; left: 0; right: 0; height: 1px; background: var(--line); }
+    .tl-item::after {
+      content: ''; position: absolute; top: 0; left: 50%; width: 9px; height: 9px;
+      transform: translateX(-50%); border-radius: 50%;
+      background: var(--paper); border: 1.5px solid var(--accent-light); transition: all .2s;
+    }
+    .tl-item small { display: block; font-size: .62rem; opacity: .7; }
+    .tl-item:hover, .tl-item.active { color: var(--gold); }
+    .tl-item:focus-visible { outline: 1px dashed var(--gold); outline-offset: 2px; }
+    .tl-item.active::after { background: var(--gold); border-color: var(--gold); transform: translateX(-50%) scale(1.3); }
+    .tl-empty { display: none; font-style: italic; color: var(--muted); padding: 2rem 0; }
+    .tl-empty.on { display: block; }
+    .poem-card.tl-hidden { display: none; }
+
+    /* Copia sulle card */
+    .poem-card .card-copy { position: absolute; top: .9rem; right: .9rem; opacity: 0; width: 30px; height: 30px; font-size: .8rem; z-index: 2; }
+    .poem-card:hover .card-copy, .poem-card .card-copy:focus-visible, .poem-card .card-copy.done { opacity: 1; }
+    @media (hover: none) { .poem-card .card-copy { opacity: .6; } }
+
+    /* Copia per singola strofa */
+    .poem-body p { position: relative; }
+    .stanza-copy { position: absolute; top: 0; right: -2.6rem; width: 28px; height: 28px; font-size: .75rem; opacity: 0; }
+    .poem-body p:hover .stanza-copy, .stanza-copy:focus-visible, .stanza-copy.done { opacity: 1; }
+    @media (hover: none) { .stanza-copy { opacity: .5; } }
+    @media (max-width: 760px) { .stanza-copy { right: 0; top: -1.6rem; } }
+
+    /* Barra strumenti nel modal */
+    .modal-tools { position: absolute; top: 1.25rem; left: 1.5rem; display: flex; gap: .5rem; }
+    .modal-inner .poem-tag { margin-top: 2.2rem; }
+
+    /* Sezione "Una poesia" (estrazione casuale) */
+    .reading-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: 2rem; }
+    .reading-actions .rnd-btn { padding: .4rem .95rem; }
+    .verse-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.4; }
+    .verse-from { margin-top: 1rem; font-family: 'DM Sans', sans-serif; font-size: .8rem; color: var(--muted); }
+    .flash { animation: fadeUp .6s ease; }
+
+    /* ═══ ZEN MODE ═══ */
+    body.zen nav, body.zen footer, body.zen .mobile-menu { display: none; }
+    body.zen .poem-modal { background: var(--paper); backdrop-filter: none; padding: 0; }
+    body.zen .modal-inner {
+      max-width: none; width: 100%; min-height: 100vh; margin: 0; animation: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 5rem 1.5rem 4rem;
+    }
+    body.zen #modalContent { width: 100%; max-width: 36ch; }
+    body.zen .poem-body { font-size: clamp(1.3rem, 3vw, 1.85rem); line-height: 2.1; }
+    body.zen .modal-tools { top: 1rem; opacity: .35; transition: opacity .3s; }
+    body.zen .modal-tools:hover, body.zen .modal-tools:focus-within { opacity: 1; }
+    body.zen .stanza-copy { right: 0; top: -1.6rem; }
+
+    @media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+
+    /* ═══ [MODIFICA] LEGGIBILITÀ in modalità chiara (la dark mode non è toccata) ═══
+       Contrasto sullo sfondo crema, prima → dopo:
+       testi secondari (rame)  4.4 → 6.6  |  grigi (filtri, firma) 2.9 → 6.2  |  oro (lingua attiva) 3.0 → 5.5 */
+    body:not(.dark) {
+      --ink:    #120f0d;   /* testo principale: nero caldo, un filo più profondo */
+      --accent: #6e5444;   /* rame scurito: sottotitoli, etichette, footer */
+      --muted:  #645c52;   /* grigio caldo scurito: filtri, firma, chiusura modale */
+      --gold:   #80600f;   /* oro scurito: lingua attiva, pulsanti "Estrai" */
+    }
+    body:not(.dark) .lang-sep { color: var(--muted); }                 /* separatori "/" delle lingue */
+    /* Garamond 500 su tutto il testo del sito (roman e corsivo). Playfair e DM Sans non hanno il peso 500
+       caricato, quindi titoli, nav e pulsanti restano com'erano; i pesi dichiarati a mano (es. 600, 700) non cambiano. */
+    body:not(.dark) { font-weight: 500; }
+
   </style>
 </head>
 <body class="dark">
@@ -848,10 +989,6 @@
     <a href="#" class="lang-link" data-lang="en">EN</a>
     <span class="lang-sep">/</span>
     <a href="#" class="lang-link" data-lang="es">ES</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="fr">FR</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="de">DE</a>
   </div>
   <ul class="nav-links">
     <li><a href="#chisono" onclick="closeMenu()" data-i18n="nav.chisono">Chi sono</a></li>
@@ -859,6 +996,8 @@
     <li><a href="#lettura" onclick="closeMenu()" data-i18n="nav.lettura">Una Poesia</a></li>
     <li><a href="#contatti" onclick="closeMenu()" data-i18n="nav.contatti">Contatti</a></li>
   </ul>
+  <!-- NUOVO: toggle Dark/Light -->
+  <button class="icon-btn" id="themeToggle" type="button" aria-label="Cambia tema" title="Cambia tema">☾</button>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -936,7 +1075,15 @@
       <button class="filter-btn" data-filter="luoghi" data-i18n="filter.luoghi">Luoghi</button>
       <button class="filter-btn" data-filter="natura" data-i18n="filter.natura">Natura</button>
       <button class="filter-btn" data-filter="tempo" data-i18n="filter.tempo">Tempo</button>
+      <!-- NUOVO: estrazione casuale -->
+      <div class="rnd-wrap">
+        <button class="rnd-btn" type="button" id="rndPoem">✦ Estrai una poesia</button>
+        <button class="rnd-btn" type="button" id="rndVerse">✦ Estrai un verso</button>
+      </div>
     </div>
+
+    <!-- NUOVO: timeline (riempita da JS) -->
+    <div class="timeline" id="timeline" role="tablist" aria-label="Cronologia delle poesie"></div>
 
     <div class="poems-grid reveal" id="poemsGrid">
 
@@ -981,6 +1128,7 @@
       </div>
 
     </div>
+    <p class="tl-empty" id="emptyMsg">Nessuna poesia per questa combinazione di filtri.</p>
   </div>
 </section>
 
@@ -1352,70 +1500,12 @@ function scrollTo(id) {
       "form.email": "Tu correo",
       "form.messaggio": "Tu mensaje",
       "form.submit": "Enviar"
-    },
-    fr: {
-      "nav.chisono": "À propos",
-      "nav.archivio": "Archive",
-      "nav.lettura": "Un Poème",
-      "nav.contatti": "Contact",
-      "hero.title": "Chaque vers<br>est un refuge <em>où</em><br>revenir",
-      "hero.sub": "Seuls les poètes reviennent au lieu où ils n'ont jamais vécu.",
-      "hero.cta": "Lire les poèmes",
-      "hero.scroll": "Défiler",
-      "section.chisono.num": "01 — À propos",
-      "section.chisono.title": "Fragments de voix, dans le silence…",
-      "section.chisono.bio1": "J'écris des poèmes en versets 'libres' pour raconter ma véritable voix ; des émotions qui changent de lieu chaque jour, immergées dans la nature et loin de ce sentiment d'oppression avec lequel le temps me met constamment à l'épreuve.",
-      "section.chisono.bio2": "Je cherche ma véritable voix dans les paroles silencieuses, mon refuge où revenir chaque fois que je veux me sentir 'libre'. Des paroles qui transforment mes pensées en images capables de raconter une histoire : chaque vers en est le protagoniste.",
-      "section.archivio.num": "02 — Archive",
-      "section.archivio.title": "Les poèmes",
-      "filter.all": "Tous",
-      "filter.emozioni": "Émotions",
-      "filter.luoghi": "Lieux",
-      "filter.natura": "Nature",
-      "filter.tempo": "Temps",
-      "section.lettura.num": "03 — Un Poème",
-      "section.lettura.title": "Un poème",
-      "section.lettura.subtitle": "Le poème vedette apparaîtra ici.",
-      "section.contatti.num": "04 — Contact",
-      "section.contatti.desc": "Avez-vous une question, une pensée, ou simplement envie de partager quelque chose ? Écrivez-moi — je réponds à tout le monde.",
-      "form.nome": "Votre nom",
-      "form.email": "Votre email",
-      "form.messaggio": "Votre message",
-      "form.submit": "Envoyer"
-    },
-    de: {
-      "nav.chisono": "Über mich",
-      "nav.archivio": "Archiv",
-      "nav.lettura": "Ein Gedicht",
-      "nav.contatti": "Kontakt",
-      "hero.title": "Jeder Vers<br>ist ein Zufluchtsort <em>zum</em><br>Zurückkehren",
-      "hero.sub": "Nur Dichter kehren an den Ort zurück, an dem sie nie gelebt haben.",
-      "hero.cta": "Die Gedichte lesen",
-      "hero.scroll": "Scrollen",
-      "section.chisono.num": "01 — Über mich",
-      "section.chisono.title": "Stimmenbruchstücke, in der Stille…",
-      "section.chisono.bio1": "Ich schreibe Gedichte in 'freien' Versen, um meine wahre Stimme zu erzählen; Gefühle, die sich jeden Tag ändern, versenkt in der Natur und fern von diesem Unterdrückungsgefühl, mit dem die Zeit mich ständig auf die Probe stellt.",
-      "section.chisono.bio2": "Ich suche meine wahre Stimme in stillen Worten, meinen Zufluchtsort, zu dem ich mich jedes Mal zurückziehe, wenn ich mich 'frei' fühlen möchte. Worte, die meine Gedanken in Bilder verwandeln, die eine Geschichte erzählen können: jeder Vers ist sein Protagonist.",
-      "section.archivio.num": "02 — Archiv",
-      "section.archivio.title": "Die Gedichte",
-      "filter.all": "Alle",
-      "filter.emozioni": "Gefühle",
-      "filter.luoghi": "Orte",
-      "filter.natura": "Natur",
-      "filter.tempo": "Zeit",
-      "section.lettura.num": "03 — Ein Gedicht",
-      "section.lettura.title": "Ein Gedicht",
-      "section.lettura.subtitle": "Das vorgestellte Gedicht wird hier angezeigt.",
-      "section.contatti.num": "04 — Kontakt",
-      "section.contatti.desc": "Haben Sie eine Frage, einen Gedanken oder möchten einfach etwas teilen? Schreiben Sie mir — ich antworte jedem.",
-      "form.nome": "Ihr Name",
-      "form.email": "Ihre E-Mail",
-      "form.messaggio": "Ihre Nachricht",
-      "form.submit": "Senden"
     }
   };
 
-  let currentLanguage = localStorage.getItem('language') || 'it';
+  // [MODIFICA] se il visitatore aveva salvato FR/DE (rimosse), si torna all'italiano
+  let currentLanguage = localStorage.getItem('language');
+  if (!['it', 'en', 'es'].includes(currentLanguage)) currentLanguage = 'it';
 
   function setLanguage(lang) {
     if (!translations[lang]) return;
@@ -1462,6 +1552,214 @@ function scrollTo(id) {
   // Carica la lingua salvata al caricamento
   setLanguage(currentLanguage);
 
+</script>
+
+<script>
+// ═══ NUOVE FUNZIONI: tema, zen, copia, estrazione casuale, timeline ═══
+(function () {
+  'use strict';
+
+  /* ⚠ COMPILA: anno di composizione per ogni id di POEMS (null = nessun anno).
+     Finché sono tutti null la timeline resta nascosta. */
+  const POEM_YEARS = {
+    'rondine': null,
+    'silenzio-occhi': null,
+    'miracoli-amore': null,
+    'principio-attesa': null
+  };
+
+  /* Etichette UI nelle 5 lingue (le poesie non si traducono mai) */
+  const L = {
+    it: { copied: 'Copiato!', empty: 'Nessuna poesia per questa combinazione di filtri.', again: '✦ Estrai ancora', zen: 'Zen', whole: 'Leggi la poesia intera', copy: 'Copia', from: 'da' },
+    en: { copied: 'Copied!', empty: 'No poems match these filters.', again: '✦ Draw again', zen: 'Zen', whole: 'Read the full poem', copy: 'Copy', from: 'from' },
+    es: { copied: '¡Copiado!', empty: 'Ningún poema con estos filtros.', again: '✦ Sacar otro', zen: 'Zen', whole: 'Leer el poema completo', copy: 'Copiar', from: 'de' }
+  };
+  const t = k => (L[typeof currentLanguage !== 'undefined' ? currentLanguage : 'it'] || L.it)[k];
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const smooth = () => (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth';
+  const store = {
+    get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  /* ───────── 1. DARK / LIGHT (persistente) ───────── */
+  const themeBtn = $('#themeToggle');
+  function applyTheme(dark) {
+    document.body.classList.toggle('dark', dark);
+    if (themeBtn) themeBtn.textContent = dark ? '☀' : '☾';
+    $$('.theme-mini').forEach(b => (b.textContent = dark ? '☀' : '☾'));
+  }
+  function toggleTheme() {
+    const dark = !document.body.classList.contains('dark');
+    applyTheme(dark);
+    store.set('theme', dark ? 'dark' : 'light');
+  }
+  // Default = chiaro (com'è ora). Per partire dal tema del dispositivo sostituisci 'light' con
+  // (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  applyTheme((store.get('theme') || 'light') === 'dark');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+  /* ───────── utilità testo ───────── */
+  function poemText(id) {
+    const p = POEMS[id]; if (!p) return '';
+    const d = document.createElement('div');
+    d.innerHTML = p.body.replace(/\s*\n\s*/g, ' ').replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>/gi, '\n\n');
+    const body = d.textContent.split('\n').map(s => s.trim()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+    return p.title + '\n\n' + body + '\n\n— ' + (p.note || 'Riccardo Galasso');
+  }
+  function verses(id) {
+    return poemText(id).split('\n').slice(2, -2)
+      .map(s => s.replace(/^["“”«»]+|["“”«»]+$/g, '').trim()).filter(s => s.length > 12);
+  }
+  const idOfCard = c => ((c.getAttribute('onclick') || '').match(/'([^']+)'/) || [])[1];
+
+  /* ───────── 3. COPIA NEGLI APPUNTI ───────── */
+  async function copyText(text, btn) {
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) { // fallback per contesti non sicuri o browser datati
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+    }
+    if (!btn) return;
+    const old = btn.textContent;
+    btn.textContent = '✓'; btn.dataset.tip = t('copied'); btn.classList.add('done');
+    setTimeout(() => { btn.textContent = old; btn.classList.remove('done'); }, 1600);
+  }
+  function makeBtn(cls, label, icon, handler) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'icon-btn ' + cls; b.textContent = icon;
+    b.setAttribute('aria-label', label); b.title = label;
+    b.addEventListener('click', e => { e.stopPropagation(); handler(b); });
+    return b;
+  }
+  // pulsante su ogni card
+  $$('.poem-card').forEach(card => {
+    const id = idOfCard(card); if (!id) return;
+    card.appendChild(makeBtn('card-copy', t('copy'), '⧉', b => copyText(poemText(id), b)));
+  });
+  // pulsante per ogni strofa (modal e sezione "Una poesia")
+  function addStanzaCopy(root) {
+    $$('.poem-body p', root).forEach(p => {
+      p.appendChild(makeBtn('stanza-copy', t('copy'), '⧉', btn => {
+        const clone = p.cloneNode(true); const x = $('.stanza-copy', clone); if (x) x.remove();
+        const d = document.createElement('div');
+        d.innerHTML = clone.innerHTML.replace(/\s*\n\s*/g, ' ').replace(/<br\s*\/?>/gi, '\n');
+        copyText(d.textContent.split('\n').map(s => s.trim()).join('\n').trim(), btn);
+      }));
+    });
+  }
+
+  /* ───────── 2. ZEN MODE ───────── */
+  function enterZen() {
+    document.body.classList.add('zen');
+    const el = document.documentElement;
+    if (el.requestFullscreen) { try { el.requestFullscreen().catch(() => {}); } catch (e) {} } // facoltativo
+  }
+  function exitZen() {
+    document.body.classList.remove('zen');
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+  }
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) document.body.classList.remove('zen'); });
+  // 1° Esc esce dallo Zen, 2° Esc chiude il modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('zen')) { e.stopImmediatePropagation(); exitZen(); }
+  }, true);
+
+  // Estende openPoem / closePoem senza modificare le originali
+  let currentId = null;
+  const _open = window.openPoem, _close = window.closePoem;
+  window.openPoem = function (id) {
+    _open(id); currentId = id;
+    const inner = $('#modalInner'); const old = $('.modal-tools', inner); if (old) old.remove();
+    const tools = document.createElement('div'); tools.className = 'modal-tools';
+    tools.append(
+      makeBtn('', t('copy'), '⧉', b => copyText(poemText(currentId), b)),
+      makeBtn('', 'Zen', '◱', () => (document.body.classList.contains('zen') ? exitZen() : enterZen())),
+      makeBtn('theme-mini', 'Dark / Light', document.body.classList.contains('dark') ? '☀' : '☾', toggleTheme)
+    );
+    inner.prepend(tools);
+    addStanzaCopy($('#modalContent'));
+  };
+  window.closePoem = function () { exitZen(); _close(); };
+
+  /* ───────── 4. ESTRAZIONE CASUALE ───────── */
+  const reading = $('#lettura .poem-reading');
+  let lastId = null;
+  function pickId() {
+    const ids = Object.keys(POEMS);
+    if (ids.length === 1) return ids[0];
+    let id; do { id = ids[Math.floor(Math.random() * ids.length)]; } while (id === lastId);
+    return (lastId = id);
+  }
+  function showInReading(mode) {
+    if (!reading) return;
+    const id = pickId(), p = POEMS[id];
+    reading.innerHTML = '';
+    const box = document.createElement('div'); box.className = 'flash';
+    if (mode === 'verse') {
+      const vs = verses(id), v = vs[Math.floor(Math.random() * vs.length)] || p.title;
+      box.innerHTML = '<div class="verse-quote"></div><div class="verse-from"></div>';
+      $('.verse-quote', box).textContent = '“' + v + '”';
+      $('.verse-from', box).textContent = '— ' + t('from') + ' «' + p.title + '»';
+    } else {
+      box.innerHTML = '<div class="poem-tag"></div><h3 class="poem-reading-title" style="font-size:clamp(1.7rem,4vw,2.5rem)"></h3>' +
+        '<div class="poem-body"></div>' + (p.note ? '<div class="poem-note"></div>' : '');
+      $('.poem-tag', box).textContent = p.tag; $('.poem-reading-title', box).textContent = p.title;
+      $('.poem-body', box).innerHTML = p.body; if (p.note) $('.poem-note', box).textContent = p.note;
+      addStanzaCopy(box);
+    }
+    const act = document.createElement('div'); act.className = 'reading-actions';
+    const mk = (txt, fn) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'rnd-btn'; b.textContent = txt; b.onclick = fn; return b; };
+    act.append(
+      mk(t('again'), () => showInReading(mode)),
+      mk(mode === 'verse' ? t('whole') : t('zen'), () => { window.openPoem(id); if (mode !== 'verse') enterZen(); }),
+      makeBtn('', t('copy'), '⧉', b => copyText(mode === 'verse' ? $('.verse-quote', box).textContent : poemText(id), b))
+    );
+    box.appendChild(act); reading.appendChild(box);
+    reading.classList.add('visible'); // la sezione è un .reveal: garantisce che sia visibile
+    $('#lettura').scrollIntoView({ behavior: smooth(), block: 'start' });
+  }
+  if ($('#rndPoem')) $('#rndPoem').addEventListener('click', () => showInReading('poem'));
+  if ($('#rndVerse')) $('#rndVerse').addEventListener('click', () => showInReading('verse'));
+
+  /* ───────── 5. TIMELINE PER ANNO ───────── */
+  const tl = $('#timeline'), empty = $('#emptyMsg');
+  function updateEmpty() {
+    const any = $$('.poem-card').some(c => !c.classList.contains('hidden') && !c.classList.contains('tl-hidden'));
+    empty.classList.toggle('on', !any); empty.textContent = t('empty');
+  }
+  function buildTimeline() {
+    const byYear = {};
+    $$('.poem-card').forEach(c => {
+      const y = POEM_YEARS[idOfCard(c)]; if (y) (byYear[y] = byYear[y] || []).push(c);
+    });
+    const years = Object.keys(byYear).sort();
+    if (!years.length) return; // nessun anno compilato: timeline nascosta
+    tl.classList.add('on'); tl.innerHTML = '';
+    const add = (key, label, n) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'tl-item' + (key === 'all' ? ' active' : '');
+      b.dataset.year = key; b.setAttribute('role', 'tab');
+      b.textContent = label;
+      if (n) { const s = document.createElement('small'); s.textContent = n; b.appendChild(s); }
+      b.addEventListener('click', () => {
+        $$('.tl-item', tl).forEach(x => x.classList.toggle('active', x === b));
+        $$('.poem-card').forEach(c => c.classList.toggle('tl-hidden', key !== 'all' && String(POEM_YEARS[idOfCard(c)]) !== key));
+        updateEmpty();
+        b.scrollIntoView({ behavior: smooth(), inline: 'center', block: 'nearest' });
+      });
+      tl.appendChild(b);
+    };
+    add('all', '∞', 0); years.forEach(y => add(y, y, byYear[y].length));
+  }
+  buildTimeline();
+  // il filtro per tag (esistente) può svuotare la griglia: ricalcola il messaggio dopo il suo click
+  $$('.filter-btn').forEach(b => b.addEventListener('click', () => setTimeout(updateEmpty, 0)));
+})();
 </script>
 </body>
 </html>
