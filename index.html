@@ -43,7 +43,7 @@
       background-size: 200px;
     }
 
-    /* Typo */
+    /* Typography */
     .font-serif { font-family: 'Playfair Display', Georgia, serif; }
     .font-body  { font-family: 'EB Garamond', Georgia, serif; }
     .font-sans  { font-family: 'DM Sans', sans-serif; }
@@ -459,7 +459,14 @@
       cursor: pointer; color: var(--muted); transition: color 0.2s;
     }
     .modal-close:hover { color: var(--ink); }
-    .modal-tools { position: absolute; top: 1.35rem; left: 1.5rem; display: flex; gap: 0.5rem; }
+    .modal-tools {
+      position: absolute;
+      top: 1.35rem;
+      left: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
 
     /* Contatti */
     #contatti { background: var(--warm); }
@@ -740,7 +747,11 @@
 <!-- Modale Lettura -->
 <div class="poem-modal" id="poemModal" onclick="closeModal(event)">
   <div class="modal-inner" id="modalInner">
-    <div class="modal-tools" id="modalTools"></div>
+    <div class="modal-tools">
+      <button class="icon-btn" type="button" id="copyPoemBtn" aria-label="Copia poesia" title="Copia poesia">⧉</button>
+      <button class="icon-btn" type="button" id="zenBtn" aria-label="Modalità Zen" title="Modalità Zen">◱</button>
+      <button class="icon-btn" type="button" id="themeModalBtn" aria-label="Cambia tema" title="Cambia tema">☾</button>
+    </div>
     <button class="modal-close" onclick="closePoem()" aria-label="Chiudi">✕</button>
     <div id="modalContent"></div>
   </div>
@@ -985,59 +996,18 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
-// Modale e Toolbar (Copia, Zen, Dark)
+// Modale Lettura & Controlli
 let activePoemId = null;
-
-function toggleZen() {
-  document.body.classList.toggle('zen');
-}
 
 function openPoem(id) {
   const p = POEMS[id];
   if (!p) return;
   activePoemId = id;
 
-  // Barra strumenti ripristinata: Copia, Zen, Tema
-  const tools = document.getElementById('modalTools');
-  tools.innerHTML = '';
-
-  const copyBtn = document.createElement('button');
-  copyBtn.className = 'icon-btn';
-  copyBtn.type = 'button';
-  copyBtn.textContent = '⧉';
-  copyBtn.title = 'Copia poesia';
-  copyBtn.setAttribute('aria-label', 'Copia poesia');
-  copyBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    copyText(getPoemPlainText(activePoemId), copyBtn);
-  });
-
-  const zenBtn = document.createElement('button');
-  zenBtn.className = 'icon-btn';
-  zenBtn.type = 'button';
-  zenBtn.textContent = '◱';
-  zenBtn.title = 'Modalità Zen';
-  zenBtn.setAttribute('aria-label', 'Modalità Zen');
-  zenBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleZen();
-  });
-
-  const modeBtn = document.createElement('button');
-  modeBtn.className = 'icon-btn';
-  modeBtn.type = 'button';
-  modeBtn.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
-  modeBtn.title = 'Cambia tema';
-  modeBtn.setAttribute('aria-label', 'Cambia tema');
-  modeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleTheme();
-    modeBtn.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
-  });
-
-  tools.appendChild(copyBtn);
-  tools.appendChild(zenBtn);
-  tools.appendChild(modeBtn);
+  const themeModalBtn = document.getElementById('themeModalBtn');
+  if (themeModalBtn) {
+    themeModalBtn.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
+  }
 
   document.getElementById('modalContent').innerHTML = `
     <div class="poem-tag">${p.tag}</div>
@@ -1055,9 +1025,11 @@ function closePoem() {
   document.body.style.overflow = '';
   document.body.classList.remove('zen');
 }
+
 function closeModal(e) {
   if (e.target === document.getElementById('poemModal')) closePoem();
 }
+
 document.addEventListener('keydown', e => { 
   if (e.key === 'Escape') {
     if (document.body.classList.contains('zen')) {
@@ -1066,6 +1038,23 @@ document.addEventListener('keydown', e => {
       closePoem();
     }
   }
+});
+
+// Listener per i pulsanti della modale
+document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (activePoemId) copyText(getPoemPlainText(activePoemId), e.currentTarget);
+});
+
+document.getElementById('zenBtn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.body.classList.toggle('zen');
+});
+
+document.getElementById('themeModalBtn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleTheme();
+  e.currentTarget.textContent = document.body.classList.contains('dark') ? '☀' : '☾';
 });
 
 // Filtri Griglia
@@ -1098,7 +1087,6 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
   
-  // Taglia correttamente su <br> e </p> per evitare parole attaccate
   const cleanBody = p.body
     .replace(/<br\s*[\/]?>/gi, '\n')
     .replace(/<\/p>/gi, '\n');
@@ -1173,6 +1161,8 @@ const themeBtn = document.getElementById('themeToggle');
 function setTheme(isDark) {
   document.body.classList.toggle('dark', isDark);
   if (themeBtn) themeBtn.textContent = isDark ? '☀' : '☾';
+  const themeModalBtn = document.getElementById('themeModalBtn');
+  if (themeModalBtn) themeModalBtn.textContent = isDark ? '☀' : '☾';
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 function toggleTheme() {
