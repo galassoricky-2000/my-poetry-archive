@@ -508,7 +508,7 @@
     .poem-card.hidden { display: none; }
 
     /* =====================================================
-       Sezione 03 — In evidenza: Ricalibrata con Armonia
+       Sezione 03 — In evidenza: Calibrata a 1200px
        ===================================================== */
     #lettura {
       padding-bottom: 5.5rem;
@@ -519,9 +519,10 @@
     .diagonale-header-allineata {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem; /* Distanza verticale ricalibrata per unire le frasi */
+      gap: 1.6rem;
       width: 100%;
-      margin: 0;
+      max-width: 1200px; /* Vincolo che impedisce alle scritte di disperdersi */
+      margin: 0;         /* Mantiene l'allineamento con il margine sinistro */
     }
 
     .riga-alto-allineata {
@@ -530,7 +531,7 @@
     }
 
     .riga-basso-allineata {
-      align-self: flex-end;
+      align-self: flex-end; /* Si arresta ordinatamente al confine dei 1200px */
       text-align: right;
       display: flex;
       flex-direction: column;
@@ -582,7 +583,7 @@
       transform: translateY(-1px);
     }
 
-    /* Verso estratto: margine riavvicinato al flusso visivo */
+    /* Verso estratto */
     .poem-reading {
       max-width: 760px;
       margin: 2.8rem auto 0;
@@ -802,7 +803,7 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      .diagonale-header-allineata { gap: 1.8rem; }
+      .diagonale-header-allineata { gap: 2.2rem; }
       .riga-basso-allineata {
         align-self: flex-start;
         text-align: left;
@@ -960,18 +961,18 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza: Ricalibrata -->
+<!-- 03 — In evidenza: Ricalibrata a 1200px -->
 <section id="lettura">
   <div class="section-pad">
     <div class="diagonale-header-allineata reveal">
-      <!-- 1. In alto a sinistra: filo con il bordo sinistro di 02 — Archivio -->
+      <!-- 1. In alto a sinistra: allineato con Sezione 02 -->
       <div class="riga-alto-allineata">
         <div class="section-num">03 — In evidenza</div>
         <h2 class="titolo-scalino">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- 2. In basso a destra: chiusura a scalino -->
+      <!-- 2. In basso a destra: arresto morbido entro 1200px -->
       <div class="riga-basso-allineata">
         <h2 class="titolo-scalino">...per ritrovare il silenzio.</h2>
         <p class="scalino-sub">Un piccolo rifugio nel rumore del mondo.</p>
@@ -1386,4 +1387,3 @@ setTheme((localStorage.getItem('theme') || 'dark') === 'dark');
 </script>
 </body>
 </html>
-
