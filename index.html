@@ -80,7 +80,7 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG: Posizionamento assoluto e visibilità garantita su qualsiasi schermo */
+    /* Monogramma centrale RG: Centratura assoluta e dinamicità senza scatti */
     .logo-container {
       position: absolute;
       left: 50%;
@@ -95,7 +95,7 @@
 
     .logo-rg-dinamico {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 32px;
+      font-size: 33px;
       font-weight: 700;
       letter-spacing: -3px;
       line-height: 1;
@@ -104,19 +104,19 @@
       display: inline-block;
       user-select: none;
       
-      /* Light Mode: bronzo scuro con onda oro caldo */
+      /* Light Mode: bronzo nobile con onda oro calda senza giunture */
       background: linear-gradient(
-        120deg,
-        #3d2714 0%,
-        #966c1b 25%,
-        #d4a849 50%,
-        #3d2714 75%,
-        #966c1b 100%
+        90deg,
+        #4a3219 0%,
+        #966c1b 30%,
+        #d8a84e 50%,
+        #966c1b 70%,
+        #4a3219 100%
       );
-      background-size: 250% auto;
+      background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: scorriOndaOro 3.5s linear infinite;
+      animation: ondaFluidaSenzaScatti 3.8s ease-in-out infinite alternate;
       transition: transform 0.25s ease;
     }
 
@@ -124,28 +124,38 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Puro brillante con riflesso bianco/luce */
+    /* Dark Mode: Oro Vivo profondo, ambrato e bagliore continuo senza tagli */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
-        120deg,
-        #c99738 0%,
-        #ffd257 20%,
-        #ffffff 45%,
-        #f3b333 70%,
-        #c99738 100%
+        90deg,
+        #bf8d2f 0%,
+        #e5a932 25%,
+        #ffe48a 50%,
+        #f2b236 75%,
+        #bf8d2f 100%
       );
-      background-size: 250% auto;
+      background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 6px rgba(245, 179, 51, 0.45));
+      animation: ondaFluidaSenzaScatti 3.8s ease-in-out infinite alternate, respiroAlone 3.8s ease-in-out infinite alternate;
     }
 
-    @keyframes scorriOndaOro {
+    /* Movimento continuo sinusoidale: viaggia da 0% a 100% e torna indietro fluidamente */
+    @keyframes ondaFluidaSenzaScatti {
       0% {
-        background-position: 0% center;
+        background-position: 0% 50%;
       }
       100% {
-        background-position: 250% center;
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes respiroAlone {
+      0% {
+        filter: drop-shadow(0 0 3px rgba(229, 169, 50, 0.3));
+      }
+      100% {
+        filter: drop-shadow(0 0 10px rgba(255, 228, 138, 0.7)) drop-shadow(0 0 16px rgba(191, 141, 47, 0.4));
       }
     }
 
@@ -786,15 +796,15 @@
 
 <!-- Navigazione Superiore -->
 <nav id="navbar">
-  <!-- 1. Nome a sinistra -->
+  <!-- 1. Nome Autore a sinistra -->
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- 2. Monogramma RG dinamico al centro: HTML nativo + Gradiente Oro Puro continuo -->
+  <!-- 2. Monogramma RG centrale: Moto continuo armonico senza interruzioni -->
   <div class="logo-container">
     <a href="#hero" class="logo-rg-dinamico" onclick="scrollToId('hero'); return false;" aria-label="Logo Riccardo Galasso">RG</a>
   </div>
 
-  <!-- 3. Navigazione a destra -->
+  <!-- 3. Navigazione e controlli a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
       <li><a href="#chisono">Chi sono</a></li>
