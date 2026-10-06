@@ -80,7 +80,7 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG: Centratura assoluta e dinamicità senza scatti */
+    /* Monogramma centrale RG: Centratura assoluta e flusso continuo infinito */
     .logo-container {
       position: absolute;
       left: 50%;
@@ -103,20 +103,25 @@
       cursor: pointer;
       display: inline-block;
       user-select: none;
+      will-change: background-position;
       
-      /* Light Mode: bronzo nobile con onda oro calda senza giunture */
+      /* Light Mode: sequenza modulare a loop continuo (0% si connette esattamente alla fine) */
       background: linear-gradient(
         90deg,
         #4a3219 0%,
-        #966c1b 30%,
-        #d8a84e 50%,
-        #966c1b 70%,
+        #966c1b 15%,
+        #d8a84e 25%,
+        #966c1b 35%,
+        #4a3219 50%,
+        #966c1b 65%,
+        #d8a84e 75%,
+        #966c1b 85%,
         #4a3219 100%
       );
-      background-size: 200% 100%;
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: ondaFluidaSenzaScatti 3.8s ease-in-out infinite alternate;
+      animation: flussoContinuoInfinito 6s linear infinite;
       transition: transform 0.25s ease;
     }
 
@@ -124,38 +129,35 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Vivo profondo, ambrato e bagliore continuo senza tagli */
+    /* Dark Mode: Oro Vivo puro in ciclo infinito senza giunzioni né pause */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
         90deg,
         #bf8d2f 0%,
-        #e5a932 25%,
-        #ffe48a 50%,
-        #f2b236 75%,
+        #f2b236 15%,
+        #ffffff 25%,
+        #e5a932 35%,
+        #bf8d2f 50%,
+        #f2b236 65%,
+        #ffffff 75%,
+        #e5a932 85%,
         #bf8d2f 100%
       );
-      background-size: 200% 100%;
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: ondaFluidaSenzaScatti 3.8s ease-in-out infinite alternate, respiroAlone 3.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 6px rgba(245, 179, 51, 0.45));
+      animation: flussoContinuoInfinito 5.5s linear infinite;
     }
 
-    /* Movimento continuo sinusoidale: viaggia da 0% a 100% e torna indietro fluidamente */
-    @keyframes ondaFluidaSenzaScatti {
+    /* Il gradiente scorre esattamente della metà della sua ampiezza (100%), 
+       ritrovandosi perfettamente identico al frame iniziale: zero scatti, zero stop */
+    @keyframes flussoContinuoInfinito {
       0% {
-        background-position: 0% 50%;
+        background-position: 0% 0%;
       }
       100% {
-        background-position: 100% 50%;
-      }
-    }
-
-    @keyframes respiroAlone {
-      0% {
-        filter: drop-shadow(0 0 3px rgba(229, 169, 50, 0.3));
-      }
-      100% {
-        filter: drop-shadow(0 0 10px rgba(255, 228, 138, 0.7)) drop-shadow(0 0 16px rgba(191, 141, 47, 0.4));
+        background-position: -200% 0%;
       }
     }
 
@@ -799,7 +801,7 @@
   <!-- 1. Nome Autore a sinistra -->
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- 2. Monogramma RG centrale: Moto continuo armonico senza interruzioni -->
+  <!-- 2. Monogramma RG centrale: Flusso lineare continuo senza interruzioni né scatti -->
   <div class="logo-container">
     <a href="#hero" class="logo-rg-dinamico" onclick="scrollToId('hero'); return false;" aria-label="Logo Riccardo Galasso">RG</a>
   </div>
