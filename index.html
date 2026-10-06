@@ -129,7 +129,7 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Vivo puro in ciclo continuo senza giunzioni né pause */
+    /* Dark Mode: Oro Vivo puro in ciclo infinito senza giunzioni né pause */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
         90deg,
@@ -511,19 +511,19 @@
     .poem-card.hidden { display: none; }
 
     /* =====================================================
-       Sezione 03 — In evidenza (Composizione a Scalino)
+       Sezione 03 — In evidenza (Diagonale Ampia a Tre Momenti)
        ===================================================== */
     #lettura {
       padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
     }
 
-    .diagonale-header {
+    .diagonale-ampia {
       display: flex;
       flex-direction: column;
-      gap: 3.5rem; /* Respiro verticale che stacca i due momenti */
+      gap: 2.8rem;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1400px; /* Massima apertura di respiro su schermi larghi */
       margin: 0 auto;
     }
 
@@ -532,37 +532,43 @@
       text-align: left;
     }
 
+    .blocco-centro {
+      align-self: center;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+
+    .scalino-sub-centro {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+      color: var(--gold);
+      font-style: italic;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.35rem;
+    }
+
+    .reading-actions-centro {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .riga-basso {
       align-self: flex-end;
       text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
     }
 
-    /* Stesse identiche dimensioni, peso e colore sia a sinistra che a destra */
+    /* Stessa identica dimensione, font e colore per entrambi i titoli guida */
     .titolo-scalino {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.15;
       color: var(--ink);
-    }
-
-    .scalino-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--gold);
-      font-style: italic;
-      margin-top: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .reading-actions {
-      display: flex;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     .rnd-btn {
@@ -828,15 +834,20 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      /* Su schermi piccoli lo scalino si ricompatta ordinatamente a sinistra */
-      .diagonale-header { gap: 2.2rem; }
+      /* Su schermi piccoli la composizione si riallinea a colonna ordinata */
+      .diagonale-ampia { gap: 2rem; }
       .riga-basso {
         align-self: flex-start;
         text-align: left;
-        align-items: flex-start;
       }
-      .reading-actions { 
-        width: 100%; 
+      .blocco-centro {
+        align-self: flex-start;
+        text-align: left;
+        align-items: flex-start;
+        margin: 0;
+      }
+      .reading-actions-centro {
+        width: 100%;
         justify-content: flex-start;
       }
       .rnd-btn { flex: 1; text-align: center; }
@@ -987,10 +998,10 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Composizione Diagonale a Scalino dal tuo Taccuino) -->
+<!-- 03 — In evidenza (Diagonale Ampia a Tre Momenti) -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="diagonale-header reveal">
+    <div class="diagonale-ampia reveal">
       <!-- 1. In alto a sinistra -->
       <div class="riga-alto">
         <div class="section-num">03 — In evidenza</div>
@@ -998,14 +1009,18 @@
         <div class="divider"></div>
       </div>
 
-      <!-- 2. In basso a destra -->
-      <div class="riga-basso">
-        <h2 class="titolo-scalino">...oppure una poesia intera.</h2>
-        <p class="scalino-sub">Lascia che sia il tuo cuore a scegliere per te.</p>
-        <div class="reading-actions">
+      <!-- 2. Al centro: l'invito d'oro e le azioni -->
+      <div class="blocco-centro">
+        <p class="scalino-sub-centro">Lascia che sia il tuo cuore a scegliere per te.</p>
+        <div class="reading-actions-centro">
           <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
           <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
         </div>
+      </div>
+
+      <!-- 3. In basso a destra -->
+      <div class="riga-basso">
+        <h2 class="titolo-scalino">...oppure una poesia intera.</h2>
       </div>
     </div>
 
