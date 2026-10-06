@@ -80,10 +80,27 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
+    /* Logo posizionato esattamente al centro della barra */
     .nav-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
-      gap: 2rem;
+      justify-content: center;
+      pointer-events: auto;
+    }
+    .nav-center-logo {
+      height: 44px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-center-logo:hover {
+      opacity: 0.8;
+      transform: scale(1.04);
     }
 
     .nav-links {
@@ -111,36 +128,6 @@
       display: flex;
       align-items: center;
       gap: 0.85rem;
-    }
-
-    /* Language Switcher Desktop */
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .lang-link {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
-      padding: 0.25rem 0.2rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.25s ease, border-color 0.25s ease;
-      white-space: nowrap;
-    }
-    .lang-link:hover, .lang-link.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
-    .lang-sep {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      color: var(--accent-light);
-      user-select: none;
     }
 
     /* Icon button standard */
@@ -218,7 +205,7 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* Mobile menu a comparsa */
+    /* Mobile menu */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -241,18 +228,6 @@
       color: var(--ink);
       text-decoration: none;
       padding: 0.3rem 0;
-    }
-    .mobile-menu .language-switcher-mobile {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding-bottom: 1.25rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid var(--line);
-    }
-    .mobile-menu .language-switcher-mobile .lang-link {
-      font-size: 0.85rem;
-      padding: 0.3rem 0.5rem;
     }
 
     /* Layout sezioni */
@@ -346,7 +321,6 @@
       color: var(--gold);
       border-color: var(--gold);
     }
-
     .hero-scroll {
       position: absolute;
       bottom: 2rem;
@@ -430,34 +404,6 @@
       border-color: var(--ink);
     }
 
-    /* Sezione 03: Azioni */
-    .reading-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-    .rnd-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.65rem 1.35rem;
-      border: 1.5px solid var(--gold);
-      border-radius: 100px;
-      background: transparent;
-      color: var(--gold);
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .rnd-btn:hover {
-      background: var(--gold);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
     .poems-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -506,35 +452,85 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione Lettura / In evidenza */
+    /* =========================================================
+       SEZIONE 03: SCALETTA A CASCATA (DA SINISTRA VERSO DESTRA)
+       ========================================================= */
     #lettura {
-      padding-bottom: 4.5rem;
+      padding-top: 5rem;
+      padding-bottom: 6rem;
       scroll-margin-top: var(--nav-h);
     }
-    .poem-reading { max-width: 640px; }
-    .poem-reading-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400;
-      line-height: 1.15;
-      margin-bottom: 0.6rem;
+    .scaletta-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    /* 1. Primo gradino in alto a sinistra */
+    .scaletta-step-1 {
+      align-self: flex-start;
+      max-width: 540px;
+    }
+    .scaletta-step-1 .section-title {
       white-space: nowrap;
     }
-    .poem-body {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
-      line-height: 2.2;
-      color: var(--ink);
+
+    /* 2. Secondo gradino: Centro (Pulsante e Verso estratto) */
+    .scaletta-step-2 {
+      align-self: center;
+      width: 100%;
+      max-width: 640px;
+      margin: 2rem 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .poem-body p { margin-bottom: 1.5rem; position: relative; }
-    .poem-note {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--line);
-      font-size: 1.05rem;
-      color: var(--muted);
+    .rnd-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.65rem 1.45rem;
+      border: 1.5px solid var(--gold);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .rnd-btn:hover {
+      background: var(--gold);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .reading-output {
+      width: 100%;
+      margin-top: 1.85rem;
+      min-height: 44px;
+    }
+
+    /* 3. Terzo gradino in basso a destra */
+    .scaletta-step-3 {
+      align-self: flex-end;
+      text-align: right;
+      max-width: 520px;
+    }
+    .step-3-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .step-3-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
       font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.02em;
     }
 
     /* Modale lettura */
@@ -724,17 +720,20 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-    }
-
-    @media (min-width: 769px) {
-      .language-switcher-mobile { display: none !important; }
+      .scaletta-step-1, .scaletta-step-2, .scaletta-step-3 {
+        align-self: flex-start;
+        text-align: left;
+        max-width: 100%;
+      }
+      .scaletta-step-1 .section-title { white-space: normal; }
+      .scaletta-step-2 { align-items: flex-start; text-align: left; margin: 1.75rem 0; }
+      .nav-center { display: none; }
     }
 
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
       .nav-logo-text { font-size: 1.15rem; }
-      nav .language-switcher { display: none; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -752,9 +751,6 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
       
-      .reading-actions { width: 100%; }
-      .rnd-btn { flex: 1; text-align: center; }
-      
       footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -766,17 +762,15 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione Superiore -->
+<!-- Navigazione: Nome a sinistra, Logo al centro, Voci a destra -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- Lingue visibili su Desktop/Tablet al centro -->
-  <div class="language-switcher">
-    <a href="#" class="lang-link active" data-lang="it">IT</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="en">EN</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="es">ES</a>
+  <!-- LOGO CENTRALE AL POSTO DI IT / EN / ES -->
+  <div class="nav-center">
+    <a href="#hero" onclick="scrollToId('hero'); return false;" aria-label="Home">
+      <img src="logo.png" alt="Logo Riccardo Galasso" class="nav-center-logo" onerror="this.style.display='none'">
+    </a>
   </div>
 
   <!-- Gruppo azioni a destra -->
@@ -796,13 +790,6 @@
 
 <!-- Menu a tendina per Mobile -->
 <div class="mobile-menu" id="mobileMenu">
-  <div class="language-switcher-mobile">
-    <a href="#" class="lang-link active" data-lang="it">IT</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="en">EN</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="es">ES</a>
-  </div>
   <a href="#chisono" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.chisono">Chi sono</a>
   <a href="#archivio" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.archivio">Archivio</a>
   <a href="#lettura" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.lettura">In evidenza</a>
@@ -913,26 +900,31 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza -->
+<!-- 03 — In evidenza: SCALETTA DA SINISTRA A DESTRA -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="section-header reveal">
-      <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
-      <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
-      <div class="divider"></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
-        ...oppure una poesia intera. Lascia scegliere al caso.
-      </p>
+    <div class="scaletta-container reveal">
       
-      <!-- Pulsanti interattivi -->
-      <div class="reading-actions">
-        <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
-        <button class="rnd-btn" type="button" id="rndPoem" data-i18n="btn.rndPoem">Estrai una poesia</button>
+      <!-- Scalino 1: Sinistra in alto -->
+      <div class="scaletta-step-1">
+        <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
+        <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
+        <div class="divider"></div>
       </div>
-    </div>
 
-    <!-- Contenitore pulito: nessun testo segnaposto di istruzioni -->
-    <div class="poem-reading reveal" id="readingContainer"></div>
+      <!-- Scalino 2: Centro (Azione ed estrazione) -->
+      <div class="scaletta-step-2">
+        <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
+        <div class="reading-output" id="readingContainer"></div>
+      </div>
+
+      <!-- Scalino 3: Destra in basso -->
+      <div class="scaletta-step-3">
+        <h3 class="step-3-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
+        <p class="step-3-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1081,7 +1073,7 @@ const POEMS = {
   }
 };
 
-// Traduzioni multilingua sincronizzate
+// Sincronizzazione testi
 const translations = {
   it: {
     "nav.chisono": "Chi sono", "nav.archivio": "Archivio", "nav.lettura": "In evidenza", "nav.contatti": "Contatti",
@@ -1094,48 +1086,13 @@ const translations = {
     "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
     "section.lettura.num": "03 — In evidenza",
     "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subtitle": "...oppure una poesia intera. Lascia scegliere al caso.",
-    "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
+    "section.lettura.subhead": "...per ritrovare il silenzio.",
+    "section.lettura.action": "Un piccolo rifugio nel rumore del mondo.",
+    "btn.rndVerse": "Estrai un verso",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
     "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
     "tip.copied": "Copiato!"
-  },
-  en: {
-    "nav.chisono": "About", "nav.archivio": "Archive", "nav.lettura": "Featured", "nav.contatti": "Contact",
-    "hero.title": "Every verse<br>is a refuge <em>where</em><br>to return",
-    "hero.sub": "Only poets return to the place where they have never lived.", "hero.cta": "Read the poems", "hero.scroll": "Scroll",
-    "section.chisono.num": "01 — About", "section.chisono.title": "Fragments of voice, in silence…",
-    "section.chisono.bio1": "I write free verse poetry to express my true voice; feelings shifting each day, nestled in nature and far from the pressure of time.",
-    "section.chisono.bio2": "I search for my voice within silent words, a sanctuary whenever I seek freedom. Words turning thoughts into narratives: every verse is a protagonist.",
-    "section.archivio.num": "02 — Archive", "section.archivio.title": "The poems",
-    "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
-    "section.lettura.num": "03 — Featured",
-    "section.lettura.title": "Sometimes a verse is enough...",
-    "section.lettura.subtitle": "...or a whole poem. Let chance decide.",
-    "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
-    "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
-    "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
-    "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send",
-    "tip.copied": "Copied!"
-  },
-  es: {
-    "nav.chisono": "Acerca de", "nav.archivio": "Archivo", "nav.lettura": "En portada", "nav.contatti": "Contacto",
-    "hero.title": "Cada verso<br>es un refugio <em>donde</em><br>volver",
-    "hero.sub": "Solo los poetas regresan al lugar donde nunca han vivido.", "hero.cta": "Leer los poemas", "hero.scroll": "Desplázate",
-    "section.chisono.num": "01 — Acerca de", "section.chisono.title": "Fragmentos de voz, en el silencio…",
-    "section.chisono.bio1": "Escribo poemas en verso libre para narrar mi voz auténtica; emociones inmersas en la naturaleza y lejos de la opresión del tiempo.",
-    "section.chisono.bio2": "Busco mi voz en el silencio de las palabras, un refugio donde regresar libre. Palabras que convierten pensamientos en imágenes.",
-    "section.archivio.num": "02 — Archivo", "section.archivio.title": "Los poemas",
-    "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
-    "section.lettura.num": "03 — En portada",
-    "section.lettura.title": "A veces basta un verso...",
-    "section.lettura.subtitle": "...o un poema entero. Deja que el azar decida.",
-    "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
-    "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
-    "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
-    "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar",
-    "tip.copied": "¡Copiado!"
   }
 };
 
@@ -1154,35 +1111,18 @@ const translations = {
   }, 2400);
 })();
 
-// Gestione Lingua
-let currentLanguage = localStorage.getItem('language') || 'it';
-if (!['it', 'en', 'es'].includes(currentLanguage)) currentLanguage = 'it';
-
-function setLanguage(lang) {
-  if (!translations[lang]) return;
-  currentLanguage = lang;
-  localStorage.setItem('language', lang);
-  
+// Lingua e traduzioni
+function initTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang][key]) el.innerHTML = translations[lang][key];
+    if (translations.it[key]) el.innerHTML = translations.it[key];
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[lang][key]) el.placeholder = translations[lang][key];
+    if (translations.it[key]) el.placeholder = translations.it[key];
   });
-  
-  document.querySelectorAll('.lang-link').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll(`.lang-link[data-lang="${lang}"]`).forEach(el => el.classList.add('active'));
 }
-
-document.querySelectorAll('.lang-link').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    setLanguage(link.getAttribute('data-lang'));
-  });
-});
-setLanguage(currentLanguage);
+initTranslations();
 
 // Copia Testo Poesia
 function getPoemPlainText(id) {
@@ -1213,7 +1153,7 @@ async function copyText(text, btn) {
   if (!btn) return;
   const original = btn.textContent;
   btn.textContent = '✓';
-  btn.dataset.tip = (translations[currentLanguage] || translations.it)["tip.copied"];
+  btn.dataset.tip = translations.it["tip.copied"];
   btn.classList.add('done');
   setTimeout(() => {
     btn.textContent = original;
@@ -1221,7 +1161,7 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
-// Adatta il titolo alla larghezza disponibile
+// Adatta titolo
 function fitTitles() {
   document.querySelectorAll('.poem-reading-title').forEach(el => {
     el.style.fontSize = '';
@@ -1280,7 +1220,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Listener per i pulsanti della modale
 document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (activePoemId) copyText(getPoemPlainText(activePoemId), e.currentTarget);
@@ -1310,20 +1249,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazioni Casuali nella Sezione 03
-document.getElementById('rndPoem')?.addEventListener('click', () => {
-  const keys = Object.keys(POEMS);
-  const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
-  const target = document.getElementById('readingContainer');
-  target.innerHTML = `
-    <div class="poem-tag">${p.tag}</div>
-    <h3 class="poem-reading-title">${p.title}</h3>
-    <div class="poem-body">${p.body}</div>
-    <div class="poem-note">${p.note}</div>
-  `;
-  fitTitles();
-});
-
+// Estrazione Verso Singolo (Scalino Centrale)
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1343,12 +1269,12 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2.2rem); line-height:1.4; color:var(--ink);">“${verse}”</div>
-    <div style="margin-top:1.25rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.45rem,2.6vw,2.1rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
+    <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
 });
 
-// Invio Form Contatti Asincrono
+// Invio Form Contatti
 document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = e.target;
@@ -1380,13 +1306,13 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   }
 });
 
-// Intersection Observer
+// Reveal Observer
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Gestione Menu Mobile
+// Menu Mobile
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
@@ -1397,7 +1323,7 @@ function closeMenu() {
 }
 function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 
-// Gestione Tema Chiaro / Scuro
+// Tema Chiaro / Scuro
 const themeBtn = document.getElementById('themeToggle');
 function setTheme(isDark) {
   document.body.classList.toggle('dark', isDark);
