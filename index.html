@@ -80,6 +80,46 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
+    /* LOGO MONOGRAMMA ORIGINALE AL CENTRO */
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-monogram {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+    .nav-monogram:hover {
+      background: var(--gold);
+      transform: scale(1.05);
+    }
+    .nav-monogram span {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      transition: color 0.25s ease;
+    }
+    .nav-monogram:hover span {
+      color: #ffffff;
+    }
+
     .nav-links {
       display: flex;
       gap: 1.75rem;
@@ -426,7 +466,7 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione 03: Layout Elegante e Pulito ad Allineamento Naturale */
+    /* Sezione 03: In evidenza */
     #lettura {
       padding-bottom: 4.5rem;
       scroll-margin-top: var(--nav-h);
@@ -671,6 +711,7 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .nav-center { display: none; }
     }
 
     @media (max-width: 768px) {
@@ -705,9 +746,16 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione: Riccardo Galasso a sinistra, voci menu a destra -->
+<!-- Navigazione: Riccardo Galasso a sinistra, Monogramma al centro, Voci menu a destra -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
+
+  <!-- LOGO AL CENTRO ESATTO -->
+  <div class="nav-center">
+    <a href="#hero" class="nav-monogram" onclick="scrollToId('hero'); return false;" aria-label="Home">
+      <span>RG</span>
+    </a>
+  </div>
 
   <div class="nav-actions">
     <ul class="nav-links">
@@ -835,7 +883,7 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza: VERSIONE ORIGINALE COMPATTA E PULITA -->
+<!-- 03 — In evidenza -->
 <section id="lettura">
   <div class="section-pad">
     <div class="section-header reveal">
