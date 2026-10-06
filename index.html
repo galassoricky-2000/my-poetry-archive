@@ -81,7 +81,7 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG (Garantito visibile sia Desktop che Mobile) */
+    /* Monogramma centrale RG */
     .logo-container {
       display: flex !important;
       align-items: center;
@@ -99,13 +99,21 @@
     .logo-rg-dinamico:hover {
       transform: scale(1.08);
     }
+
+    /* Stile testo monogramma: Light Mode default */
     .testo-monogramma {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 64px;
       font-weight: 700;
       letter-spacing: -6px;
-      fill: url(#ondaOro);
+      fill: url(#ondaBronzoLight);
       user-select: none;
+      transition: fill 0.3s ease;
+    }
+
+    /* Stile testo monogramma: Dark Mode */
+    body.dark .testo-monogramma {
+      fill: url(#ondaOroDark);
     }
 
     .nav-actions {
@@ -750,11 +758,36 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- Monogramma RG dinamico al centro -->
+  <!-- Monogramma RG dinamico al centro con doppio gradiente Light / Dark -->
   <div class="logo-container">
     <svg class="logo-rg-dinamico" viewBox="0 0 130 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
       <defs>
-        <linearGradient id="ondaOro" x1="0%" y1="0%" x2="100%" y2="0%">
+        <!-- Gradiente Light Mode: bronzo scuro, terra d'ombra e riflesso d'oro brunito -->
+        <linearGradient id="ondaBronzoLight" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4a3728">
+            <animate attributeName="stop-color" 
+                     values="#4a3728; #8c6227; #4a3728; #4a3728" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="35%" stop-color="#966c1b">
+            <animate attributeName="stop-color" 
+                     values="#966c1b; #2b1f17; #966c1b; #966c1b" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="70%" stop-color="#4a3728">
+            <animate attributeName="stop-color" 
+                     values="#4a3728; #b58934; #2b1f17; #4a3728" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="100%" stop-color="#4a3728">
+            <animate attributeName="stop-color" 
+                     values="#4a3728; #4a3728; #966c1b; #4a3728" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+        </linearGradient>
+
+        <!-- Gradiente Dark Mode: onda oro caldo e avorio luminoso -->
+        <linearGradient id="ondaOroDark" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#eed9b3">
             <animate attributeName="stop-color" 
                      values="#eed9b3; #ffe29a; #eed9b3; #eed9b3" 
