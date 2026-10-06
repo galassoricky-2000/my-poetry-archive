@@ -80,10 +80,34 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    .nav-center {
+    /* Monogramma centrale RG */
+    .logo-container {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      justify-content: center;
+    }
+    .logo-rg-dinamico {
+      height: 32px;
+      width: auto;
+      overflow: visible;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .logo-rg-dinamico:hover {
+      transform: scale(1.08);
+    }
+    .testo-monogramma {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 58px;
+      font-weight: 700;
+      letter-spacing: -6px;
+      fill: url(#flussoOro);
+      animation: shimmerLuce 6s linear infinite;
+    }
+    @keyframes shimmerLuce {
+      0% { filter: drop-shadow(0 0 0px rgba(212, 168, 73, 0)); }
+      50% { filter: drop-shadow(0 0 5px rgba(212, 168, 73, 0.5)); }
+      100% { filter: drop-shadow(0 0 0px rgba(212, 168, 73, 0)); }
     }
 
     .nav-links {
@@ -111,36 +135,6 @@
       display: flex;
       align-items: center;
       gap: 0.85rem;
-    }
-
-    /* Language Switcher Desktop */
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .lang-link {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
-      padding: 0.25rem 0.2rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.25s ease, border-color 0.25s ease;
-      white-space: nowrap;
-    }
-    .lang-link:hover, .lang-link.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
-    .lang-sep {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      color: var(--accent-light);
-      user-select: none;
     }
 
     /* Icon button standard */
@@ -241,18 +235,6 @@
       color: var(--ink);
       text-decoration: none;
       padding: 0.3rem 0;
-    }
-    .mobile-menu .language-switcher-mobile {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding-bottom: 1.25rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid var(--line);
-    }
-    .mobile-menu .language-switcher-mobile .lang-link {
-      font-size: 0.85rem;
-      padding: 0.3rem 0.5rem;
     }
 
     /* Layout sezioni */
@@ -726,15 +708,11 @@
       .hamburger { display: flex; }
     }
 
-    @media (min-width: 769px) {
-      .language-switcher-mobile { display: none !important; }
-    }
-
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
       .nav-logo-text { font-size: 1.15rem; }
-      nav .language-switcher { display: none; }
+      .logo-rg-dinamico { height: 26px; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -770,22 +748,29 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- Lingue visibili su Desktop/Tablet al centro -->
-  <div class="language-switcher">
-    <a href="#" class="lang-link active" data-lang="it">IT</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="en">EN</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="es">ES</a>
+  <!-- Monogramma RG dinamico al centro -->
+  <div class="logo-container">
+    <svg class="logo-rg-dinamico" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
+      <defs>
+        <linearGradient id="flussoOro" x1="0%" y1="0%" x2="200%" y2="0%">
+          <stop offset="0%" stop-color="#eed9b3" />
+          <stop offset="25%" stop-color="#ffffff" />
+          <stop offset="50%" stop-color="#d4a849" />
+          <stop offset="75%" stop-color="#c49a62" />
+          <stop offset="100%" stop-color="#eed9b3" />
+        </linearGradient>
+      </defs>
+      <text x="50%" y="62" text-anchor="middle" class="testo-monogramma">RG</text>
+    </svg>
   </div>
 
   <!-- Gruppo azioni a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
-      <li><a href="#chisono" data-i18n="nav.chisono">Chi sono</a></li>
-      <li><a href="#archivio" data-i18n="nav.archivio">Archivio</a></li>
-      <li><a href="#lettura" data-i18n="nav.lettura">In evidenza</a></li>
-      <li><a href="#contatti" data-i18n="nav.contatti">Contatti</a></li>
+      <li><a href="#chisono">Chi sono</a></li>
+      <li><a href="#archivio">Archivio</a></li>
+      <li><a href="#lettura">In evidenza</a></li>
+      <li><a href="#contatti">Contatti</a></li>
     </ul>
     <button class="icon-btn" id="themeToggle" type="button" aria-label="Cambia tema">☾</button>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu di navigazione">
@@ -796,30 +781,23 @@
 
 <!-- Menu a tendina per Mobile -->
 <div class="mobile-menu" id="mobileMenu">
-  <div class="language-switcher-mobile">
-    <a href="#" class="lang-link active" data-lang="it">IT</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="en">EN</a>
-    <span class="lang-sep">/</span>
-    <a href="#" class="lang-link" data-lang="es">ES</a>
-  </div>
-  <a href="#chisono" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.chisono">Chi sono</a>
-  <a href="#archivio" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.archivio">Archivio</a>
-  <a href="#lettura" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.lettura">In evidenza</a>
-  <a href="#contatti" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.contatti">Contatti</a>
+  <a href="#chisono" class="nav-m-link" onclick="closeMenu()">Chi sono</a>
+  <a href="#archivio" class="nav-m-link" onclick="closeMenu()">Archivio</a>
+  <a href="#lettura" class="nav-m-link" onclick="closeMenu()">In evidenza</a>
+  <a href="#contatti" class="nav-m-link" onclick="closeMenu()">Contatti</a>
 </div>
 
 <!-- 00 — Hero -->
 <section id="hero">
   <div class="hero-content">
-    <h1 class="hero-title" data-i18n="hero.title">
+    <h1 class="hero-title">
       Ogni verso<br>è un rifugio <em>dove</em><br>tornare
     </h1>
-    <p class="hero-sub" data-i18n="hero.sub">
+    <p class="hero-sub">
       Solo i poeti ritornano nel luogo dove non hanno mai vissuto.
     </p>
     <p class="hero-author">— Miguel Ángel Arcas</p>
-    <a href="#archivio" class="hero-cta" data-i18n="hero.cta">
+    <a href="#archivio" class="hero-cta">
       Leggi le poesie
       <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
     </a>
@@ -827,7 +805,7 @@
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    <span data-i18n="hero.scroll">Scorri</span>
+    <span>Scorri</span>
   </div>
 </section>
 
@@ -835,8 +813,8 @@
 <section id="chisono">
   <div class="section-pad">
     <div class="section-header reveal" style="max-width:1100px;">
-      <div class="section-num" data-i18n="section.chisono.num">01 — Chi sono</div>
-      <h2 class="section-title" data-i18n="section.chisono.title">Frammenti di voce, nel silenzio…</h2>
+      <div class="section-num">01 — Chi sono</div>
+      <h2 class="section-title">Frammenti di voce, nel silenzio…</h2>
       <div class="divider"></div>
     </div>
     <div class="reveal chisono-layout">
@@ -851,10 +829,10 @@
         </p>
       </div>
       <div class="chisono-bio">
-        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);" data-i18n="section.chisono.bio1">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);">
           Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
         </p>
-        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; color:var(--ink);" data-i18n="section.chisono.bio2">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; color:var(--ink);">
           Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.
         </p>
       </div>
@@ -866,17 +844,17 @@
 <section id="archivio">
   <div class="section-pad">
     <div class="section-header reveal">
-      <div class="section-num" data-i18n="section.archivio.num">02 — Archivio</div>
-      <h2 class="section-title" data-i18n="section.archivio.title">Le poesie</h2>
+      <div class="section-num">02 — Archivio</div>
+      <h2 class="section-title">Le poesie</h2>
       <div class="divider"></div>
     </div>
 
     <!-- Filtri -->
     <div class="filters reveal">
-      <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tutte</button>
-      <button class="filter-btn" data-filter="emozioni" data-i18n="filter.emozioni">Emozioni</button>
-      <button class="filter-btn" data-filter="natura" data-i18n="filter.natura">Natura</button>
-      <button class="filter-btn" data-filter="tempo" data-i18n="filter.tempo">Tempo</button>
+      <button class="filter-btn active" data-filter="all">Tutte</button>
+      <button class="filter-btn" data-filter="emozioni">Emozioni</button>
+      <button class="filter-btn" data-filter="natura">Natura</button>
+      <button class="filter-btn" data-filter="tempo">Tempo</button>
     </div>
 
     <div class="poems-grid reveal" id="poemsGrid">
@@ -917,20 +895,20 @@
 <section id="lettura">
   <div class="section-pad">
     <div class="section-header reveal">
-      <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
-      <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
+      <div class="section-num">03 — In evidenza</div>
+      <h2 class="section-title">A volte basta un verso...</h2>
       <div class="divider"></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;" data-i18n="section.lettura.subtitle">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;">
         ...oppure una poesia intera.
       </p>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;" data-i18n="section.lettura.action">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;">
         Lascia che sia il tuo cuore a scegliere per te.
       </p>
       
       <!-- Pulsanti interattivi -->
       <div class="reading-actions">
-        <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
-        <button class="rnd-btn" type="button" id="rndPoem" data-i18n="btn.rndPoem">Estrai una poesia</button>
+        <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
+        <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
       </div>
     </div>
 
@@ -942,18 +920,18 @@
 <!-- 04 — Contatti -->
 <section id="contatti">
   <div class="section-pad" style="max-width: 680px; margin: 0 auto;">
-    <div class="section-num" data-i18n="section.contatti.num">04 — Contatti</div>
-    <h2 class="section-title" data-i18n="section.contatti.title">Scrivimi</h2>
+    <div class="section-num">04 — Contatti</div>
+    <h2 class="section-title">Scrivimi</h2>
     <div class="divider"></div>
-    <p style="font-style:italic; color:var(--accent); font-size:1.05rem; margin-bottom:2rem;" data-i18n="section.contatti.desc">
+    <p style="font-style:italic; color:var(--accent); font-size:1.05rem; margin-bottom:2rem;">
       Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.
     </p>
     
     <form id="contactForm" action="https://formspree.io/f/mvzwekbb" method="POST" style="display:flex; flex-direction:column; gap:0.9rem;">
-      <input name="nome" id="ctNome" type="text" placeholder="Il tuo nome" data-i18n-placeholder="form.nome" required class="form-input" />
-      <input name="email" id="ctEmail" type="email" placeholder="La tua email" data-i18n-placeholder="form.email" required class="form-input" />
-      <textarea name="messaggio" id="ctMessaggio" rows="5" placeholder="Il tuo messaggio" data-i18n-placeholder="form.messaggio" required class="form-input" style="resize:vertical;"></textarea>
-      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;" data-i18n="form.submit">Invia</button>
+      <input name="nome" id="ctNome" type="text" placeholder="Il tuo nome" required class="form-input" />
+      <input name="email" id="ctEmail" type="email" placeholder="La tua email" required class="form-input" />
+      <textarea name="messaggio" id="ctMessaggio" rows="5" placeholder="Il tuo messaggio" required class="form-input" style="resize:vertical;"></textarea>
+      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;">Invia</button>
     </form>
     <div id="ctMessage" style="margin-top:1.2rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); display:none;"></div>
   </div>
@@ -1084,67 +1062,6 @@ const POEMS = {
   }
 };
 
-// Traduzioni multilingua sincronizzate
-const translations = {
-  it: {
-    "nav.chisono": "Chi sono", "nav.archivio": "Archivio", "nav.lettura": "In evidenza", "nav.contatti": "Contatti",
-    "hero.title": "Ogni verso<br>è un rifugio <em>dove</em><br>tornare",
-    "hero.sub": "Solo i poeti ritornano nel luogo dove non hanno mai vissuto.", "hero.cta": "Leggi le poesie", "hero.scroll": "Scorri",
-    "section.chisono.num": "01 — Chi sono", "section.chisono.title": "Frammenti di voce, nel silenzio…",
-    "section.chisono.bio1": "Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.",
-    "section.chisono.bio2": "Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.",
-    "section.archivio.num": "02 — Archivio", "section.archivio.title": "Le poesie",
-    "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
-    "section.lettura.num": "03 — In evidenza",
-    "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subtitle": "...oppure una poesia intera.",
-    "section.lettura.action": "Lascia che sia il tuo cuore a scegliere per te.",
-    "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
-    "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
-    "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
-    "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
-    "tip.copied": "Copiato!"
-  },
-  en: {
-    "nav.chisono": "About", "nav.archivio": "Archive", "nav.lettura": "Featured", "nav.contatti": "Contact",
-    "hero.title": "Every verse<br>is a refuge <em>where</em><br>to return",
-    "hero.sub": "Only poets return to the place where they have never lived.", "hero.cta": "Read the poems", "hero.scroll": "Scroll",
-    "section.chisono.num": "01 — About", "section.chisono.title": "Fragments of voice, in silence…",
-    "section.chisono.bio1": "I write free verse poetry to express my true voice; feelings shifting each day, nestled in nature and far from the pressure of time.",
-    "section.chisono.bio2": "I search for my voice within silent words, a sanctuary whenever I seek freedom. Words turning thoughts into narratives: every verse is a protagonist.",
-    "section.archivio.num": "02 — Archive", "section.archivio.title": "The poems",
-    "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
-    "section.lettura.num": "03 — Featured",
-    "section.lettura.title": "Sometimes a verse is enough...",
-    "section.lettura.subtitle": "...or a whole poem.",
-    "section.lettura.action": "Let your heart choose for you.",
-    "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
-    "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
-    "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
-    "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send",
-    "tip.copied": "Copied!"
-  },
-  es: {
-    "nav.chisono": "Acerca de", "nav.archivio": "Archivo", "nav.lettura": "En portada", "nav.contatti": "Contacto",
-    "hero.title": "Cada verso<br>es un refugio <em>donde</em><br>volver",
-    "hero.sub": "Solo los poetas regresan al lugar donde nunca han vivido.", "hero.cta": "Leer los poemas", "hero.scroll": "Desplázate",
-    "section.chisono.num": "01 — Acerca de", "section.chisono.title": "Fragmentos de voz, en el silencio…",
-    "section.chisono.bio1": "Escribo poemas en verso libre para narrar mi voz auténtica; emociones inmersas en la naturaleza y lejos de la opresión del tiempo.",
-    "section.chisono.bio2": "Busco mi voz en el silencio de las palabras, un refugio donde regresar libre. Palabras que convierten pensamientos en imágenes.",
-    "section.archivio.num": "02 — Archivo", "section.archivio.title": "Los poemas",
-    "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
-    "section.lettura.num": "03 — En portada",
-    "section.lettura.title": "A veces basta un verso...",
-    "section.lettura.subtitle": "...o un poema entero.",
-    "section.lettura.action": "Deja que sea tu corazón quien elija por ti.",
-    "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
-    "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
-    "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
-    "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar",
-    "tip.copied": "¡Copiado!"
-  }
-};
-
 // Splash Screen
 (function() {
   const splash = document.getElementById('splash');
@@ -1159,36 +1076,6 @@ const translations = {
     }
   }, 2400);
 })();
-
-// Gestione Lingua
-let currentLanguage = localStorage.getItem('language') || 'it';
-if (!['it', 'en', 'es'].includes(currentLanguage)) currentLanguage = 'it';
-
-function setLanguage(lang) {
-  if (!translations[lang]) return;
-  currentLanguage = lang;
-  localStorage.setItem('language', lang);
-  
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[lang][key]) el.innerHTML = translations[lang][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[lang][key]) el.placeholder = translations[lang][key];
-  });
-  
-  document.querySelectorAll('.lang-link').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll(`.lang-link[data-lang="${lang}"]`).forEach(el => el.classList.add('active'));
-}
-
-document.querySelectorAll('.lang-link').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    setLanguage(link.getAttribute('data-lang'));
-  });
-});
-setLanguage(currentLanguage);
 
 // Copia Testo Poesia
 function getPoemPlainText(id) {
@@ -1219,7 +1106,7 @@ async function copyText(text, btn) {
   if (!btn) return;
   const original = btn.textContent;
   btn.textContent = '✓';
-  btn.dataset.tip = (translations[currentLanguage] || translations.it)["tip.copied"];
+  btn.dataset.tip = "Copiato!";
   btn.classList.add('done');
   setTimeout(() => {
     btn.textContent = original;
