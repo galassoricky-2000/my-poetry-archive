@@ -87,7 +87,7 @@
       justify-content: center;
     }
     .logo-rg-dinamico {
-      height: 32px;
+      height: 44px;
       width: auto;
       overflow: visible;
       cursor: pointer;
@@ -98,16 +98,10 @@
     }
     .testo-monogramma {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 58px;
+      font-size: 64px;
       font-weight: 700;
       letter-spacing: -6px;
-      fill: url(#flussoOro);
-      animation: shimmerLuce 6s linear infinite;
-    }
-    @keyframes shimmerLuce {
-      0% { filter: drop-shadow(0 0 0px rgba(212, 168, 73, 0)); }
-      50% { filter: drop-shadow(0 0 5px rgba(212, 168, 73, 0.5)); }
-      100% { filter: drop-shadow(0 0 0px rgba(212, 168, 73, 0)); }
+      fill: url(#ondaOro);
     }
 
     .nav-links {
@@ -712,7 +706,7 @@
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
       .nav-logo-text { font-size: 1.15rem; }
-      .logo-rg-dinamico { height: 26px; }
+      .logo-rg-dinamico { height: 34px; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -750,14 +744,30 @@
 
   <!-- Monogramma RG dinamico al centro -->
   <div class="logo-container">
-    <svg class="logo-rg-dinamico" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
+    <svg class="logo-rg-dinamico" viewBox="0 0 130 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
       <defs>
-        <linearGradient id="flussoOro" x1="0%" y1="0%" x2="200%" y2="0%">
-          <stop offset="0%" stop-color="#eed9b3" />
-          <stop offset="25%" stop-color="#ffffff" />
-          <stop offset="50%" stop-color="#d4a849" />
-          <stop offset="75%" stop-color="#c49a62" />
-          <stop offset="100%" stop-color="#eed9b3" />
+        <!-- Onda di luce dorata che scorre continuamente da sinistra verso destra -->
+        <linearGradient id="ondaOro" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#eed9b3">
+            <animate attributeName="stop-color" 
+                     values="#eed9b3; #ffe29a; #eed9b3; #eed9b3" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="35%" stop-color="#d4a849">
+            <animate attributeName="stop-color" 
+                     values="#d4a849; #ffffff; #d4a849; #d4a849" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="70%" stop-color="#eed9b3">
+            <animate attributeName="stop-color" 
+                     values="#eed9b3; #ffe29a; #ffffff; #eed9b3" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="100%" stop-color="#eed9b3">
+            <animate attributeName="stop-color" 
+                     values="#eed9b3; #eed9b3; #d4a849; #eed9b3" 
+                     dur="3.5s" repeatCount="indefinite" />
+          </stop>
         </linearGradient>
       </defs>
       <text x="50%" y="62" text-anchor="middle" class="testo-monogramma">RG</text>
