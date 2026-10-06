@@ -105,7 +105,7 @@
       user-select: none;
       will-change: background-position;
       
-      /* Light Mode: sequenza modulare a loop continuo (0% si connette esattamente alla fine) */
+      /* Light Mode: sequenza modulare a loop continuo */
       background: linear-gradient(
         90deg,
         #4a3219 0%,
@@ -150,8 +150,6 @@
       animation: flussoContinuoInfinito 5.5s linear infinite;
     }
 
-    /* Il gradiente scorre esattamente della metà della sua ampiezza (100%), 
-       ritrovandosi perfettamente identico al frame iniziale: zero scatti, zero stop */
     @keyframes flussoContinuoInfinito {
       0% {
         background-position: 0% 0%;
@@ -464,34 +462,6 @@
       border-color: var(--ink);
     }
 
-    /* Sezione 03: Azioni */
-    .reading-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-    .rnd-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.65rem 1.35rem;
-      border: 1.5px solid var(--gold);
-      border-radius: 100px;
-      background: transparent;
-      color: var(--gold);
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .rnd-btn:hover {
-      background: var(--gold);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
     .poems-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -540,12 +510,87 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione Lettura / In evidenza */
+    /* =====================================================
+       Sezione 03 — In evidenza (Layout a Contrappunto)
+       ===================================================== */
     #lettura {
-      padding-bottom: 4.5rem;
+      padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .poem-reading { max-width: 640px; }
+    
+    .evidenza-header-layout {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 3.5rem;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+    }
+
+    .evidenza-col-left {
+      flex: 1 1 50%;
+    }
+
+    .evidenza-col-right {
+      flex: 1 1 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 1.9rem; /* Allineamento armonico con l'inizio del titolo di sinistra */
+    }
+
+    .evidenza-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 2.3vw, 1.85rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .evidenza-invite {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--gold);
+      font-style: italic;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.6rem;
+    }
+
+    .reading-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .rnd-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.65rem 1.35rem;
+      border: 1.5px solid var(--gold);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .rnd-btn:hover {
+      background: var(--gold);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Area di lettura centrata a leggio */
+    .poem-reading {
+      max-width: 760px;
+      margin: 3.5rem auto 0;
+      padding-top: 1rem;
+    }
     .poem-reading-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
@@ -781,9 +826,18 @@
         margin-bottom: 2rem;
       }
       .chisono-bio { width: 100%; padding-left: 0; }
-      
+
+      /* In evidenza su mobile: si incolonna fluidamente */
+      .evidenza-header-layout {
+        flex-direction: column;
+        gap: 1.8rem;
+      }
+      .evidenza-col-right {
+        padding-top: 0;
+      }
       .reading-actions { width: 100%; }
       .rnd-btn { flex: 1; text-align: center; }
+      .poem-reading { margin-top: 2rem; }
       
       footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
     }
@@ -933,28 +987,29 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza -->
+<!-- 03 — In evidenza (Architettura a Contrappunto) -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="section-header reveal">
-      <div class="section-num">03 — In evidenza</div>
-      <h2 class="section-title">A volte basta un verso...</h2>
-      <div class="divider"></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;">
-        ...oppure una poesia intera.
-      </p>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;">
-        Lascia che sia il tuo cuore a scegliere per te.
-      </p>
-      
-      <!-- Pulsanti interattivi -->
-      <div class="reading-actions">
-        <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
-        <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
+    <div class="evidenza-header-layout reveal">
+      <!-- Colonna Sinistra -->
+      <div class="evidenza-col-left">
+        <div class="section-num">03 — In evidenza</div>
+        <h2 class="section-title">A volte basta un verso...</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- Colonna Destra -->
+      <div class="evidenza-col-right">
+        <h3 class="evidenza-subtitle">...oppure una poesia intera.</h3>
+        <p class="evidenza-invite">Lascia che sia il tuo cuore a scegliere per te.</p>
+        <div class="reading-actions">
+          <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
+          <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
+        </div>
       </div>
     </div>
 
-    <!-- Contenitore lettura pulito -->
+    <!-- Contenitore lettura al centro sotto l'header -->
     <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
