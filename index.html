@@ -46,12 +46,6 @@
       background-size: 200px;
     }
 
-    /* Typo */
-    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
-    .font-body  { font-family: 'EB Garamond', Georgia, serif; }
-    .font-sans  { font-family: 'DM Sans', sans-serif; }
-    .font-mono  { font-family: 'Space Mono', 'Courier New', monospace; }
-
     /* Barra di navigazione */
     nav {
       position: fixed;
@@ -68,17 +62,28 @@
       border-bottom: 1px solid var(--line);
       transition: background 0.3s ease, border-color 0.3s ease;
     }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 38px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
     .nav-logo-text {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 700;
       font-size: 1.35rem;
       color: var(--ink);
-      text-decoration: none;
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
     }
-    .nav-logo-text:hover { opacity: 0.75; }
+    .nav-brand:hover .nav-logo-text { opacity: 0.75; }
 
     .nav-center {
       display: flex;
@@ -113,7 +118,7 @@
       gap: 0.85rem;
     }
 
-    /* Language Switcher Desktop */
+    /* Language Switcher */
     .language-switcher {
       display: flex;
       align-items: center;
@@ -143,7 +148,6 @@
       user-select: none;
     }
 
-    /* Icon button standard */
     .icon-btn {
       position: relative;
       display: inline-flex;
@@ -191,7 +195,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -218,7 +221,6 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* Mobile menu a comparsa */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -269,7 +271,7 @@
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 400;
       line-height: 1.15;
       color: var(--ink);
@@ -346,7 +348,6 @@
       color: var(--gold);
       border-color: var(--gold);
     }
-
     .hero-scroll {
       position: absolute;
       bottom: 2rem;
@@ -478,65 +479,47 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione 03: Scaletta a Cascata (Sinistra -> Centro -> Destra) */
+    /* ========================================================
+       SEZIONE 03: SCALETTA FLUIDA AUTENTICA (DISEGNO QUADERNO)
+       ======================================================== */
     #lettura {
-      padding-top: 4.5rem;
-      padding-bottom: 6rem;
+      padding-top: 5rem;
+      padding-bottom: 6.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .scaletta-container {
-      max-width: 1200px;
+    .scaletta-zone {
+      max-width: 1240px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      position: relative;
     }
-    /* Scalino 1: Sinistra */
-    .scaletta-step-left {
-      align-self: flex-start;
-      max-width: 480px;
+    /* Scalino 1: Sinistra in alto */
+    .scaletta-1 {
+      width: fit-content;
+      margin-bottom: 2rem;
     }
-    /* Scalino 2: Centro (Pulsante e Verso estratto) */
-    .scaletta-step-center {
+    .scaletta-1 .section-title {
+      white-space: nowrap;
+    }
+
+    /* Scalino 2: Centro (Azione e Verso che compare) */
+    .scaletta-2 {
       align-self: center;
+      width: 100%;
+      max-width: 680px;
+      margin: 1rem auto 2.5rem;
       text-align: center;
-      margin-top: 2rem;
-      margin-bottom: 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
-      max-width: 620px;
     }
-    /* Scalino 3: Destra */
-    .scaletta-step-right {
-      align-self: flex-end;
-      text-align: right;
-      max-width: 480px;
-    }
-    .scaletta-step-right .step-right-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3rem);
-      font-weight: 400;
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 0.4rem;
-    }
-    .scaletta-step-right .step-right-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--gold);
-      letter-spacing: 0.02em;
-    }
-
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.76rem;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.65rem 1.45rem;
+      padding: 0.7rem 1.6rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
@@ -547,12 +530,34 @@
     .rnd-btn:hover {
       background: var(--gold);
       color: #ffffff;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
     .reading-output {
       width: 100%;
-      margin-top: 1.75rem;
-      min-height: 40px;
+      margin-top: 1.8rem;
+      min-height: 48px;
+    }
+
+    /* Scalino 3: Destra in basso */
+    .scaletta-3 {
+      align-self: flex-end;
+      text-align: right;
+      max-width: 580px;
+    }
+    .scaletta-3-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .scaletta-3-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.02em;
     }
 
     /* Modale lettura */
@@ -742,12 +747,9 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .scaletta-step-left, .scaletta-step-center, .scaletta-step-right {
-        align-self: flex-start;
-        text-align: left;
-        max-width: 100%;
-      }
-      .scaletta-step-right { margin-top: 1.5rem; }
+      .scaletta-1 .section-title { white-space: normal; }
+      .scaletta-2 { margin: 2rem 0; align-items: flex-start; text-align: left; }
+      .scaletta-3 { align-self: flex-start; text-align: left; }
     }
 
     @media (min-width: 769px) {
@@ -787,9 +789,12 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione Superiore -->
+<!-- Navigazione Superiore con LOGO e NOME -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
+  <a href="#hero" class="nav-brand" onclick="scrollToId('hero'); return false;">
+    <img src="logo.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+    <span class="nav-logo-text">Riccardo Galasso</span>
+  </a>
 
   <!-- Lingue visibili su Desktop/Tablet al centro -->
   <div class="language-switcher">
@@ -934,28 +939,28 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Composizione a Scaletta da Sinistra verso Destra) -->
+<!-- 03 — In evidenza: SCALETTA AUTENTICA -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="scaletta-container reveal">
+    <div class="scaletta-zone reveal">
       
-      <!-- Scalino 1: In alto a sinistra -->
-      <div class="scaletta-step-left">
+      <!-- Scalino 1: Sinistra -->
+      <div class="scaletta-1">
         <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
         <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- Scalino 2: Al centro (Pulsante ed estrazione del verso) -->
-      <div class="scaletta-step-center">
+      <!-- Scalino 2: Centro (Pulsante e Verso estratto) -->
+      <div class="scaletta-2">
         <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
         <div class="reading-output" id="readingContainer"></div>
       </div>
 
-      <!-- Scalino 3: In basso a destra -->
-      <div class="scaletta-step-right">
-        <h3 class="step-right-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
-        <p class="step-right-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
+      <!-- Scalino 3: Destra -->
+      <div class="scaletta-3">
+        <h3 class="scaletta-3-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
+        <p class="scaletta-3-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
       </div>
 
     </div>
@@ -1250,7 +1255,6 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
-// Adatta il titolo alla larghezza disponibile
 function fitTitles() {
   document.querySelectorAll('.poem-reading-title').forEach(el => {
     el.style.fontSize = '';
@@ -1309,7 +1313,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Listener per i pulsanti della modale
 document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (activePoemId) copyText(getPoemPlainText(activePoemId), e.currentTarget);
