@@ -920,8 +920,11 @@
       <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
       <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
       <div class="divider"></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
-        ...oppure una poesia intera. Lascia scegliere al tuo cuore.
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;" data-i18n="section.lettura.subtitle">
+        ...oppure una poesia intera.
+      </p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;" data-i18n="section.lettura.action">
+        Lascia che sia il tuo cuore a scegliere per te.
       </p>
       
       <!-- Pulsanti interattivi -->
@@ -931,7 +934,7 @@
       </div>
     </div>
 
-    <!-- Contenitore pulito pronto per l'estrazione -->
+    <!-- Contenitore lettura pulito -->
     <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
@@ -1094,7 +1097,8 @@ const translations = {
     "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
     "section.lettura.num": "03 — In evidenza",
     "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subtitle": "...oppure una poesia intera. Lascia scegliere al tuo cuore.",
+    "section.lettura.subtitle": "...oppure una poesia intera.",
+    "section.lettura.action": "Lascia che sia il tuo cuore a scegliere per te.",
     "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
@@ -1112,7 +1116,8 @@ const translations = {
     "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
     "section.lettura.num": "03 — Featured",
     "section.lettura.title": "Sometimes a verse is enough...",
-    "section.lettura.subtitle": "...or a whole poem. Let your heart choose.",
+    "section.lettura.subtitle": "...or a whole poem.",
+    "section.lettura.action": "Let your heart choose for you.",
     "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
     "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
     "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
@@ -1130,7 +1135,8 @@ const translations = {
     "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
     "section.lettura.num": "03 — En portada",
     "section.lettura.title": "A veces basta un verso...",
-    "section.lettura.subtitle": "...o un poema entero. Deja que tu corazón elija.",
+    "section.lettura.subtitle": "...o un poema entero.",
+    "section.lettura.action": "Deja que sea tu corazón quien elija por ti.",
     "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
     "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
     "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
@@ -1414,4 +1420,3 @@ setTheme((localStorage.getItem('theme') || 'dark') === 'dark');
 </script>
 </body>
 </html>
-
