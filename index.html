@@ -508,7 +508,7 @@
     .poem-card.hidden { display: none; }
 
     /* =====================================================
-       Sezione 03 — In evidenza: Focus sul Singolo Verso
+       Sezione 03 — In evidenza: Ricalibrata con Armonia
        ===================================================== */
     #lettura {
       padding-bottom: 5.5rem;
@@ -519,7 +519,7 @@
     .diagonale-header-allineata {
       display: flex;
       flex-direction: column;
-      gap: 3.5rem;
+      gap: 1.8rem; /* Distanza verticale ricalibrata per unire le frasi */
       width: 100%;
       margin: 0;
     }
@@ -550,8 +550,8 @@
       font-size: 0.95rem;
       color: var(--gold);
       font-style: italic;
-      margin-top: 0.85rem;
-      margin-bottom: 1.5rem;
+      margin-top: 0.6rem;
+      margin-bottom: 1.1rem;
     }
 
     .reading-actions {
@@ -582,9 +582,10 @@
       transform: translateY(-1px);
     }
 
+    /* Verso estratto: margine riavvicinato al flusso visivo */
     .poem-reading {
       max-width: 760px;
-      margin: 4.5rem auto 0;
+      margin: 2.8rem auto 0;
       padding-top: 1rem;
       width: 100%;
     }
@@ -801,7 +802,7 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      .diagonale-header-allineata { gap: 2.2rem; }
+      .diagonale-header-allineata { gap: 1.8rem; }
       .riga-basso-allineata {
         align-self: flex-start;
         text-align: left;
@@ -959,7 +960,7 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza: Focus Esclusivo sul Verso -->
+<!-- 03 — In evidenza: Ricalibrata -->
 <section id="lettura">
   <div class="section-pad">
     <div class="diagonale-header-allineata reveal">
@@ -1385,3 +1386,4 @@ setTheme((localStorage.getItem('theme') || 'dark') === 'dark');
 </script>
 </body>
 </html>
+
