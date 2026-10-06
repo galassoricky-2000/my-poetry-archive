@@ -430,6 +430,34 @@
       border-color: var(--ink);
     }
 
+    /* Sezione 03: Azioni */
+    .reading-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .rnd-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.65rem 1.35rem;
+      border: 1.5px solid var(--gold);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .rnd-btn:hover {
+      background: var(--gold);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
     .poems-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -478,68 +506,35 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione 03: Layout Split a due colonne */
+    /* Sezione Lettura / In evidenza */
     #lettura {
-      padding-bottom: 5.5rem;
+      padding-bottom: 4.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .lettura-split {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 3.5rem;
-      max-width: 1200px;
-    }
-    .lettura-left {
-      flex: 1;
-      max-width: 480px;
-    }
-    .lettura-right {
-      flex: 1.2;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding-top: 1.7rem;
-    }
-    .lettura-right-title {
+    .poem-reading { max-width: 640px; }
+    .poem-reading-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
-      line-height: 1.2;
-      color: var(--ink);
+      line-height: 1.15;
       margin-bottom: 0.6rem;
+      white-space: nowrap;
     }
-    .lettura-right-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
+    .poem-body {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      color: var(--gold);
-      letter-spacing: 0.02em;
-      margin-bottom: 2rem;
+      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+      line-height: 2.2;
+      color: var(--ink);
     }
-    .rnd-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.65rem 1.45rem;
-      border: 1.5px solid var(--gold);
-      border-radius: 100px;
-      background: transparent;
-      color: var(--gold);
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .rnd-btn:hover {
-      background: var(--gold);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-    .reading-output {
-      width: 100%;
-      margin-top: 2.5rem;
-      min-height: 60px;
+    .poem-body p { margin-bottom: 1.5rem; position: relative; }
+    .poem-note {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-style: italic;
     }
 
     /* Modale lettura */
@@ -729,8 +724,6 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .lettura-split { flex-direction: column; gap: 2rem; }
-      .lettura-right { padding-top: 0; width: 100%; }
     }
 
     @media (min-width: 769px) {
@@ -758,6 +751,9 @@
         margin-bottom: 2rem;
       }
       .chisono-bio { width: 100%; padding-left: 0; }
+      
+      .reading-actions { width: 100%; }
+      .rnd-btn { flex: 1; text-align: center; }
       
       footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
     }
@@ -917,29 +913,26 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Layout Split: Titolo a Sinistra, Azione e Verso a Destra) -->
+<!-- 03 — In evidenza -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="lettura-split reveal">
+    <div class="section-header reveal">
+      <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
+      <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
+      <div class="divider"></div>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
+        ...oppure una poesia intera. Lascia scegliere al caso.
+      </p>
       
-      <!-- Colonna Sinistra -->
-      <div class="lettura-left">
-        <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
-        <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
-        <div class="divider"></div>
-      </div>
-
-      <!-- Colonna Destra -->
-      <div class="lettura-right">
-        <h3 class="lettura-right-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
-        <p class="lettura-right-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
-        
+      <!-- Pulsanti interattivi -->
+      <div class="reading-actions">
         <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
-        
-        <div class="reading-output" id="readingContainer"></div>
+        <button class="rnd-btn" type="button" id="rndPoem" data-i18n="btn.rndPoem">Estrai una poesia</button>
       </div>
-
     </div>
+
+    <!-- Contenitore pulito: nessun testo segnaposto di istruzioni -->
+    <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
 
@@ -1101,9 +1094,8 @@ const translations = {
     "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
     "section.lettura.num": "03 — In evidenza",
     "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subhead": "...per ritrovare il silenzio.",
-    "section.lettura.action": "Un piccolo rifugio nel rumore del mondo.",
-    "btn.rndVerse": "Estrai un verso",
+    "section.lettura.subtitle": "...oppure una poesia intera. Lascia scegliere al caso.",
+    "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
     "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
@@ -1120,9 +1112,8 @@ const translations = {
     "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
     "section.lettura.num": "03 — Featured",
     "section.lettura.title": "Sometimes a verse is enough...",
-    "section.lettura.subhead": "...to rediscover silence.",
-    "section.lettura.action": "A little refuge in the noise of the world.",
-    "btn.rndVerse": "Draw a verse",
+    "section.lettura.subtitle": "...or a whole poem. Let chance decide.",
+    "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
     "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
     "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
     "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send",
@@ -1139,9 +1130,8 @@ const translations = {
     "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
     "section.lettura.num": "03 — En portada",
     "section.lettura.title": "A veces basta un verso...",
-    "section.lettura.subhead": "...para reencontrar el silencio.",
-    "section.lettura.action": "Un pequeño refugio en el ruido del mundo.",
-    "btn.rndVerse": "Sacar un verso",
+    "section.lettura.subtitle": "...o un poema entero. Deja que el azar decida.",
+    "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
     "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
     "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
     "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar",
@@ -1320,7 +1310,20 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazione Verso Singolo (nella colonna destra)
+// Estrazioni Casuali nella Sezione 03
+document.getElementById('rndPoem')?.addEventListener('click', () => {
+  const keys = Object.keys(POEMS);
+  const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
+  const target = document.getElementById('readingContainer');
+  target.innerHTML = `
+    <div class="poem-tag">${p.tag}</div>
+    <h3 class="poem-reading-title">${p.title}</h3>
+    <div class="poem-body">${p.body}</div>
+    <div class="poem-note">${p.note}</div>
+  `;
+  fitTitles();
+});
+
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1340,8 +1343,8 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,2.8vw,2.3rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2.2rem); line-height:1.4; color:var(--ink);">“${verse}”</div>
+    <div style="margin-top:1.25rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
 });
 
