@@ -6,17 +6,18 @@
   <title>Riccardo Galasso — Poesie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #1a1714;
+      /* Colori Light Mode migliorati per leggibilità e contrasto */
+      --ink: #110f0d;
       --paper: #faf8f5;
-      --warm: #f0ebe3;
-      --accent: #8b6f5e;
-      --accent-light: #c4a898;
-      --muted: #9a9187;
-      --line: #e2ddd7;
-      --gold: #b8892a;
+      --warm: #eee8df;
+      --accent: #5c4a3e;
+      --accent-light: #9c8475;
+      --muted: #635b52;
+      --line: #d8d0c5;
+      --gold: #966c1b;
       --nav-h: 96px;
     }
 
@@ -30,6 +31,8 @@
       font-size: 18px;
       line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Texture noise */
@@ -60,7 +63,7 @@
       justify-content: space-between;
       padding: 0.5rem 2.5rem;
       height: var(--nav-h);
-      background: rgba(250,248,245,0.92);
+      background: rgba(250,248,245,0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
@@ -91,9 +94,9 @@
     }
     .nav-links a {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent);
       text-decoration: none;
@@ -102,7 +105,7 @@
     }
     .nav-links a:hover {
       color: var(--gold);
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
     }
 
     .nav-actions {
@@ -119,13 +122,14 @@
     }
     .lang-link {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       text-decoration: none;
       padding: 0.25rem 0.2rem;
-      border-bottom: 1px solid transparent;
+      border-bottom: 2px solid transparent;
       transition: color 0.25s ease, border-color 0.25s ease;
       white-space: nowrap;
     }
@@ -151,7 +155,7 @@
       background: none;
       border: 1px solid var(--line);
       border-radius: 50%;
-      color: var(--accent);
+      color: var(--ink);
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.95rem;
@@ -227,7 +231,7 @@
       z-index: 99;
       flex-direction: column;
       gap: 1.25rem;
-      box-shadow: 0 16px 32px rgba(0,0,0,0.06);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.08);
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a.nav-m-link {
@@ -254,11 +258,12 @@
 
     /* Layout sezioni */
     .section-pad { padding: 4.5rem 2.5rem 3.5rem; }
-    .section-header { margin-bottom: 3rem; }
+    .section-header { margin-bottom: 2.5rem; }
     .section-num {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 0.75rem;
@@ -268,12 +273,13 @@
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.15;
+      color: var(--ink);
     }
     .divider {
       width: 48px;
       height: 1px;
-      background: var(--accent-light);
-      margin: 2rem 0;
+      background: var(--accent);
+      margin: 1.8rem 0;
     }
 
     /* Hero */
@@ -301,8 +307,8 @@
     .hero-title em { font-style: italic; color: var(--accent); }
     .hero-sub {
       margin-top: 1.5rem;
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      color: var(--accent);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: var(--ink);
       font-style: italic;
       max-width: 48ch;
       opacity: 0;
@@ -310,7 +316,8 @@
     }
     .hero-author {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
       letter-spacing: 0.1em;
       color: var(--accent);
       margin-top: 0.75rem;
@@ -323,12 +330,13 @@
       align-items: center;
       gap: 0.75rem;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px solid var(--ink);
+      border-bottom: 1.5px solid var(--ink);
       padding-bottom: 3px;
       opacity: 0;
       animation: fadeUp 0.9s 0.7s forwards;
@@ -336,8 +344,8 @@
     }
     .hero-cta:hover {
       gap: 1.25rem;
-      color: var(--accent);
-      border-color: var(--accent);
+      color: var(--gold);
+      border-color: var(--gold);
     }
 
     .hero-scroll {
@@ -348,8 +356,9 @@
       align-items: center;
       gap: 0.75rem;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent);
       opacity: 0;
@@ -399,13 +408,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.6rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       align-items: center;
     }
     .filter-btn {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.72rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
       padding: 0.5rem 1.15rem;
@@ -418,75 +427,84 @@
     }
     .filter-btn:hover, .filter-btn.active {
       background: var(--ink);
-      color: #f4f4f4;
+      color: var(--paper);
       border-color: var(--ink);
     }
-    .rnd-wrap {
-      margin-left: auto;
+
+    /* Nuova barra azioni interattive nella sezione 03 */
+    .reading-actions {
       display: flex;
-      gap: 0.6rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
     }
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 500;
+      font-size: 0.76rem;
+      font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.5rem 1.15rem;
+      padding: 0.65rem 1.35rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
       color: var(--gold);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
     .rnd-btn:hover {
       background: var(--gold);
-      color: var(--paper);
+      color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .poems-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
+      gap: 16px;
     }
     .poem-card {
       background: var(--paper);
       padding: 2.5rem 2rem;
       cursor: pointer;
-      transition: background 0.25s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid var(--line);
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       position: relative;
     }
+    /* Risolto: in hover la scheda non si "sbianca" né perde contrasto */
     .poem-card:hover {
-      background: #ffffff;
+      background: var(--paper);
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(26,23,20,0.08);
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(17, 15, 13, 0.1);
     }
     .poem-tag {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 1rem;
     }
     .poem-card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
+      font-size: 1.35rem;
+      font-weight: 600;
       font-style: italic;
       line-height: 1.3;
       margin-bottom: 1rem;
+      color: var(--ink);
       transition: color 0.25s ease;
     }
-    .poem-card:hover .poem-card-title { color: var(--accent); }
+    .poem-card:hover .poem-card-title { color: var(--gold); }
     .poem-card-excerpt {
       font-family: 'EB Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--ink);
       font-style: italic;
-      line-height: 2;
+      line-height: 1.9;
     }
     .poem-card.hidden { display: none; }
 
@@ -495,13 +513,14 @@
       padding-bottom: 4.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .poem-reading { max-width: 620px; }
+    .poem-reading { max-width: 640px; }
     .poem-reading-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.15;
       margin-bottom: 0.6rem;
+      white-space: nowrap;
     }
     .poem-body {
       font-family: 'EB Garamond', serif;
@@ -528,7 +547,7 @@
       display: none;
       align-items: flex-start;
       justify-content: center;
-      background: rgba(26,23,20,0.72);
+      background: rgba(17,15,13,0.78);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       padding: 2rem 1.25rem;
@@ -543,7 +562,7 @@
       position: relative;
       margin: auto;
       animation: modalIn 0.32s ease;
-      box-shadow: 0 20px 48px rgba(0,0,0,0.18);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.22);
     }
     .modal-close {
       position: absolute;
@@ -559,12 +578,12 @@
       justify-content: center;
       font-size: 1.1rem;
       cursor: pointer;
-      color: var(--muted);
+      color: var(--ink);
       transition: color 0.2s ease, border-color 0.2s ease;
     }
     .modal-close:hover {
-      color: var(--ink);
-      border-color: var(--ink);
+      color: var(--gold);
+      border-color: var(--gold);
     }
     .modal-tools {
       position: absolute;
@@ -608,10 +627,11 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       color: var(--accent);
+      font-weight: 600;
     }
     .footer-copy {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--accent);
     }
 
@@ -622,12 +642,17 @@
       --warm: #1c1917;
       --accent: #c4a898;
       --accent-light: #8b6f5e;
-      --muted: #7a7168;
+      --muted: #9c9186;
       --line: #2a2622;
+      --gold: #d4a849;
     }
     body.dark nav { background: rgba(20,18,16,0.92); }
-    body.dark .poem-card { background: #141210; }
-    body.dark .poem-card:hover { background: #1e1b18; }
+    body.dark .poem-card { background: #141210; border-color: var(--line); }
+    body.dark .poem-card:hover {
+      background: #1c1917;
+      border-color: var(--gold);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+    }
     body.dark .modal-inner { background: #1c1917; }
     body.dark .form-input { background: #141210; border-color: var(--line); }
     body.dark .mobile-menu { background: #141210; }
@@ -697,7 +722,7 @@
       transform: translateY(0);
     }
 
-    /* Responsiveness per Tablet e Mobile */
+    /* Responsiveness */
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
@@ -729,7 +754,7 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
       
-      .rnd-wrap { margin-left: 0; width: 100%; }
+      .reading-actions { width: 100%; }
       .rnd-btn { flex: 1; text-align: center; }
       
       footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
@@ -828,10 +853,10 @@
         </p>
       </div>
       <div class="chisono-bio">
-        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);" data-i18n="section.chisono.bio1">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);" data-i18n="section.chisono.bio1">
           Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
         </p>
-        <p style="font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.85; color:var(--ink);" data-i18n="section.chisono.bio2">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; color:var(--ink);" data-i18n="section.chisono.bio2">
           Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.
         </p>
       </div>
@@ -848,15 +873,12 @@
       <div class="divider"></div>
     </div>
 
+    <!-- Filtri (senza i pulsanti di estrazione casuale) -->
     <div class="filters reveal">
       <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tutte</button>
       <button class="filter-btn" data-filter="emozioni" data-i18n="filter.emozioni">Emozioni</button>
       <button class="filter-btn" data-filter="natura" data-i18n="filter.natura">Natura</button>
       <button class="filter-btn" data-filter="tempo" data-i18n="filter.tempo">Tempo</button>
-      <div class="rnd-wrap">
-        <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
-        <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
-      </div>
     </div>
 
     <div class="poems-grid reveal" id="poemsGrid">
@@ -868,7 +890,7 @@
 
       <div class="poem-card" data-tag="emozioni" onclick="openPoem('silenzio-occhi')">
         <div class="poem-tag">Emozioni</div>
-        <div class="poem-card-title">Nel Silenzio dei Tuoi Occhi</div>
+        <div class="poem-card-title">Nel silenzio dei tuoi occhi</div>
         <div class="poem-card-excerpt">Nel silenzio dei tuoi occhi<br>l'universo si riflette:<br>Mare che custodisce...</div>
       </div>
 
@@ -898,12 +920,22 @@
   <div class="section-pad">
     <div class="section-header reveal">
       <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
-      <h2 class="section-title" data-i18n="section.lettura.title">Frammenti improvvisi</h2>
+      <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
       <div class="divider"></div>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
+        oppure una poesia intera. Lascia scegliere al caso.
+      </p>
+      
+      <!-- Pulsanti interattivi posizionati qui -->
+      <div class="reading-actions">
+        <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
+        <button class="rnd-btn" type="button" id="rndPoem" data-i18n="btn.rndPoem">Estrai una poesia</button>
+      </div>
     </div>
-    <div class="poem-reading reveal">
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
-        Scegli "Estrai una poesia" o "Estrai un verso" nell'archivio per far apparire un frammento qui.
+
+    <div class="poem-reading reveal" id="readingContainer">
+      <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:1.25rem; color:var(--muted);">
+        Clicca su uno dei pulsanti in alto per scoprire il frammento scelto per te.
       </p>
     </div>
   </div>
@@ -923,7 +955,7 @@
       <input name="nome" id="ctNome" type="text" placeholder="Il tuo nome" data-i18n-placeholder="form.nome" required class="form-input" />
       <input name="email" id="ctEmail" type="email" placeholder="La tua email" data-i18n-placeholder="form.email" required class="form-input" />
       <textarea name="messaggio" id="ctMessaggio" rows="5" placeholder="Il tuo messaggio" data-i18n-placeholder="form.messaggio" required class="form-input" style="resize:vertical;"></textarea>
-      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;" data-i18n="form.submit">Invia</button>
+      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;" data-i18n="form.submit">Invia</button>
     </form>
     <div id="ctMessage" style="margin-top:1.2rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); display:none;"></div>
   </div>
@@ -985,7 +1017,7 @@ const POEMS = {
   },
   'silenzio-occhi': {
     tag: 'Emozioni',
-    title: 'Nel Silenzio dei Tuoi Occhi',
+    title: 'Nel silenzio dei tuoi occhi',
     body: `
       <p>Nel silenzio dei tuoi occhi<br>
       l'universo si riflette:<br>
@@ -1065,8 +1097,9 @@ const translations = {
     "section.chisono.bio2": "Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.",
     "section.archivio.num": "02 — Archivio", "section.archivio.title": "Le poesie",
     "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
-    "section.lettura.num": "03 — In evidenza", "section.lettura.title": "Frammenti improvvisi",
-    "section.lettura.subtitle": "Scegli \"Estrai una poesia\" o \"Estrai un verso\" nell'archivio per far apparire un frammento qui.",
+    "section.lettura.num": "03 — In evidenza", "section.lettura.title": "A volte basta un verso...",
+    "section.lettura.subtitle": "oppure una poesia intera. Lascia scegliere al caso.",
+    "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
     "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
@@ -1081,8 +1114,9 @@ const translations = {
     "section.chisono.bio2": "I search for my voice within silent words, a sanctuary whenever I seek freedom. Words turning thoughts into narratives: every verse is a protagonist.",
     "section.archivio.num": "02 — Archive", "section.archivio.title": "The poems",
     "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
-    "section.lettura.num": "03 — Featured", "section.lettura.title": "Sudden fragments",
-    "section.lettura.subtitle": "Click \"Draw a poem\" or \"Draw a verse\" in the archive to reveal an excerpt here.",
+    "section.lettura.num": "03 — Featured", "section.lettura.title": "Sometimes a verse is enough...",
+    "section.lettura.subtitle": "or a whole poem. Let chance decide.",
+    "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
     "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
     "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
     "form.nome": "Your name", "form.email": "Your email", "form.messaggio": "Your message", "form.submit": "Send",
@@ -1097,8 +1131,9 @@ const translations = {
     "section.chisono.bio2": "Busco mi voz en el silencio de las palabras, un refugio donde regresar libre. Palabras que convierten pensamientos en imágenes.",
     "section.archivio.num": "02 — Archivo", "section.archivio.title": "Los poemas",
     "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
-    "section.lettura.num": "03 — En portada", "section.lettura.title": "Fragmentos repentinos",
-    "section.lettura.subtitle": "Selecciona \"Sacar poema\" o \"Sacar verso\" en el archivo para visualizar un fragmento.",
+    "section.lettura.num": "03 — En portada", "section.lettura.title": "A veces basta un verso...",
+    "section.lettura.subtitle": "o un poema entero. Deja que el azar decida.",
+    "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
     "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
     "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
     "form.nome": "Tu nombre", "form.email": "Tu correo", "form.messaggio": "Tu mensaje", "form.submit": "Enviar",
@@ -1188,6 +1223,20 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
+// Adatta il titolo alla larghezza disponibile
+function fitTitles() {
+  document.querySelectorAll('.poem-reading-title').forEach(el => {
+    el.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth && size > 18) {
+      size -= 1;
+      el.style.fontSize = size + 'px';
+    }
+  });
+}
+window.addEventListener('resize', fitTitles);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitles);
+
 // Modale e Comandi
 let activePoemId = null;
 
@@ -1210,6 +1259,7 @@ function openPoem(id) {
 
   document.getElementById('poemModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  fitTitles();
 }
 
 function closePoem() {
@@ -1241,6 +1291,7 @@ document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
 document.getElementById('zenBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   document.body.classList.toggle('zen');
+  fitTitles();
 });
 
 document.getElementById('themeModalBtn')?.addEventListener('click', (e) => {
@@ -1261,18 +1312,18 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazioni Casuali
+// Estrazioni Casuali nella Sezione 03
 document.getElementById('rndPoem')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
-  const target = document.querySelector('#lettura .poem-reading');
+  const target = document.getElementById('readingContainer');
   target.innerHTML = `
     <div class="poem-tag">${p.tag}</div>
     <h3 class="poem-reading-title">${p.title}</h3>
     <div class="poem-body">${p.body}</div>
     <div class="poem-note">${p.note}</div>
   `;
-  document.getElementById('lettura').scrollIntoView({ behavior: 'smooth' });
+  fitTitles();
 });
 
 document.getElementById('rndVerse')?.addEventListener('click', () => {
@@ -1292,12 +1343,11 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
     .filter(s => s.length > 8);
     
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
-  const target = document.querySelector('#lettura .poem-reading');
+  const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2.2rem); line-height:1.4;">“${verse}”</div>
-    <div style="margin-top:1rem; font-family:'DM Sans',sans-serif; font-size:0.8rem; color:var(--muted);">— da «${p.title}»</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2.2rem); line-height:1.4; color:var(--ink);">“${verse}”</div>
+    <div style="margin-top:1.25rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
-  document.getElementById('lettura').scrollIntoView({ behavior: 'smooth' });
 });
 
 // Invio Form Contatti Asincrono
