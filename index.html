@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Colori Light Mode migliorati per leggibilità e contrasto */
       --ink: #110f0d;
       --paper: #faf8f5;
       --warm: #eee8df;
@@ -431,7 +430,7 @@
       border-color: var(--ink);
     }
 
-    /* Nuova barra azioni interattive nella sezione 03 */
+    /* Azioni interattive nella sezione 03 */
     .reading-actions {
       display: flex;
       gap: 0.75rem;
@@ -472,7 +471,6 @@
       transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       position: relative;
     }
-    /* Risolto: in hover la scheda non si "sbianca" né perde contrasto */
     .poem-card:hover {
       background: var(--paper);
       transform: translateY(-4px);
@@ -873,7 +871,7 @@
       <div class="divider"></div>
     </div>
 
-    <!-- Filtri (senza i pulsanti di estrazione casuale) -->
+    <!-- Filtri -->
     <div class="filters reveal">
       <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tutte</button>
       <button class="filter-btn" data-filter="emozioni" data-i18n="filter.emozioni">Emozioni</button>
@@ -923,10 +921,10 @@
       <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
       <div class="divider"></div>
       <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--accent); font-style:italic;" data-i18n="section.lettura.subtitle">
-        oppure una poesia intera. Lascia scegliere al caso.
+        ...oppure una poesia intera. Pesca dall'archivio e vedi cosa arriva.
       </p>
       
-      <!-- Pulsanti interattivi posizionati qui -->
+      <!-- Pulsanti interattivi -->
       <div class="reading-actions">
         <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
         <button class="rnd-btn" type="button" id="rndPoem" data-i18n="btn.rndPoem">Estrai una poesia</button>
@@ -1086,7 +1084,7 @@ const POEMS = {
   }
 };
 
-// Traduzioni multilingua
+// Traduzioni multilingua sincronizzate
 const translations = {
   it: {
     "nav.chisono": "Chi sono", "nav.archivio": "Archivio", "nav.lettura": "In evidenza", "nav.contatti": "Contatti",
@@ -1097,8 +1095,9 @@ const translations = {
     "section.chisono.bio2": "Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.",
     "section.archivio.num": "02 — Archivio", "section.archivio.title": "Le poesie",
     "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
-    "section.lettura.num": "03 — In evidenza", "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subtitle": "oppure una poesia intera. Lascia scegliere al caso.",
+    "section.lettura.num": "03 — In evidenza",
+    "section.lettura.title": "A volte basta un verso...",
+    "section.lettura.subtitle": "...oppure una poesia intera. Pesca dall'archivio e vedi cosa arriva.",
     "btn.rndVerse": "Estrai un verso", "btn.rndPoem": "Estrai una poesia",
     "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
     "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
@@ -1114,8 +1113,9 @@ const translations = {
     "section.chisono.bio2": "I search for my voice within silent words, a sanctuary whenever I seek freedom. Words turning thoughts into narratives: every verse is a protagonist.",
     "section.archivio.num": "02 — Archive", "section.archivio.title": "The poems",
     "filter.all": "All", "filter.emozioni": "Emotions", "filter.natura": "Nature", "filter.tempo": "Time",
-    "section.lettura.num": "03 — Featured", "section.lettura.title": "Sometimes a verse is enough...",
-    "section.lettura.subtitle": "or a whole poem. Let chance decide.",
+    "section.lettura.num": "03 — Featured",
+    "section.lettura.title": "Sometimes a verse is enough...",
+    "section.lettura.subtitle": "...or a whole poem. Draw from the archive and see what arrives.",
     "btn.rndVerse": "Draw a verse", "btn.rndPoem": "Draw a poem",
     "section.contatti.num": "04 — Contact", "section.contatti.title": "Write to me",
     "section.contatti.desc": "Do you have a question, a thought, or wish to share something? Write to me — I reply to everyone.",
@@ -1131,8 +1131,9 @@ const translations = {
     "section.chisono.bio2": "Busco mi voz en el silencio de las palabras, un refugio donde regresar libre. Palabras que convierten pensamientos en imágenes.",
     "section.archivio.num": "02 — Archivo", "section.archivio.title": "Los poemas",
     "filter.all": "Todos", "filter.emozioni": "Emociones", "filter.natura": "Naturaleza", "filter.tempo": "Tiempo",
-    "section.lettura.num": "03 — En portada", "section.lettura.title": "A veces basta un verso...",
-    "section.lettura.subtitle": "o un poema entero. Deja que el azar decida.",
+    "section.lettura.num": "03 — En portada",
+    "section.lettura.title": "A veces basta un verso...",
+    "section.lettura.subtitle": "...o un poema entero. Saca del archivo y mira qué llega.",
     "btn.rndVerse": "Sacar un verso", "btn.rndPoem": "Sacar un poema",
     "section.contatti.num": "04 — Contacto", "section.contatti.title": "Escríbeme",
     "section.contatti.desc": "¿Tienes alguna pregunta o pensamiento? Escríbeme — respondo a todos.",
