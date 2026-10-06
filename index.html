@@ -46,6 +46,12 @@
       background-size: 200px;
     }
 
+    /* Typo */
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .font-body  { font-family: 'EB Garamond', Georgia, serif; }
+    .font-sans  { font-family: 'DM Sans', sans-serif; }
+    .font-mono  { font-family: 'Space Mono', 'Courier New', monospace; }
+
     /* Barra di navigazione */
     nav {
       position: fixed;
@@ -62,28 +68,17 @@
       border-bottom: 1px solid var(--line);
       transition: background 0.3s ease, border-color 0.3s ease;
     }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
-    }
-    .nav-logo-img {
-      height: 38px;
-      width: auto;
-      display: block;
-      object-fit: contain;
-    }
     .nav-logo-text {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 700;
       font-size: 1.35rem;
       color: var(--ink);
+      text-decoration: none;
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
     }
-    .nav-brand:hover .nav-logo-text { opacity: 0.75; }
+    .nav-logo-text:hover { opacity: 0.75; }
 
     .nav-center {
       display: flex;
@@ -118,7 +113,7 @@
       gap: 0.85rem;
     }
 
-    /* Language Switcher */
+    /* Language Switcher Desktop */
     .language-switcher {
       display: flex;
       align-items: center;
@@ -148,6 +143,7 @@
       user-select: none;
     }
 
+    /* Icon button standard */
     .icon-btn {
       position: relative;
       display: inline-flex;
@@ -195,6 +191,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -221,6 +218,7 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+    /* Mobile menu a comparsa */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -271,7 +269,7 @@
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.15;
       color: var(--ink);
@@ -348,6 +346,7 @@
       color: var(--gold);
       border-color: var(--gold);
     }
+
     .hero-scroll {
       position: absolute;
       bottom: 2rem;
@@ -479,39 +478,44 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* ========================================================
-       SEZIONE 03: SCALETTA FLUIDA AUTENTICA (DISEGNO QUADERNO)
-       ======================================================== */
+    /* Sezione 03: Layout Split a due colonne */
     #lettura {
-      padding-top: 5rem;
-      padding-bottom: 6.5rem;
+      padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .scaletta-zone {
-      max-width: 1240px;
-      margin: 0 auto;
+    .lettura-split {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 3.5rem;
+      max-width: 1200px;
+    }
+    .lettura-left {
+      flex: 1;
+      max-width: 480px;
+    }
+    .lettura-right {
+      flex: 1.2;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      padding-top: 1.7rem;
     }
-    /* Scalino 1: Sinistra in alto */
-    .scaletta-1 {
-      width: fit-content;
+    .lettura-right-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .lettura-right-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.02em;
       margin-bottom: 2rem;
-    }
-    .scaletta-1 .section-title {
-      white-space: nowrap;
-    }
-
-    /* Scalino 2: Centro (Azione e Verso che compare) */
-    .scaletta-2 {
-      align-self: center;
-      width: 100%;
-      max-width: 680px;
-      margin: 1rem auto 2.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
@@ -519,7 +523,7 @@
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.7rem 1.6rem;
+      padding: 0.65rem 1.45rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
@@ -530,34 +534,12 @@
     .rnd-btn:hover {
       background: var(--gold);
       color: #ffffff;
-      transform: translateY(-2px);
+      transform: translateY(-1px);
     }
     .reading-output {
       width: 100%;
-      margin-top: 1.8rem;
-      min-height: 48px;
-    }
-
-    /* Scalino 3: Destra in basso */
-    .scaletta-3 {
-      align-self: flex-end;
-      text-align: right;
-      max-width: 580px;
-    }
-    .scaletta-3-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3rem);
-      font-weight: 400;
-      line-height: 1.2;
-      color: var(--ink);
-      margin-bottom: 0.4rem;
-    }
-    .scaletta-3-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--gold);
-      letter-spacing: 0.02em;
+      margin-top: 2.5rem;
+      min-height: 60px;
     }
 
     /* Modale lettura */
@@ -747,9 +729,8 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .scaletta-1 .section-title { white-space: normal; }
-      .scaletta-2 { margin: 2rem 0; align-items: flex-start; text-align: left; }
-      .scaletta-3 { align-self: flex-start; text-align: left; }
+      .lettura-split { flex-direction: column; gap: 2rem; }
+      .lettura-right { padding-top: 0; width: 100%; }
     }
 
     @media (min-width: 769px) {
@@ -789,12 +770,9 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione Superiore con LOGO e NOME -->
+<!-- Navigazione Superiore -->
 <nav id="navbar">
-  <a href="#hero" class="nav-brand" onclick="scrollToId('hero'); return false;">
-    <img src="logo.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
-    <span class="nav-logo-text">Riccardo Galasso</span>
-  </a>
+  <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
   <!-- Lingue visibili su Desktop/Tablet al centro -->
   <div class="language-switcher">
@@ -939,28 +917,26 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza: SCALETTA AUTENTICA -->
+<!-- 03 — In evidenza (Layout Split: Titolo a Sinistra, Azione e Verso a Destra) -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="scaletta-zone reveal">
+    <div class="lettura-split reveal">
       
-      <!-- Scalino 1: Sinistra -->
-      <div class="scaletta-1">
+      <!-- Colonna Sinistra -->
+      <div class="lettura-left">
         <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
         <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- Scalino 2: Centro (Pulsante e Verso estratto) -->
-      <div class="scaletta-2">
+      <!-- Colonna Destra -->
+      <div class="lettura-right">
+        <h3 class="lettura-right-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
+        <p class="lettura-right-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
+        
         <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
+        
         <div class="reading-output" id="readingContainer"></div>
-      </div>
-
-      <!-- Scalino 3: Destra -->
-      <div class="scaletta-3">
-        <h3 class="scaletta-3-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
-        <p class="scaletta-3-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
       </div>
 
     </div>
@@ -1255,6 +1231,7 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
+// Adatta il titolo alla larghezza disponibile
 function fitTitles() {
   document.querySelectorAll('.poem-reading-title').forEach(el => {
     el.style.fontSize = '';
@@ -1313,6 +1290,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Listener per i pulsanti della modale
 document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (activePoemId) copyText(getPoemPlainText(activePoemId), e.currentTarget);
@@ -1342,7 +1320,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazione Verso Singolo (Scalino Centrale)
+// Estrazione Verso Singolo (nella colonna destra)
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1362,7 +1340,7 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.45rem,2.6vw,2.1rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,2.8vw,2.3rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
     <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
 });
