@@ -77,23 +77,26 @@
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
-      flex: 1;
+      min-width: 200px;
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG */
+    /* Monogramma centrale RG (Bloccato rigidamente per evitare collassi) */
     .logo-container {
       display: flex !important;
       align-items: center;
       justify-content: center;
-      flex: 1;
+      width: 100px;
+      min-width: 100px;
+      height: 48px;
+      flex-shrink: 0;
+      margin: 0 auto;
     }
     .logo-rg-dinamico {
-      height: 42px;
-      width: 80px;
-      overflow: visible;
-      cursor: pointer;
+      width: 100px;
+      height: 44px;
       display: block;
+      cursor: pointer;
       transition: transform 0.3s ease;
     }
     .logo-rg-dinamico:hover {
@@ -121,7 +124,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: 1.5rem;
-      flex: 1;
+      min-width: 200px;
     }
 
     .nav-links {
@@ -714,15 +717,17 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .logo-container { justify-content: center; }
+      .nav-logo-text { min-width: auto; }
+      .nav-actions { min-width: auto; }
     }
 
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
-      .nav-logo-text { font-size: 1.15rem; flex: initial; }
-      .logo-rg-dinamico { height: 34px; width: 65px; }
-      .nav-actions { flex: initial; }
+      .nav-logo-text { font-size: 1.15rem; min-width: auto; }
+      .logo-container { width: 80px; min-width: 80px; height: 38px; }
+      .logo-rg-dinamico { width: 80px; height: 36px; }
+      .nav-actions { min-width: auto; gap: 0.75rem; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -756,13 +761,14 @@
 
 <!-- Navigazione Superiore -->
 <nav id="navbar">
+  <!-- 1. Nome Autore a sinistra -->
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- Monogramma RG dinamico al centro con doppio gradiente Light / Dark -->
+  <!-- 2. Monogramma RG dinamico al centro -->
   <div class="logo-container">
     <svg class="logo-rg-dinamico" viewBox="0 0 130 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
       <defs>
-        <!-- Gradiente Light Mode: bronzo scuro, terra d'ombra e riflesso d'oro brunito -->
+        <!-- Gradiente Light Mode -->
         <linearGradient id="ondaBronzoLight" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#4a3728">
             <animate attributeName="stop-color" 
@@ -786,7 +792,7 @@
           </stop>
         </linearGradient>
 
-        <!-- Gradiente Dark Mode: onda oro caldo e avorio luminoso -->
+        <!-- Gradiente Dark Mode -->
         <linearGradient id="ondaOroDark" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#eed9b3">
             <animate attributeName="stop-color" 
@@ -814,7 +820,7 @@
     </svg>
   </div>
 
-  <!-- Gruppo azioni a destra -->
+  <!-- 3. Navigazione e comandi a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
       <li><a href="#chisono">Chi sono</a></li>
