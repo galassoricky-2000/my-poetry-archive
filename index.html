@@ -478,46 +478,58 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione 03: Allineamento perfetto orizzontale */
+    /* Sezione 03: Scaletta a Cascata (Sinistra -> Centro -> Destra) */
     #lettura {
-      padding-bottom: 5.5rem;
+      padding-top: 4.5rem;
+      padding-bottom: 6rem;
       scroll-margin-top: var(--nav-h);
     }
-    .lettura-split {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 4rem;
+    .scaletta-container {
       max-width: 1200px;
-    }
-    .lettura-left {
-      flex: 1;
-      max-width: 480px;
-    }
-    .lettura-right {
-      flex: 1.2;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      /* Allineato esattamente alla linea di base del titolo a sinistra (escludendo il label numerico) */
-      padding-top: 1.85rem; 
+      position: relative;
     }
-    .lettura-right-title {
+    /* Scalino 1: Sinistra */
+    .scaletta-step-left {
+      align-self: flex-start;
+      max-width: 480px;
+    }
+    /* Scalino 2: Centro (Pulsante e Verso estratto) */
+    .scaletta-step-center {
+      align-self: center;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 620px;
+    }
+    /* Scalino 3: Destra */
+    .scaletta-step-right {
+      align-self: flex-end;
+      text-align: right;
+      max-width: 480px;
+    }
+    .scaletta-step-right .step-right-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2rem, 3.8vw, 3rem);
       font-weight: 400;
       line-height: 1.15;
       color: var(--ink);
-      margin: 0 0 0.45rem 0;
+      margin-bottom: 0.4rem;
     }
-    .lettura-right-sub {
+    .scaletta-step-right .step-right-sub {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.95rem;
       font-style: italic;
       color: var(--gold);
       letter-spacing: 0.02em;
-      margin-bottom: 1.5rem;
     }
+
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.76rem;
@@ -539,8 +551,8 @@
     }
     .reading-output {
       width: 100%;
-      margin-top: 2rem;
-      min-height: 50px;
+      margin-top: 1.75rem;
+      min-height: 40px;
     }
 
     /* Modale lettura */
@@ -730,8 +742,12 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .lettura-split { flex-direction: column; gap: 2rem; }
-      .lettura-right { padding-top: 0; width: 100%; }
+      .scaletta-step-left, .scaletta-step-center, .scaletta-step-right {
+        align-self: flex-start;
+        text-align: left;
+        max-width: 100%;
+      }
+      .scaletta-step-right { margin-top: 1.5rem; }
     }
 
     @media (min-width: 769px) {
@@ -918,26 +934,28 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Allineamento bilanciato tra sinistra e destra) -->
+<!-- 03 — In evidenza (Composizione a Scaletta da Sinistra verso Destra) -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="lettura-split reveal">
+    <div class="scaletta-container reveal">
       
-      <!-- Colonna Sinistra -->
-      <div class="lettura-left">
+      <!-- Scalino 1: In alto a sinistra -->
+      <div class="scaletta-step-left">
         <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
         <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- Colonna Destra -->
-      <div class="lettura-right">
-        <h3 class="lettura-right-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
-        <p class="lettura-right-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
-        
+      <!-- Scalino 2: Al centro (Pulsante ed estrazione del verso) -->
+      <div class="scaletta-step-center">
         <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
-        
         <div class="reading-output" id="readingContainer"></div>
+      </div>
+
+      <!-- Scalino 3: In basso a destra -->
+      <div class="scaletta-step-right">
+        <h3 class="step-right-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
+        <p class="step-right-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
       </div>
 
     </div>
@@ -1051,7 +1069,7 @@ const POEMS = {
     tag: 'Tempo',
     title: 'Il Principio dell\'Attesa',
     body: `
-      <p>Rosso, il标志Mare,<br>
+      <p>Rosso, il Mare,<br>
       un dipinto del Cielo<br>
       che placa i frastuoni della mente<br>
       e libera nel vento le ali dei suoi figli;</p>
@@ -1321,7 +1339,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazione Verso Singolo
+// Estrazione Verso Singolo (Scalino Centrale)
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1341,7 +1359,7 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,2.8vw,2.3rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.45rem,2.6vw,2.1rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
     <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
 });
