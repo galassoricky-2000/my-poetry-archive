@@ -77,26 +77,28 @@
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
-      min-width: 200px;
+      flex: 1 1 0;
+      min-width: 180px;
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG (Bloccato rigidamente per evitare collassi) */
+    /* Monogramma centrale RG: perfetto centraggio e dimensioni stabili */
     .logo-container {
       display: flex !important;
       align-items: center;
       justify-content: center;
-      width: 100px;
-      min-width: 100px;
+      flex: 0 0 110px;
+      width: 110px;
+      min-width: 110px;
       height: 48px;
-      flex-shrink: 0;
-      margin: 0 auto;
+      margin: 0 1rem;
     }
     .logo-rg-dinamico {
-      width: 100px;
-      height: 44px;
+      width: 110px;
+      height: 46px;
       display: block;
       cursor: pointer;
+      overflow: visible;
       transition: transform 0.3s ease;
     }
     .logo-rg-dinamico:hover {
@@ -114,9 +116,24 @@
       transition: fill 0.3s ease;
     }
 
-    /* Stile testo monogramma: Dark Mode */
+    /* Stile testo monogramma: Dark Mode con onda viva e alone d'oro */
     body.dark .testo-monogramma {
       fill: url(#ondaOroDark);
+    }
+    body.dark .logo-rg-dinamico {
+      animation: respiroOroVivo 3.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes respiroOroVivo {
+      0% {
+        filter: drop-shadow(0 0 1px rgba(201, 151, 56, 0.2));
+      }
+      50% {
+        filter: drop-shadow(0 0 8px rgba(245, 179, 51, 0.75)) drop-shadow(0 0 16px rgba(201, 151, 56, 0.35));
+      }
+      100% {
+        filter: drop-shadow(0 0 2px rgba(201, 151, 56, 0.25));
+      }
     }
 
     .nav-actions {
@@ -124,7 +141,8 @@
       align-items: center;
       justify-content: flex-end;
       gap: 1.5rem;
-      min-width: 200px;
+      flex: 1 1 0;
+      min-width: 180px;
     }
 
     .nav-links {
@@ -724,10 +742,10 @@
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
-      .nav-logo-text { font-size: 1.15rem; min-width: auto; }
-      .logo-container { width: 80px; min-width: 80px; height: 38px; }
+      .nav-logo-text { font-size: 1.15rem; min-width: auto; flex: initial; }
+      .logo-container { width: 80px; min-width: 80px; height: 38px; margin: 0 auto; }
       .logo-rg-dinamico { width: 80px; height: 36px; }
-      .nav-actions { min-width: auto; gap: 0.75rem; }
+      .nav-actions { min-width: auto; flex: initial; gap: 0.75rem; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -761,58 +779,58 @@
 
 <!-- Navigazione Superiore -->
 <nav id="navbar">
-  <!-- 1. Nome Autore a sinistra -->
+  <!-- 1. Nome a sinistra -->
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- 2. Monogramma RG dinamico al centro -->
+  <!-- 2. Monogramma RG dinamico al centro: Oro Vivo & Passaggio fluido continuo -->
   <div class="logo-container">
     <svg class="logo-rg-dinamico" viewBox="0 0 130 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
       <defs>
-        <!-- Gradiente Light Mode -->
+        <!-- Gradiente Light Mode: Bronzo satinato & Oro scuro d'accento -->
         <linearGradient id="ondaBronzoLight" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#4a3728">
+          <stop offset="0%" stop-color="#3d2714">
             <animate attributeName="stop-color" 
-                     values="#4a3728; #8c6227; #4a3728; #4a3728" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#3d2714; #8c6018; #b58228; #5c3a1e; #3d2714" 
+                     dur="3s" repeatCount="indefinite" />
           </stop>
-          <stop offset="35%" stop-color="#966c1b">
+          <stop offset="35%" stop-color="#704b1c">
             <animate attributeName="stop-color" 
-                     values="#966c1b; #2b1f17; #966c1b; #966c1b" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#704b1c; #b58228; #5c3a1e; #3d2714; #704b1c" 
+                     dur="3s" repeatCount="indefinite" />
           </stop>
-          <stop offset="70%" stop-color="#4a3728">
+          <stop offset="70%" stop-color="#966c1b">
             <animate attributeName="stop-color" 
-                     values="#4a3728; #b58934; #2b1f17; #4a3728" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#966c1b; #5c3a1e; #3d2714; #b58228; #966c1b" 
+                     dur="3s" repeatCount="indefinite" />
           </stop>
-          <stop offset="100%" stop-color="#4a3728">
+          <stop offset="100%" stop-color="#3d2714">
             <animate attributeName="stop-color" 
-                     values="#4a3728; #4a3728; #966c1b; #4a3728" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#3d2714; #3d2714; #704b1c; #966c1b; #3d2714" 
+                     dur="3s" repeatCount="indefinite" />
           </stop>
         </linearGradient>
 
-        <!-- Gradiente Dark Mode -->
+        <!-- Gradiente Dark Mode: Onda continua di ORO VIVO ad alta intensità -->
         <linearGradient id="ondaOroDark" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#eed9b3">
+          <stop offset="0%" stop-color="#c99738">
             <animate attributeName="stop-color" 
-                     values="#eed9b3; #ffe29a; #eed9b3; #eed9b3" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#c99738; #ffd257; #ffffff; #f0a500; #c99738" 
+                     dur="2.8s" repeatCount="indefinite" />
           </stop>
-          <stop offset="35%" stop-color="#d4a849">
+          <stop offset="35%" stop-color="#f3b333">
             <animate attributeName="stop-color" 
-                     values="#d4a849; #ffffff; #d4a849; #d4a849" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#f3b333; #ffffff; #ffd257; #c99738; #f3b333" 
+                     dur="2.8s" repeatCount="indefinite" />
           </stop>
-          <stop offset="70%" stop-color="#eed9b3">
+          <stop offset="70%" stop-color="#ffd257">
             <animate attributeName="stop-color" 
-                     values="#eed9b3; #ffe29a; #ffffff; #eed9b3" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#ffd257; #f0a500; #c99738; #ffffff; #ffd257" 
+                     dur="2.8s" repeatCount="indefinite" />
           </stop>
-          <stop offset="100%" stop-color="#eed9b3">
+          <stop offset="100%" stop-color="#c99738">
             <animate attributeName="stop-color" 
-                     values="#eed9b3; #eed9b3; #d4a849; #eed9b3" 
-                     dur="3.5s" repeatCount="indefinite" />
+                     values="#c99738; #c99738; #f3b333; #ffd257; #c99738" 
+                     dur="2.8s" repeatCount="indefinite" />
           </stop>
         </linearGradient>
       </defs>
@@ -820,7 +838,7 @@
     </svg>
   </div>
 
-  <!-- 3. Navigazione e comandi a destra -->
+  <!-- 3. Navigazione a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
       <li><a href="#chisono">Chi sono</a></li>
