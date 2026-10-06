@@ -80,7 +80,7 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Logo posizionato esattamente al centro della barra */
+    /* LOGO AL CENTRO ESATTO (AL POSTO DELLE LINGUE) */
     .nav-center {
       position: absolute;
       left: 50%;
@@ -89,16 +89,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: auto;
     }
-    .nav-center-logo {
-      height: 44px;
+    .nav-center a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .nav-center img {
+      height: 42px;
       width: auto;
-      display: block;
+      max-width: 140px;
       object-fit: contain;
+      display: block;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
-    .nav-center-logo:hover {
+    .nav-center img:hover {
       opacity: 0.8;
       transform: scale(1.04);
     }
@@ -130,7 +136,6 @@
       gap: 0.85rem;
     }
 
-    /* Icon button standard */
     .icon-btn {
       position: relative;
       display: inline-flex;
@@ -178,7 +183,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -205,7 +209,6 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* Mobile menu */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -453,11 +456,11 @@
     .poem-card.hidden { display: none; }
 
     /* =========================================================
-       SEZIONE 03: SCALETTA A CASCATA (DA SINISTRA VERSO DESTRA)
+       SEZIONE 03: SCALETTA DA SINISTRA A DESTRA (DISEGNO QUADERNO)
        ========================================================= */
     #lettura {
-      padding-top: 5rem;
-      padding-bottom: 6rem;
+      padding-top: 4.5rem;
+      padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
     }
     .scaletta-container {
@@ -466,21 +469,21 @@
       display: flex;
       flex-direction: column;
     }
-    /* 1. Primo gradino in alto a sinistra */
+    /* Scalino 1: Sinistra in alto */
     .scaletta-step-1 {
       align-self: flex-start;
-      max-width: 540px;
+      max-width: 580px;
     }
     .scaletta-step-1 .section-title {
       white-space: nowrap;
     }
 
-    /* 2. Secondo gradino: Centro (Pulsante e Verso estratto) */
+    /* Scalino 2: Centro (Pulsante e Verso) */
     .scaletta-step-2 {
       align-self: center;
       width: 100%;
       max-width: 640px;
-      margin: 2rem 0;
+      margin: 1.5rem 0 2rem;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -507,11 +510,11 @@
     }
     .reading-output {
       width: 100%;
-      margin-top: 1.85rem;
+      margin-top: 1.75rem;
       min-height: 44px;
     }
 
-    /* 3. Terzo gradino in basso a destra */
+    /* Scalino 3: Destra in basso */
     .scaletta-step-3 {
       align-self: flex-end;
       text-align: right;
@@ -726,7 +729,7 @@
         max-width: 100%;
       }
       .scaletta-step-1 .section-title { white-space: normal; }
-      .scaletta-step-2 { align-items: flex-start; text-align: left; margin: 1.75rem 0; }
+      .scaletta-step-2 { align-items: flex-start; text-align: left; margin: 1.5rem 0; }
       .nav-center { display: none; }
     }
 
@@ -762,11 +765,11 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione: Nome a sinistra, Logo al centro, Voci a destra -->
+<!-- Navigazione: Nome a sinistra, Logo al centro esatto, Voci menu a destra -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- LOGO CENTRALE AL POSTO DI IT / EN / ES -->
+  <!-- LOGO CENTRALE (NESSUNA TRACCIA DI IT EN ES) -->
   <div class="nav-center">
     <a href="#hero" onclick="scrollToId('hero'); return false;" aria-label="Home">
       <img src="logo.png" alt="Logo Riccardo Galasso" class="nav-center-logo" onerror="this.style.display='none'">
@@ -776,10 +779,10 @@
   <!-- Gruppo azioni a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
-      <li><a href="#chisono" data-i18n="nav.chisono">Chi sono</a></li>
-      <li><a href="#archivio" data-i18n="nav.archivio">Archivio</a></li>
-      <li><a href="#lettura" data-i18n="nav.lettura">In evidenza</a></li>
-      <li><a href="#contatti" data-i18n="nav.contatti">Contatti</a></li>
+      <li><a href="#chisono">Chi sono</a></li>
+      <li><a href="#archivio">Archivio</a></li>
+      <li><a href="#lettura">In evidenza</a></li>
+      <li><a href="#contatti">Contatti</a></li>
     </ul>
     <button class="icon-btn" id="themeToggle" type="button" aria-label="Cambia tema">☾</button>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu di navigazione">
@@ -788,25 +791,25 @@
   </div>
 </nav>
 
-<!-- Menu a tendina per Mobile -->
+<!-- Menu per Mobile (completamente senza lingue) -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#chisono" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.chisono">Chi sono</a>
-  <a href="#archivio" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.archivio">Archivio</a>
-  <a href="#lettura" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.lettura">In evidenza</a>
-  <a href="#contatti" class="nav-m-link" onclick="closeMenu()" data-i18n="nav.contatti">Contatti</a>
+  <a href="#chisono" class="nav-m-link" onclick="closeMenu()">Chi sono</a>
+  <a href="#archivio" class="nav-m-link" onclick="closeMenu()">Archivio</a>
+  <a href="#lettura" class="nav-m-link" onclick="closeMenu()">In evidenza</a>
+  <a href="#contatti" class="nav-m-link" onclick="closeMenu()">Contatti</a>
 </div>
 
 <!-- 00 — Hero -->
 <section id="hero">
   <div class="hero-content">
-    <h1 class="hero-title" data-i18n="hero.title">
+    <h1 class="hero-title">
       Ogni verso<br>è un rifugio <em>dove</em><br>tornare
     </h1>
-    <p class="hero-sub" data-i18n="hero.sub">
+    <p class="hero-sub">
       Solo i poeti ritornano nel luogo dove non hanno mai vissuto.
     </p>
     <p class="hero-author">— Miguel Ángel Arcas</p>
-    <a href="#archivio" class="hero-cta" data-i18n="hero.cta">
+    <a href="#archivio" class="hero-cta">
       Leggi le poesie
       <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
     </a>
@@ -814,7 +817,7 @@
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    <span data-i18n="hero.scroll">Scorri</span>
+    <span>Scorri</span>
   </div>
 </section>
 
@@ -822,8 +825,8 @@
 <section id="chisono">
   <div class="section-pad">
     <div class="section-header reveal" style="max-width:1100px;">
-      <div class="section-num" data-i18n="section.chisono.num">01 — Chi sono</div>
-      <h2 class="section-title" data-i18n="section.chisono.title">Frammenti di voce, nel silenzio…</h2>
+      <div class="section-num">01 — Chi sono</div>
+      <h2 class="section-title">Frammenti di voce, nel silenzio…</h2>
       <div class="divider"></div>
     </div>
     <div class="reveal chisono-layout">
@@ -838,10 +841,10 @@
         </p>
       </div>
       <div class="chisono-bio">
-        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);" data-i18n="section.chisono.bio1">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; margin-bottom:1.5rem; color:var(--ink);">
           Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.
         </p>
-        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; color:var(--ink);" data-i18n="section.chisono.bio2">
+        <p style="font-size:clamp(1.05rem, 1.4vw, 1.18rem); line-height:1.85; color:var(--ink);">
           Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.
         </p>
       </div>
@@ -853,17 +856,17 @@
 <section id="archivio">
   <div class="section-pad">
     <div class="section-header reveal">
-      <div class="section-num" data-i18n="section.archivio.num">02 — Archivio</div>
-      <h2 class="section-title" data-i18n="section.archivio.title">Le poesie</h2>
+      <div class="section-num">02 — Archivio</div>
+      <h2 class="section-title">Le poesie</h2>
       <div class="divider"></div>
     </div>
 
     <!-- Filtri -->
     <div class="filters reveal">
-      <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tutte</button>
-      <button class="filter-btn" data-filter="emozioni" data-i18n="filter.emozioni">Emozioni</button>
-      <button class="filter-btn" data-filter="natura" data-i18n="filter.natura">Natura</button>
-      <button class="filter-btn" data-filter="tempo" data-i18n="filter.tempo">Tempo</button>
+      <button class="filter-btn active" data-filter="all">Tutte</button>
+      <button class="filter-btn" data-filter="emozioni">Emozioni</button>
+      <button class="filter-btn" data-filter="natura">Natura</button>
+      <button class="filter-btn" data-filter="tempo">Tempo</button>
     </div>
 
     <div class="poems-grid reveal" id="poemsGrid">
@@ -907,21 +910,21 @@
       
       <!-- Scalino 1: Sinistra in alto -->
       <div class="scaletta-step-1">
-        <div class="section-num" data-i18n="section.lettura.num">03 — In evidenza</div>
-        <h2 class="section-title" data-i18n="section.lettura.title">A volte basta un verso...</h2>
+        <div class="section-num">03 — In evidenza</div>
+        <h2 class="section-title">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- Scalino 2: Centro (Azione ed estrazione) -->
+      <!-- Scalino 2: Centro (Pulsante ed estrazione) -->
       <div class="scaletta-step-2">
-        <button class="rnd-btn" type="button" id="rndVerse" data-i18n="btn.rndVerse">Estrai un verso</button>
+        <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
         <div class="reading-output" id="readingContainer"></div>
       </div>
 
       <!-- Scalino 3: Destra in basso -->
       <div class="scaletta-step-3">
-        <h3 class="step-3-title" data-i18n="section.lettura.subhead">...per ritrovare il silenzio.</h3>
-        <p class="step-3-sub" data-i18n="section.lettura.action">Un piccolo rifugio nel rumore del mondo.</p>
+        <h3 class="step-3-title">...per ritrovare il silenzio.</h3>
+        <p class="step-3-sub">Un piccolo rifugio nel rumore del mondo.</p>
       </div>
 
     </div>
@@ -931,18 +934,18 @@
 <!-- 04 — Contatti -->
 <section id="contatti">
   <div class="section-pad" style="max-width: 680px; margin: 0 auto;">
-    <div class="section-num" data-i18n="section.contatti.num">04 — Contatti</div>
-    <h2 class="section-title" data-i18n="section.contatti.title">Scrivimi</h2>
+    <div class="section-num">04 — Contatti</div>
+    <h2 class="section-title">Scrivimi</h2>
     <div class="divider"></div>
-    <p style="font-style:italic; color:var(--accent); font-size:1.05rem; margin-bottom:2rem;" data-i18n="section.contatti.desc">
+    <p style="font-style:italic; color:var(--accent); font-size:1.05rem; margin-bottom:2rem;">
       Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.
     </p>
     
     <form id="contactForm" action="https://formspree.io/f/mvzwekbb" method="POST" style="display:flex; flex-direction:column; gap:0.9rem;">
-      <input name="nome" id="ctNome" type="text" placeholder="Il tuo nome" data-i18n-placeholder="form.nome" required class="form-input" />
-      <input name="email" id="ctEmail" type="email" placeholder="La tua email" data-i18n-placeholder="form.email" required class="form-input" />
-      <textarea name="messaggio" id="ctMessaggio" rows="5" placeholder="Il tuo messaggio" data-i18n-placeholder="form.messaggio" required class="form-input" style="resize:vertical;"></textarea>
-      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;" data-i18n="form.submit">Invia</button>
+      <input name="nome" id="ctNome" type="text" placeholder="Il tuo nome" required class="form-input" />
+      <input name="email" id="ctEmail" type="email" placeholder="La tua email" required class="form-input" />
+      <textarea name="messaggio" id="ctMessaggio" rows="5" placeholder="Il tuo messaggio" required class="form-input" style="resize:vertical;"></textarea>
+      <button type="submit" id="ctBtn" style="align-self:flex-start; padding:0.9rem 2rem; background:var(--accent); border:none; color:var(--paper); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;">Invia</button>
     </form>
     <div id="ctMessage" style="margin-top:1.2rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--accent); display:none;"></div>
   </div>
@@ -1073,29 +1076,6 @@ const POEMS = {
   }
 };
 
-// Sincronizzazione testi
-const translations = {
-  it: {
-    "nav.chisono": "Chi sono", "nav.archivio": "Archivio", "nav.lettura": "In evidenza", "nav.contatti": "Contatti",
-    "hero.title": "Ogni verso<br>è un rifugio <em>dove</em><br>tornare",
-    "hero.sub": "Solo i poeti ritornano nel luogo dove non hanno mai vissuto.", "hero.cta": "Leggi le poesie", "hero.scroll": "Scorri",
-    "section.chisono.num": "01 — Chi sono", "section.chisono.title": "Frammenti di voce, nel silenzio…",
-    "section.chisono.bio1": "Scrivo poesie in versi 'liberi' di raccontare la mia vera voce; emozioni che cambiano luogo ogni giorno, immerse nella natura e lontane da quel senso di oppressione con cui il tempo mi mette costantemente alla prova.",
-    "section.chisono.bio2": "Io, la mia vera voce, la cerco nelle parole silenziose, il mio rifugio dove poter tornare tutte le volte che voglio sentirmi 'libero'. Parole che trasformano i miei pensieri in immagini capaci di raccontare una storia: ogni verso ne è protagonista.",
-    "section.archivio.num": "02 — Archivio", "section.archivio.title": "Le poesie",
-    "filter.all": "Tutte", "filter.emozioni": "Emozioni", "filter.natura": "Natura", "filter.tempo": "Tempo",
-    "section.lettura.num": "03 — In evidenza",
-    "section.lettura.title": "A volte basta un verso...",
-    "section.lettura.subhead": "...per ritrovare il silenzio.",
-    "section.lettura.action": "Un piccolo rifugio nel rumore del mondo.",
-    "btn.rndVerse": "Estrai un verso",
-    "section.contatti.num": "04 — Contatti", "section.contatti.title": "Scrivimi",
-    "section.contatti.desc": "Hai una domanda, un pensiero, o semplicemente vuoi condividere qualcosa? Scrivimi — rispondo a tutti.",
-    "form.nome": "Il tuo nome", "form.email": "La tua email", "form.messaggio": "Il tuo messaggio", "form.submit": "Invia",
-    "tip.copied": "Copiato!"
-  }
-};
-
 // Splash Screen
 (function() {
   const splash = document.getElementById('splash');
@@ -1110,19 +1090,6 @@ const translations = {
     }
   }, 2400);
 })();
-
-// Lingua e traduzioni
-function initTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations.it[key]) el.innerHTML = translations.it[key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (translations.it[key]) el.placeholder = translations.it[key];
-  });
-}
-initTranslations();
 
 // Copia Testo Poesia
 function getPoemPlainText(id) {
@@ -1153,7 +1120,7 @@ async function copyText(text, btn) {
   if (!btn) return;
   const original = btn.textContent;
   btn.textContent = '✓';
-  btn.dataset.tip = translations.it["tip.copied"];
+  btn.dataset.tip = "Copiato!";
   btn.classList.add('done');
   setTimeout(() => {
     btn.textContent = original;
@@ -1161,7 +1128,6 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
-// Adatta titolo
 function fitTitles() {
   document.querySelectorAll('.poem-reading-title').forEach(el => {
     el.style.fontSize = '';
