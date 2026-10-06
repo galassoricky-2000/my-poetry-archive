@@ -56,7 +56,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -77,10 +77,11 @@
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
+      z-index: 1001;
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG: Centratura assoluta e flusso continuo infinito */
+    /* Monogramma centrale RG: Centratura assoluta senza collisioni */
     .logo-container {
       position: absolute;
       left: 50%;
@@ -89,7 +90,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 110;
+      z-index: 1002;
       pointer-events: auto;
     }
 
@@ -129,7 +130,7 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Vivo puro in ciclo infinito senza giunzioni né pause */
+    /* Dark Mode: Oro Vivo puro in ciclo continuo senza giunzioni né pause */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
         90deg,
@@ -164,6 +165,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: 1.5rem;
+      z-index: 1001;
     }
 
     .nav-links {
@@ -271,7 +273,7 @@
       background: var(--paper);
       border-bottom: 1px solid var(--line);
       padding: 1.75rem 2rem 2.25rem;
-      z-index: 99;
+      z-index: 999;
       flex-direction: column;
       gap: 1.25rem;
       box-shadow: 0 16px 32px rgba(0,0,0,0.08);
@@ -516,12 +518,13 @@
     #lettura {
       padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
+      width: 100%;
     }
 
     .diagonale-header {
       display: flex;
       flex-direction: column;
-      gap: 3.5rem; /* Respiro verticale armonico che stacca i due momenti */
+      gap: 3.5rem;
       width: 100%;
       max-width: 1100px;
       margin: 0 auto;
@@ -530,6 +533,7 @@
     .riga-alto {
       align-self: flex-start;
       text-align: left;
+      width: 100%;
     }
 
     .riga-basso {
@@ -538,6 +542,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      width: 100%;
     }
 
     /* Stesse identiche dimensioni, peso e colore sia a sinistra che a destra */
@@ -591,6 +596,7 @@
       max-width: 760px;
       margin: 4rem auto 0;
       padding-top: 1rem;
+      width: 100%;
     }
     .poem-reading-title {
       font-family: 'Playfair Display', serif;
@@ -621,7 +627,7 @@
     .poem-modal {
       position: fixed;
       inset: 0;
-      z-index: 200;
+      z-index: 2000;
       display: none;
       align-items: flex-start;
       justify-content: center;
@@ -790,14 +796,15 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Gestione reveal con fallback di sicurezza */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible, .reveal.no-js {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
 
     /* Responsiveness */
@@ -828,7 +835,7 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      /* Su mobile la composizione a scalino si incolonna in modo naturale */
+      /* Su mobile la composizione a scalino si incolonna naturalmente */
       .diagonale-header { gap: 2.2rem; }
       .riga-basso {
         align-self: flex-start;
@@ -1370,11 +1377,35 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   }
 });
 
-// Intersection Observer
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+// Intersection Observer con Fallback di sicurezza per Desktop
+function initReveals() {
+  const elements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    elements.forEach(el => revealObserver.observe(el));
+  } else {
+    elements.forEach(el => el.classList.add('visible'));
+  }
+  
+  // Sicurezza desktop: entro 400ms rende visibili gli elementi già a video
+  setTimeout(() => {
+    elements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+      }
+    });
+  }, 400);
+}
+document.addEventListener('DOMContentLoaded', initReveals);
+window.addEventListener('load', initReveals);
 
 // Gestione Menu Mobile
 function toggleMenu() {
