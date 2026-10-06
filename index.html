@@ -56,7 +56,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -77,11 +77,12 @@
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
+      z-index: 1001;
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* LOGO MONOGRAMMA ORIGINALE AL CENTRO */
-    .nav-center {
+    /* Monogramma centrale RG */
+    .logo-container {
       position: absolute;
       left: 50%;
       top: 50%;
@@ -89,35 +90,80 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 1002;
+      pointer-events: auto;
     }
-    .nav-monogram {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border: 1.5px solid var(--gold);
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      background: transparent;
-    }
-    .nav-monogram:hover {
-      background: var(--gold);
-      transform: scale(1.05);
-    }
-    .nav-monogram span {
+
+    .logo-rg-dinamico {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.15rem;
+      font-size: 33px;
       font-weight: 700;
-      font-style: italic;
-      color: var(--gold);
+      letter-spacing: -3px;
       line-height: 1;
-      letter-spacing: -0.05em;
-      transition: color 0.25s ease;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+      user-select: none;
+      will-change: background-position;
+      
+      background: linear-gradient(
+        90deg,
+        #4a3219 0%,
+        #966c1b 15%,
+        #d8a84e 25%,
+        #966c1b 35%,
+        #4a3219 50%,
+        #966c1b 65%,
+        #d8a84e 75%,
+        #966c1b 85%,
+        #4a3219 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: flussoContinuoInfinito 6s linear infinite;
+      transition: transform 0.25s ease;
     }
-    .nav-monogram:hover span {
-      color: #ffffff;
+
+    .logo-rg-dinamico:hover {
+      transform: scale(1.1);
+    }
+
+    body.dark .logo-rg-dinamico {
+      background: linear-gradient(
+        90deg,
+        #bf8d2f 0%,
+        #f2b236 15%,
+        #ffffff 25%,
+        #e5a932 35%,
+        #bf8d2f 50%,
+        #f2b236 65%,
+        #ffffff 75%,
+        #e5a932 85%,
+        #bf8d2f 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 6px rgba(245, 179, 51, 0.45));
+      animation: flussoContinuoInfinito 5.5s linear infinite;
+    }
+
+    @keyframes flussoContinuoInfinito {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: -200% 0%;
+      }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      z-index: 1001;
     }
 
     .nav-links {
@@ -139,12 +185,6 @@
     .nav-links a:hover {
       color: var(--gold);
       letter-spacing: 0.2em;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
     }
 
     .icon-btn {
@@ -228,7 +268,7 @@
       background: var(--paper);
       border-bottom: 1px solid var(--line);
       padding: 1.75rem 2rem 2.25rem;
-      z-index: 99;
+      z-index: 999;
       flex-direction: column;
       gap: 1.25rem;
       box-shadow: 0 16px 32px rgba(0,0,0,0.08);
@@ -335,6 +375,7 @@
       color: var(--gold);
       border-color: var(--gold);
     }
+
     .hero-scroll {
       position: absolute;
       bottom: 2rem;
@@ -466,31 +507,74 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* Sezione 03: In evidenza */
+    /* =====================================================
+       Sezione 03 — In evidenza: Ricalibrata con Armonia
+       ===================================================== */
     #lettura {
-      padding-bottom: 4.5rem;
+      padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
+      width: 100%;
     }
+
+    .diagonale-header-allineata {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem; /* Distanza verticale ricalibrata per unire le frasi */
+      width: 100%;
+      margin: 0;
+    }
+
+    .riga-alto-allineata {
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    .riga-basso-allineata {
+      align-self: flex-end;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .titolo-scalino {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .scalino-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--gold);
+      font-style: italic;
+      margin-top: 0.6rem;
+      margin-bottom: 1.1rem;
+    }
+
     .reading-actions {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.85rem;
       flex-wrap: wrap;
-      margin-top: 1.5rem;
-      margin-bottom: 2rem;
+      justify-content: flex-end;
     }
+
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.76rem;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.65rem 1.35rem;
+      padding: 0.65rem 1.45rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
       color: var(--gold);
       cursor: pointer;
       transition: all 0.25s ease;
+      white-space: nowrap;
     }
     .rnd-btn:hover {
       background: var(--gold);
@@ -498,37 +582,19 @@
       transform: translateY(-1px);
     }
 
-    .poem-reading { max-width: 640px; }
-    .poem-reading-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400;
-      line-height: 1.15;
-      margin-bottom: 0.6rem;
-      white-space: nowrap;
-    }
-    .poem-body {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
-      line-height: 2.2;
-      color: var(--ink);
-    }
-    .poem-body p { margin-bottom: 1.5rem; position: relative; }
-    .poem-note {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--line);
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-style: italic;
+    /* Verso estratto: margine riavvicinato al flusso visivo */
+    .poem-reading {
+      max-width: 760px;
+      margin: 2.8rem auto 0;
+      padding-top: 1rem;
+      width: 100%;
     }
 
     /* Modale lettura */
     .poem-modal {
       position: fixed;
       inset: 0;
-      z-index: 200;
+      z-index: 2000;
       display: none;
       align-items: flex-start;
       justify-content: center;
@@ -697,27 +763,28 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible, .reveal.no-js {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
 
     /* Responsiveness */
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .nav-center { display: none; }
     }
 
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
       .nav-logo-text { font-size: 1.15rem; }
+      .logo-rg-dinamico { font-size: 26px; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -734,6 +801,19 @@
         margin-bottom: 2rem;
       }
       .chisono-bio { width: 100%; padding-left: 0; }
+
+      .diagonale-header-allineata { gap: 1.8rem; }
+      .riga-basso-allineata {
+        align-self: flex-start;
+        text-align: left;
+        align-items: flex-start;
+      }
+      .reading-actions { 
+        width: 100%; 
+        justify-content: flex-start;
+      }
+      .rnd-btn { flex: 1; text-align: center; }
+      .poem-reading { margin-top: 2rem; }
       
       footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
     }
@@ -746,15 +826,13 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione: Riccardo Galasso a sinistra, Monogramma al centro, Voci menu a destra -->
+<!-- Navigazione Superiore -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- LOGO AL CENTRO ESATTO -->
-  <div class="nav-center">
-    <a href="#hero" class="nav-monogram" onclick="scrollToId('hero'); return false;" aria-label="Home">
-      <span>RG</span>
-    </a>
+  <!-- Monogramma RG al centro: Flusso continuo lineare senza interruzioni -->
+  <div class="logo-container">
+    <a href="#hero" class="logo-rg-dinamico" onclick="scrollToId('hero'); return false;" aria-label="Logo Riccardo Galasso">RG</a>
   </div>
 
   <div class="nav-actions">
@@ -771,7 +849,7 @@
   </div>
 </nav>
 
-<!-- Menu Mobile -->
+<!-- Menu mobile -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#chisono" class="nav-m-link" onclick="closeMenu()">Chi sono</a>
   <a href="#archivio" class="nav-m-link" onclick="closeMenu()">Archivio</a>
@@ -791,7 +869,7 @@
     <p class="hero-author">— Miguel Ángel Arcas</p>
     <a href="#archivio" class="hero-cta">
       Leggi le poesie
-      <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
+      <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/> <polyline points="14,1 18,4 14,7"/></svg>
     </a>
   </div>
 
@@ -841,7 +919,6 @@
       <div class="divider"></div>
     </div>
 
-    <!-- Filtri -->
     <div class="filters reveal">
       <button class="filter-btn active" data-filter="all">Tutte</button>
       <button class="filter-btn" data-filter="emozioni">Emozioni</button>
@@ -883,28 +960,28 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza -->
+<!-- 03 — In evidenza: Ricalibrata -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="section-header reveal">
-      <div class="section-num">03 — In evidenza</div>
-      <h2 class="section-title">A volte basta un verso...</h2>
-      <div class="divider"></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;">
-        ...oppure una poesia intera.
-      </p>
-      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;">
-        Lascia che sia il tuo cuore a scegliere per te.
-      </p>
-      
-      <!-- Pulsanti affiancati -->
-      <div class="reading-actions">
-        <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
-        <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
+    <div class="diagonale-header-allineata reveal">
+      <!-- 1. In alto a sinistra: filo con il bordo sinistro di 02 — Archivio -->
+      <div class="riga-alto-allineata">
+        <div class="section-num">03 — In evidenza</div>
+        <h2 class="titolo-scalino">A volte basta un verso...</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- 2. In basso a destra: chiusura a scalino -->
+      <div class="riga-basso-allineata">
+        <h2 class="titolo-scalino">...per ritrovare il silenzio.</h2>
+        <p class="scalino-sub">Un piccolo rifugio nel rumore del mondo.</p>
+        <div class="reading-actions">
+          <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
+        </div>
       </div>
     </div>
 
-    <!-- Contenitore del testo estratto -->
+    <!-- Contenitore lettura centrato sotto -->
     <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
@@ -1106,6 +1183,7 @@ async function copyText(text, btn) {
   }, 1600);
 }
 
+// Adatta il titolo alla larghezza disponibile
 function fitTitles() {
   document.querySelectorAll('.poem-reading-title').forEach(el => {
     el.style.fontSize = '';
@@ -1164,6 +1242,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Listener per i pulsanti della modale
 document.getElementById('copyPoemBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (activePoemId) copyText(getPoemPlainText(activePoemId), e.currentTarget);
@@ -1193,20 +1272,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazioni Casuali nella Sezione 03
-document.getElementById('rndPoem')?.addEventListener('click', () => {
-  const keys = Object.keys(POEMS);
-  const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
-  const target = document.getElementById('readingContainer');
-  target.innerHTML = `
-    <div class="poem-tag">${p.tag}</div>
-    <h3 class="poem-reading-title">${p.title}</h3>
-    <div class="poem-body">${p.body}</div>
-    <div class="poem-note">${p.note}</div>
-  `;
-  fitTitles();
-});
-
+// Estrazione Casuale di un Singolo Verso
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1263,11 +1329,34 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   }
 });
 
-// Reveal Observer
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+// Intersection Observer
+function initReveals() {
+  const elements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    elements.forEach(el => revealObserver.observe(el));
+  } else {
+    elements.forEach(el => el.classList.add('visible'));
+  }
+  
+  setTimeout(() => {
+    elements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+      }
+    });
+  }, 400);
+}
+document.addEventListener('DOMContentLoaded', initReveals);
+window.addEventListener('load', initReveals);
 
 // Menu Mobile
 function toggleMenu() {
@@ -1280,7 +1369,7 @@ function closeMenu() {
 }
 function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 
-// Tema Chiaro / Scuro
+// Gestione Tema
 const themeBtn = document.getElementById('themeToggle');
 function setTheme(isDark) {
   document.body.classList.toggle('dark', isDark);
