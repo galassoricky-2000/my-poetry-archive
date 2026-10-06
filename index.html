@@ -80,35 +80,6 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* LOGO AL CENTRO ESATTO (AL POSTO DELLE LINGUE) */
-    .nav-center {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .nav-center a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-    }
-    .nav-center img {
-      height: 42px;
-      width: auto;
-      max-width: 140px;
-      object-fit: contain;
-      display: block;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-    .nav-center img:hover {
-      opacity: 0.8;
-      transform: scale(1.04);
-    }
-
     .nav-links {
       display: flex;
       gap: 1.75rem;
@@ -455,39 +426,17 @@
     }
     .poem-card.hidden { display: none; }
 
-    /* =========================================================
-       SEZIONE 03: SCALETTA DA SINISTRA A DESTRA (DISEGNO QUADERNO)
-       ========================================================= */
+    /* Sezione 03: Layout Elegante e Pulito ad Allineamento Naturale */
     #lettura {
-      padding-top: 4.5rem;
-      padding-bottom: 5.5rem;
+      padding-bottom: 4.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    .scaletta-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    .reading-actions {
       display: flex;
-      flex-direction: column;
-    }
-    /* Scalino 1: Sinistra in alto */
-    .scaletta-step-1 {
-      align-self: flex-start;
-      max-width: 580px;
-    }
-    .scaletta-step-1 .section-title {
-      white-space: nowrap;
-    }
-
-    /* Scalino 2: Centro (Pulsante e Verso) */
-    .scaletta-step-2 {
-      align-self: center;
-      width: 100%;
-      max-width: 640px;
-      margin: 1.5rem 0 2rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
     }
     .rnd-btn {
       font-family: 'DM Sans', sans-serif;
@@ -495,7 +444,7 @@
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.65rem 1.45rem;
+      padding: 0.65rem 1.35rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
@@ -506,34 +455,33 @@
     .rnd-btn:hover {
       background: var(--gold);
       color: #ffffff;
-      transform: translateY(-2px);
-    }
-    .reading-output {
-      width: 100%;
-      margin-top: 1.75rem;
-      min-height: 44px;
+      transform: translateY(-1px);
     }
 
-    /* Scalino 3: Destra in basso */
-    .scaletta-step-3 {
-      align-self: flex-end;
-      text-align: right;
-      max-width: 520px;
-    }
-    .step-3-title {
+    .poem-reading { max-width: 640px; }
+    .poem-reading-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
-      line-height: 1.2;
-      color: var(--ink);
-      margin-bottom: 0.4rem;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+      white-space: nowrap;
     }
-    .step-3-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
+    .poem-body {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      color: var(--gold);
-      letter-spacing: 0.02em;
+      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+      line-height: 2.2;
+      color: var(--ink);
+    }
+    .poem-body p { margin-bottom: 1.5rem; position: relative; }
+    .poem-note {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-style: italic;
     }
 
     /* Modale lettura */
@@ -723,14 +671,6 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .scaletta-step-1, .scaletta-step-2, .scaletta-step-3 {
-        align-self: flex-start;
-        text-align: left;
-        max-width: 100%;
-      }
-      .scaletta-step-1 .section-title { white-space: normal; }
-      .scaletta-step-2 { align-items: flex-start; text-align: left; margin: 1.5rem 0; }
-      .nav-center { display: none; }
     }
 
     @media (max-width: 768px) {
@@ -765,18 +705,10 @@
   <span class="splash-text" id="splashText">Dove il silenzio fa rumore...</span>
 </div>
 
-<!-- Navigazione: Nome a sinistra, Logo al centro esatto, Voci menu a destra -->
+<!-- Navigazione: Riccardo Galasso a sinistra, voci menu a destra -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- LOGO CENTRALE (NESSUNA TRACCIA DI IT EN ES) -->
-  <div class="nav-center">
-    <a href="#hero" onclick="scrollToId('hero'); return false;" aria-label="Home">
-      <img src="logo.png" alt="Logo Riccardo Galasso" class="nav-center-logo" onerror="this.style.display='none'">
-    </a>
-  </div>
-
-  <!-- Gruppo azioni a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
       <li><a href="#chisono">Chi sono</a></li>
@@ -791,7 +723,7 @@
   </div>
 </nav>
 
-<!-- Menu per Mobile (completamente senza lingue) -->
+<!-- Menu Mobile -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#chisono" class="nav-m-link" onclick="closeMenu()">Chi sono</a>
   <a href="#archivio" class="nav-m-link" onclick="closeMenu()">Archivio</a>
@@ -903,31 +835,29 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza: SCALETTA DA SINISTRA A DESTRA -->
+<!-- 03 — In evidenza: VERSIONE ORIGINALE COMPATTA E PULITA -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="scaletta-container reveal">
+    <div class="section-header reveal">
+      <div class="section-num">03 — In evidenza</div>
+      <h2 class="section-title">A volte basta un verso...</h2>
+      <div class="divider"></div>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.98rem; color:var(--accent); font-style:italic; margin-bottom:0.35rem;">
+        ...oppure una poesia intera.
+      </p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--gold); font-style:italic; letter-spacing:0.02em;">
+        Lascia che sia il tuo cuore a scegliere per te.
+      </p>
       
-      <!-- Scalino 1: Sinistra in alto -->
-      <div class="scaletta-step-1">
-        <div class="section-num">03 — In evidenza</div>
-        <h2 class="section-title">A volte basta un verso...</h2>
-        <div class="divider"></div>
-      </div>
-
-      <!-- Scalino 2: Centro (Pulsante ed estrazione) -->
-      <div class="scaletta-step-2">
+      <!-- Pulsanti affiancati -->
+      <div class="reading-actions">
         <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
-        <div class="reading-output" id="readingContainer"></div>
+        <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
       </div>
-
-      <!-- Scalino 3: Destra in basso -->
-      <div class="scaletta-step-3">
-        <h3 class="step-3-title">...per ritrovare il silenzio.</h3>
-        <p class="step-3-sub">Un piccolo rifugio nel rumore del mondo.</p>
-      </div>
-
     </div>
+
+    <!-- Contenitore del testo estratto -->
+    <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
 
@@ -1215,7 +1145,20 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazione Verso Singolo (Scalino Centrale)
+// Estrazioni Casuali nella Sezione 03
+document.getElementById('rndPoem')?.addEventListener('click', () => {
+  const keys = Object.keys(POEMS);
+  const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
+  const target = document.getElementById('readingContainer');
+  target.innerHTML = `
+    <div class="poem-tag">${p.tag}</div>
+    <h3 class="poem-reading-title">${p.title}</h3>
+    <div class="poem-body">${p.body}</div>
+    <div class="poem-note">${p.note}</div>
+  `;
+  fitTitles();
+});
+
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1235,8 +1178,8 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   const verse = lines[Math.floor(Math.random() * lines.length)] || p.title;
   const target = document.getElementById('readingContainer');
   target.innerHTML = `
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.45rem,2.6vw,2.1rem); line-height:1.35; color:var(--ink); margin-bottom:0.75rem;">“${verse}”</div>
-    <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2.2rem); line-height:1.4; color:var(--ink);">“${verse}”</div>
+    <div style="margin-top:1.25rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:500; color:var(--accent);">— da «${p.title}»</div>
   `;
 });
 
