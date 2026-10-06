@@ -81,7 +81,7 @@
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG: Centratura assoluta senza collisioni */
+    /* Monogramma centrale RG */
     .logo-container {
       position: absolute;
       left: 50%;
@@ -106,7 +106,6 @@
       user-select: none;
       will-change: background-position;
       
-      /* Light Mode: sequenza modulare a loop continuo */
       background: linear-gradient(
         90deg,
         #4a3219 0%,
@@ -130,7 +129,6 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Vivo puro in ciclo continuo senza giunzioni né pause */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
         90deg,
@@ -189,7 +187,6 @@
       letter-spacing: 0.2em;
     }
 
-    /* Icon button standard */
     .icon-btn {
       position: relative;
       display: inline-flex;
@@ -237,7 +234,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -264,7 +260,6 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* Mobile menu a comparsa */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -513,7 +508,7 @@
     .poem-card.hidden { display: none; }
 
     /* =====================================================
-       Sezione 03 — In evidenza (Composizione a Scalino)
+       Sezione 03 — In evidenza: Focus sul Singolo Verso
        ===================================================== */
     #lettura {
       padding-bottom: 5.5rem;
@@ -521,31 +516,27 @@
       width: 100%;
     }
 
-    .diagonale-header {
+    .diagonale-header-allineata {
       display: flex;
       flex-direction: column;
       gap: 3.5rem;
       width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
+      margin: 0;
     }
 
-    .riga-alto {
+    .riga-alto-allineata {
       align-self: flex-start;
       text-align: left;
-      width: 100%;
     }
 
-    .riga-basso {
+    .riga-basso-allineata {
       align-self: flex-end;
       text-align: right;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      width: 100%;
     }
 
-    /* Stesse identiche dimensioni, peso e colore sia a sinistra che a destra */
     .titolo-scalino {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 4vw, 3rem);
@@ -576,7 +567,7 @@
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.65rem 1.35rem;
+      padding: 0.65rem 1.45rem;
       border: 1.5px solid var(--gold);
       border-radius: 100px;
       background: transparent;
@@ -591,36 +582,11 @@
       transform: translateY(-1px);
     }
 
-    /* Area di lettura centrata sotto la composizione */
     .poem-reading {
       max-width: 760px;
-      margin: 4rem auto 0;
+      margin: 4.5rem auto 0;
       padding-top: 1rem;
       width: 100%;
-    }
-    .poem-reading-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400;
-      line-height: 1.15;
-      margin-bottom: 0.6rem;
-      white-space: nowrap;
-    }
-    .poem-body {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
-      line-height: 2.2;
-      color: var(--ink);
-    }
-    .poem-body p { margin-bottom: 1.5rem; position: relative; }
-    .poem-note {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--line);
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-style: italic;
     }
 
     /* Modale lettura */
@@ -796,7 +762,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Gestione reveal con fallback di sicurezza */
+    /* Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
@@ -835,9 +801,8 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      /* Su mobile la composizione a scalino si incolonna naturalmente */
-      .diagonale-header { gap: 2.2rem; }
-      .riga-basso {
+      .diagonale-header-allineata { gap: 2.2rem; }
+      .riga-basso-allineata {
         align-self: flex-start;
         text-align: left;
         align-items: flex-start;
@@ -903,7 +868,7 @@
     <p class="hero-author">— Miguel Ángel Arcas</p>
     <a href="#archivio" class="hero-cta">
       Leggi le poesie
-      <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/><polyline points="14,1 18,4 14,7"/></svg>
+      <svg width="20" height="8" viewBox="0 0 20 8" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="4" x2="18" y2="4"/> <polyline points="14,1 18,4 14,7"/></svg>
     </a>
   </div>
 
@@ -994,24 +959,23 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Composizione Diagonale a Scalino dal tuo Taccuino) -->
+<!-- 03 — In evidenza: Focus Esclusivo sul Verso -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="diagonale-header reveal">
-      <!-- 1. In alto a sinistra -->
-      <div class="riga-alto">
+    <div class="diagonale-header-allineata reveal">
+      <!-- 1. In alto a sinistra: filo con il bordo sinistro di 02 — Archivio -->
+      <div class="riga-alto-allineata">
         <div class="section-num">03 — In evidenza</div>
         <h2 class="titolo-scalino">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- 2. In basso a destra -->
-      <div class="riga-basso">
-        <h2 class="titolo-scalino">...oppure una poesia intera.</h2>
-        <p class="scalino-sub">Lascia che sia il tuo cuore a scegliere per te.</p>
+      <!-- 2. In basso a destra: chiusura a scalino -->
+      <div class="riga-basso-allineata">
+        <h2 class="titolo-scalino">...per ritrovare il silenzio.</h2>
+        <p class="scalino-sub">Un piccolo rifugio nel rumore del mondo.</p>
         <div class="reading-actions">
           <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
-          <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
         </div>
       </div>
     </div>
@@ -1307,20 +1271,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Estrazioni Casuali nella Sezione 03
-document.getElementById('rndPoem')?.addEventListener('click', () => {
-  const keys = Object.keys(POEMS);
-  const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
-  const target = document.getElementById('readingContainer');
-  target.innerHTML = `
-    <div class="poem-tag">${p.tag}</div>
-    <h3 class="poem-reading-title">${p.title}</h3>
-    <div class="poem-body">${p.body}</div>
-    <div class="poem-note">${p.note}</div>
-  `;
-  fitTitles();
-});
-
+// Estrazione Casuale di un Singolo Verso
 document.getElementById('rndVerse')?.addEventListener('click', () => {
   const keys = Object.keys(POEMS);
   const p = POEMS[keys[Math.floor(Math.random() * keys.length)]];
@@ -1345,7 +1296,7 @@ document.getElementById('rndVerse')?.addEventListener('click', () => {
   `;
 });
 
-// Invio Form Contatti Asincrono
+// Invio Form Contatti
 document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = e.target;
@@ -1377,7 +1328,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   }
 });
 
-// Intersection Observer con Fallback di sicurezza per Desktop
+// Intersection Observer
 function initReveals() {
   const elements = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -1394,7 +1345,6 @@ function initReveals() {
     elements.forEach(el => el.classList.add('visible'));
   }
   
-  // Sicurezza desktop: entro 400ms rende visibili gli elementi già a video
   setTimeout(() => {
     elements.forEach(el => {
       const rect = el.getBoundingClientRect();
@@ -1407,7 +1357,7 @@ function initReveals() {
 document.addEventListener('DOMContentLoaded', initReveals);
 window.addEventListener('load', initReveals);
 
-// Gestione Menu Mobile
+// Menu Mobile
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
@@ -1418,7 +1368,7 @@ function closeMenu() {
 }
 function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 
-// Gestione Tema Chiaro / Scuro
+// Gestione Tema
 const themeBtn = document.getElementById('themeToggle');
 function setTheme(isDark) {
   document.body.classList.toggle('dark', isDark);
