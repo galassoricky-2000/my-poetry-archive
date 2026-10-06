@@ -129,7 +129,7 @@
       transform: scale(1.1);
     }
 
-    /* Dark Mode: Oro Vivo puro in ciclo infinito senza giunzioni né pause */
+    /* Dark Mode: Oro Vivo puro in ciclo continuo senza giunzioni né pause */
     body.dark .logo-rg-dinamico {
       background: linear-gradient(
         90deg,
@@ -511,57 +511,58 @@
     .poem-card.hidden { display: none; }
 
     /* =====================================================
-       Sezione 03 — In evidenza (Layout a Contrappunto)
+       Sezione 03 — In evidenza (Composizione a Scalino)
        ===================================================== */
     #lettura {
       padding-bottom: 5.5rem;
       scroll-margin-top: var(--nav-h);
     }
-    
-    .evidenza-header-layout {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 3.5rem;
-      max-width: 1100px;
-      margin-bottom: 2rem;
-    }
 
-    .evidenza-col-left {
-      flex: 1 1 50%;
-    }
-
-    .evidenza-col-right {
-      flex: 1 1 50%;
+    .diagonale-header {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      padding-top: 1.9rem; /* Allineamento armonico con l'inizio del titolo di sinistra */
+      gap: 3.5rem; /* Respiro verticale che stacca i due momenti */
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .evidenza-subtitle {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.4rem, 2.3vw, 1.85rem);
+    .riga-alto {
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    .riga-basso {
+      align-self: flex-end;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    /* Stesse identiche dimensioni, peso e colore sia a sinistra che a destra */
+    .titolo-scalino {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
-      font-style: italic;
+      line-height: 1.15;
       color: var(--ink);
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
     }
 
-    .evidenza-invite {
+    .scalino-sub {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--gold);
       font-style: italic;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.6rem;
+      margin-top: 0.85rem;
+      margin-bottom: 1.5rem;
     }
 
     .reading-actions {
       display: flex;
       gap: 0.85rem;
       flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .rnd-btn {
@@ -585,10 +586,10 @@
       transform: translateY(-1px);
     }
 
-    /* Area di lettura centrata a leggio */
+    /* Area di lettura centrata sotto la composizione */
     .poem-reading {
       max-width: 760px;
-      margin: 3.5rem auto 0;
+      margin: 4rem auto 0;
       padding-top: 1rem;
     }
     .poem-reading-title {
@@ -827,15 +828,17 @@
       }
       .chisono-bio { width: 100%; padding-left: 0; }
 
-      /* In evidenza su mobile: si incolonna fluidamente */
-      .evidenza-header-layout {
-        flex-direction: column;
-        gap: 1.8rem;
+      /* Su schermi piccoli lo scalino si ricompatta ordinatamente a sinistra */
+      .diagonale-header { gap: 2.2rem; }
+      .riga-basso {
+        align-self: flex-start;
+        text-align: left;
+        align-items: flex-start;
       }
-      .evidenza-col-right {
-        padding-top: 0;
+      .reading-actions { 
+        width: 100%; 
+        justify-content: flex-start;
       }
-      .reading-actions { width: 100%; }
       .rnd-btn { flex: 1; text-align: center; }
       .poem-reading { margin-top: 2rem; }
       
@@ -852,15 +855,13 @@
 
 <!-- Navigazione Superiore -->
 <nav id="navbar">
-  <!-- 1. Nome Autore a sinistra -->
   <a href="#hero" class="nav-logo-text" onclick="scrollToId('hero'); return false;">Riccardo Galasso</a>
 
-  <!-- 2. Monogramma RG centrale: Flusso lineare continuo senza interruzioni né scatti -->
+  <!-- Monogramma RG al centro: Flusso continuo lineare senza interruzioni -->
   <div class="logo-container">
     <a href="#hero" class="logo-rg-dinamico" onclick="scrollToId('hero'); return false;" aria-label="Logo Riccardo Galasso">RG</a>
   </div>
 
-  <!-- 3. Navigazione e controlli a destra -->
   <div class="nav-actions">
     <ul class="nav-links">
       <li><a href="#chisono">Chi sono</a></li>
@@ -875,7 +876,7 @@
   </div>
 </nav>
 
-<!-- Menu a tendina per Mobile -->
+<!-- Menu mobile -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#chisono" class="nav-m-link" onclick="closeMenu()">Chi sono</a>
   <a href="#archivio" class="nav-m-link" onclick="closeMenu()">Archivio</a>
@@ -945,7 +946,6 @@
       <div class="divider"></div>
     </div>
 
-    <!-- Filtri -->
     <div class="filters reveal">
       <button class="filter-btn active" data-filter="all">Tutte</button>
       <button class="filter-btn" data-filter="emozioni">Emozioni</button>
@@ -987,21 +987,21 @@
   </div>
 </section>
 
-<!-- 03 — In evidenza (Architettura a Contrappunto) -->
+<!-- 03 — In evidenza (Composizione Diagonale a Scalino dal tuo Taccuino) -->
 <section id="lettura">
   <div class="section-pad">
-    <div class="evidenza-header-layout reveal">
-      <!-- Colonna Sinistra -->
-      <div class="evidenza-col-left">
+    <div class="diagonale-header reveal">
+      <!-- 1. In alto a sinistra -->
+      <div class="riga-alto">
         <div class="section-num">03 — In evidenza</div>
-        <h2 class="section-title">A volte basta un verso...</h2>
+        <h2 class="titolo-scalino">A volte basta un verso...</h2>
         <div class="divider"></div>
       </div>
 
-      <!-- Colonna Destra -->
-      <div class="evidenza-col-right">
-        <h3 class="evidenza-subtitle">...oppure una poesia intera.</h3>
-        <p class="evidenza-invite">Lascia che sia il tuo cuore a scegliere per te.</p>
+      <!-- 2. In basso a destra -->
+      <div class="riga-basso">
+        <h2 class="titolo-scalino">...oppure una poesia intera.</h2>
+        <p class="scalino-sub">Lascia che sia il tuo cuore a scegliere per te.</p>
         <div class="reading-actions">
           <button class="rnd-btn" type="button" id="rndVerse">Estrai un verso</button>
           <button class="rnd-btn" type="button" id="rndPoem">Estrai una poesia</button>
@@ -1009,7 +1009,7 @@
       </div>
     </div>
 
-    <!-- Contenitore lettura al centro sotto l'header -->
+    <!-- Contenitore lettura centrato sotto -->
     <div class="poem-reading reveal" id="readingContainer"></div>
   </div>
 </section>
