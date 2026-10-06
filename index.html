@@ -77,20 +77,23 @@
       letter-spacing: 0.01em;
       white-space: nowrap;
       transition: opacity 0.25s ease;
+      flex: 1;
     }
     .nav-logo-text:hover { opacity: 0.75; }
 
-    /* Monogramma centrale RG */
+    /* Monogramma centrale RG (Garantito visibile sia Desktop che Mobile) */
     .logo-container {
-      display: flex;
+      display: flex !important;
       align-items: center;
       justify-content: center;
+      flex: 1;
     }
     .logo-rg-dinamico {
-      height: 44px;
-      width: auto;
+      height: 42px;
+      width: 80px;
       overflow: visible;
       cursor: pointer;
+      display: block;
       transition: transform 0.3s ease;
     }
     .logo-rg-dinamico:hover {
@@ -102,6 +105,15 @@
       font-weight: 700;
       letter-spacing: -6px;
       fill: url(#ondaOro);
+      user-select: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      flex: 1;
     }
 
     .nav-links {
@@ -123,12 +135,6 @@
     .nav-links a:hover {
       color: var(--gold);
       letter-spacing: 0.2em;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
     }
 
     /* Icon button standard */
@@ -700,13 +706,15 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .logo-container { justify-content: center; }
     }
 
     @media (max-width: 768px) {
       :root { --nav-h: 72px; }
       nav { padding: 0.6rem 1.25rem; }
-      .nav-logo-text { font-size: 1.15rem; }
-      .logo-rg-dinamico { height: 34px; }
+      .nav-logo-text { font-size: 1.15rem; flex: initial; }
+      .logo-rg-dinamico { height: 34px; width: 65px; }
+      .nav-actions { flex: initial; }
       .mobile-menu { top: 72px; }
       
       .section-pad { padding: 3.5rem 1.25rem 2.5rem; }
@@ -746,7 +754,6 @@
   <div class="logo-container">
     <svg class="logo-rg-dinamico" viewBox="0 0 130 80" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Riccardo Galasso">
       <defs>
-        <!-- Onda di luce dorata che scorre continuamente da sinistra verso destra -->
         <linearGradient id="ondaOro" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#eed9b3">
             <animate attributeName="stop-color" 
